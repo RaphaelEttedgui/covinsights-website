@@ -1,12 +1,13 @@
 import React from "react"
 import { NavbarWrapper } from "../css"
+import logo from '../images/logo.png';
 
 const Navbar = () => {
   return (
     <NavbarWrapper>
       <div className="nav-center">
         <div className="nav-header">
-            <img src="../images/logo.png" alt="Homepage" />
+            <img src={logo} alt="Homepage" />
           <button
             type="button"
             className="logo-btn"
@@ -15,6 +16,7 @@ const Navbar = () => {
             data-cy="mobile-button"
           >
           </button>
+        </div>
         </div>
     </NavbarWrapper>
   )

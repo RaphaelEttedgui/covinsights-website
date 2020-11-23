@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import RiskCalculator from './pages/RiskCalculator.js';
 import reportWebVitals from './reportWebVitals';
+import Navbar from './components/Navbar.js'
 
 ReactDOM.render(
   <React.StrictMode>
-    <RiskCalculator />
+    <div>
+    <Navbar />
+    <RiskCalculator /></div>
   </React.StrictMode>,
   document.getElementById('root')
 );
