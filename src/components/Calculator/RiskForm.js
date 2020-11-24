@@ -8,10 +8,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from '@material-ui/core/Tooltip';
+import {InteractionCrowd, BasicUniverse, RiskProfile, WorkerRiskProfile, NonWorkerRiskProfile} from './MyMath.js';
 
 const styles = (theme) => ({
   formControl: {
@@ -36,7 +36,7 @@ const propsForDisplay = {
   borderColor: "text.primary",
   m: "auto",
   border: 0,
-  style: { width: "15rem", height: "3rem" },
+  style: { width: "16rem", height: "3rem" },
   boxShadow: 3,
   mx: "auto",
   px: "1rem",
@@ -48,6 +48,7 @@ class RiskForm extends Component {
   state = {
     id: this.props.id,
     name: this.props.name,
+    duration: this.props.duration,
     showForm: this.props.showForm,
     wearMask: this.props.wearMask,
     nbPeople: this.props.nbPeople,
@@ -55,6 +56,36 @@ class RiskForm extends Component {
     outdoors: this.props.outdoors,
     talking: this.props.talking,
     distance: this.props.distance,
+    riskProfile: this.props.riskProfile,
+    risk : 0,
+    activityRisk : 0,
+    universe: new BasicUniverse(),
+  }
+
+  setActivityRisk = () => {
+    var maskProportion = 0;
+    if(this.state.nbPeople != 0)
+    {
+      maskProportion = this.state.nbMasked/this.state.nbPeople;
+    }
+    var interaction = new InteractionCrowd(this.state.name, this.state.duration, this.state.nbPeople, this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance);
+    this.setState({activityRisk: Math.round((interaction.getActivityRisk() + Number.EPSILON) * 100) / 100});
+    var profile = new RiskProfile();
+    if(this.state.riskProfile === "worker")
+    {
+      profile = new WorkerRiskProfile();
+    }
+   if(this.state.riskProfile === "nonWorker")
+    {
+      profile = new NonWorkerRiskProfile();
+    }
+
+    this.setState({risk: Math.round((profile.getProfileRisk()*interaction.getActivityRisk() + Number.EPSILON) * 100) / 100});
+  }
+
+  getRisk = () => {
+    this.setActivityRisk();
+    return this.state.risk;
   }
 
   handleChange = event => {
@@ -68,11 +99,11 @@ class RiskForm extends Component {
   }
 
   handleNbPeople = (event) => {
-    this.setState({nbPeople:event.target.value});
+    this.setState({nbPeople:Number(event.target.value)});
   };
 
   handleNbMasked = (event) => {
-    this.setState({nbMasked:event.target.value});
+    this.setState({nbMasked:Number(event.target.value)});
   };
 
   handleTalking = (event) => {
@@ -83,6 +114,10 @@ class RiskForm extends Component {
     this.setState({distance:event.target.value});
   };
 
+  handleRiskProfile = (event) => {
+    this.setState({riskProfile:event.target.value});
+  };
+
   generateNbPeople1 = (i) => {
     return (
     <option value={i}>{i}</option>
@@ -90,7 +125,7 @@ class RiskForm extends Component {
   }
 
   generateNbPeople = () => {
-    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const numbers = [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return numbers.map((number) => this.generateNbPeople1(number));
   }
 
@@ -106,6 +141,7 @@ class RiskForm extends Component {
           {this.props.children}
           <div className="show_activity">
             {this.state.name}
+            Risk : {this.state.risk}
           </div>
       </Box>
       </div>
@@ -199,10 +235,25 @@ class RiskForm extends Component {
                     </FormControl>
                   </Grid>
                   <Grid item>
+                  <FormControl className={classes.formControl}>
+                      <InputLabel id="demo-simple-select-label">Risk profile</InputLabel>
+                      <Select
+                        native 
+                        id="demo-simple-select"
+                        value={this.state.riskProfile}
+                        onChange={this.handleRiskProfile}
+                      >
+                        <option value="average">Average</option>
+                        <option value="worker">Frontline worker</option>
+                        <option value="nonWorker">Work from home</option>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item>
                     <Button
                       variant="outlined"
                       color="primary"
-                      onClick={() => this.setState({ showForm: true })}
+                      onClick={() => {this.setState({ showForm: true }); this.setActivityRisk()}}
                     >
                       {" "}
                       Submit

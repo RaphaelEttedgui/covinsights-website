@@ -23,11 +23,13 @@ class RiskCalculator extends Component {
     this.defaultActivityArgs = {
       name:"Activity Name",
       wearMask: true,
+      duration:60,
       nbPeople: 0,
       nbMasked: 0,
       outdoors: false,
       talking: "normal",
       distance: "normal",
+      riskProfile: 0,
     }
   }
 

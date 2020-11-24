@@ -78,7 +78,7 @@ class InteractionCrowd extends Interaction{
 		if (this.mask){
 			risk = risk / 2;
 		}
-		risk = risk + (1 - 0.75 * this.maskProportion);
+		risk = risk * (1 - 0.75 * this.maskProportion);
 		if (this.outdoors){
 			risk = risk / 20;
 		}
@@ -335,7 +335,7 @@ class Person extends RiskProfile{
 	
 	getRisk(){
 		// Returns the probability of having the disease
-		risk=0;
+		var risk=0;
 		if(this.activityList === undefined || this.activityList.length === 0)
 		{
 			return 0;
@@ -350,7 +350,7 @@ class Person extends RiskProfile{
 	getProfileRisk(){
 		// Returns how many time the person is more risky than the average.
 		// Multiply par the universe prevalence to get the risk.
-		risk=0;
+		var risk=0;
 		if(this.activityList === undefined || this.activityList.length === 0)
 		{
 			return 0;
@@ -473,49 +473,4 @@ class GroupReunion{
 	}
 }
 
-
-var rk4 = require('ode-rk4')
-
-class EpidemySimulator{
-	constructor(beta, gamma=0.125, N=66000000, I0=100000, tmax=100, R0=10000000){
-		this.beta = beta;
-		this.gamma = gamma;
-		this.number_people = N;
-		this.I0 = I0;
-		this.tmax = tmax;
-		this.R0 = R0;
-	}
-	
-	copy(x) {
-		return Object.assign({},x)
-	}
-	
-	sir(dydt, y, t){
-		dydt[0] = -1.0 * this.beta * y[0] * y[1] / this.number_people;
-		dydt[1] = this.beta * y[0] * y[1] / this.number_people - this.gamma * y[1];
-		dydt[2] = this.gamma * y[1];
-	}
-	
-	integrate(f,t0,y0,step,tmax) {
-		var integrator = rk4(y0, f, t0, step);
-		var t = t0;
-		var y = y0;
-		var ta = [];
-		var ya = [];
-		ta.push(t0);
-		ya.push({x:t, i:y[1], hosp:y[1]* 2.6 / 100, rea: y[1]* (2.6 / 100) * (18.2 / 100)});
-		for(t=t0+step;t<tmax; t=t+step){
-			integrator=integrator.step();
-			ya.push({x:t, i:integrator.y[1], hosp:integrator.y[1]* 2.6 / 100, rea:integrator.y[1]* (2.6 / 100) * (18.2 / 100)});
-			ta.push(t);
-		}
-	  return {t:ta,y:ya};
-	}
-	
-	simulate(){
-		return this.integrate(this.sir.bind(this), 0, [this.number_people-this.I0-this.R0,this.I0,this.R0], 1, this.tmax);
-	}
-		
-}
-
-export default Interaction, InteractionCrowd, InteractionOne, Activity, Person, Universe, EpidemySimulator, GroupReunion, RiskProfile, NonWorkerRiskProfile, WorkerRiskProfile;
+export {Interaction, InteractionCrowd, InteractionOne, BasicUniverse, Activity, Person, Universe, GroupReunion, RiskProfile, NonWorkerRiskProfile, WorkerRiskProfile};
