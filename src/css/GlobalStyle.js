@@ -8,13 +8,87 @@ export default createGlobalStyle`
   }
 
   body {
-    background: ${props => props.theme.mainWhite};
+    background: ${props => props.theme.mainGrey};
     color: ${props => props.theme.mainBlack};
     font-display: swap;
     font-family: "Helvetica", sans-serif;
     font-size: 1rem;
     line-height: 1.4;
   }
+
+  .delete_button{
+    position:relative;
+    left:85%;
+  }
+
+  .edit_button{
+    position:relative;
+    left:70%;
+    bottom:47px;
+  }
+
+  .calculator_presentation{
+    width:100%;
+    text-align: center;
+  }
+
+  .addActivity_buttons{
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 576px){
+    .inside_body{
+      padding-top: 2rem;
+    }
+    .risk_calculator{
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  @media screen and (min-width: 576px) {
+
+    .inside_body{
+      padding: 2rem 1rem 0 1rem;
+    }
+
+    .activity_box{
+      width: "20rem";
+      height: "10rem";
+      margin: "auto";
+      padding: 0 0.5rem 0 0.5rem;
+    }
+  
+    .risk_calculator{
+      max-width: 100%;
+      border-style:solid;
+      border-width: thin;
+      border-radius: 25px;
+      padding: 1rem;
+    }
+  
+    .risk_form {
+    }
+  
+    .my_body {
+      background: ${props => props.theme.mainWhite};
+      min-height: 100vh;
+      min-width: 50%;
+      margin: 0 auto;
+      display: flex;
+    }
+
+    .behind_body {
+    padding-top: 2rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+  }
+
+
   h1, h2, h3, h4, h5, h6 {
     font-family: "Impact", sans-serif;
     letter-spacing: ${props => props.theme.mainSpacing};

@@ -55,12 +55,20 @@ const NavbarWrapper = styled.nav`
     display: none;
   }
 
+  .nav-center {
+    background: ${props => props.theme.mainWhite};
+  }
+
   @media screen and (min-width: 576px) {
+    .nav-center {
+      background: ${props => props.theme.mainWhite};
+    }
     padding: 0 2rem;
   }
 
   @media screen and (min-width: 992px) {
     .nav-center {
+      background: ${props => props.theme.mainWhite};
       max-width: 1170px;
       margin: 0 auto;
       display: flex;

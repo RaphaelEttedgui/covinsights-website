@@ -15,22 +15,12 @@ Ajouter des boutons avec activités toutes faites, permettant de les ajouter en 
 ***** END TODO *****
 */
 
-const defaultBoxProps = {
-  bgcolor: "background.paper",
-  borderColor: "text.primary",
-  m: "auto",
-  border: 0,
-  style: { width: "20rem", height: "10rem" },
-  boxShadow: 3,
-  mx: "auto",
-  px: "1rem",
-}
-
 class RiskCalculator extends Component {
   constructor(props){
     super(props);
     this.state = {activities: [], nextId:0,}
     this.defaultActivityArgs = {
+      name:"Activity Name",
       wearMask: true,
       nbPeople: 0,
       maskProportion: 0,
@@ -43,15 +33,14 @@ class RiskCalculator extends Component {
   addActivity = (args = this.defaultActivityArgs) => {
     const myId = [this.state.nextId]
     const widget = (
-      <Grid item xs={12}>
-        <Box borderRadius={16} {...defaultBoxProps}>
-          <div>
-            <IconButton aria-label="delete" onClick={() => this.clear(myId[0])}>
+      <Grid item>
+          <RiskForm id={myId} {...args}>
+              <div className="delete_button">
+              <IconButton aria-label="delete" onClick={() => this.clear(myId[0])}>
               <DeleteIcon />
-            </IconButton>
-          </div>
-          <RiskForm id={myId} {...args} />
-        </Box>
+              </IconButton>
+              </div>
+          </RiskForm>
       </Grid>
     )
     this.setState({ nextId: this.state.nextId + 1 })
@@ -76,12 +65,13 @@ class RiskCalculator extends Component {
 
   render = () => {
     return (
-      <div>
-        <Grid container spacing={2}>
+      <div className="risk_calculator">
+        <Grid container spacing={2} justify="center" alignitems="center">
           {this.state.activities}
         </Grid>
-        <Box px="2rem" pt="1rem" justify="center" m="auto">
-          <Grid container spacing={1}>
+        <div className="addActivity_buttons">
+        <Box pt="1rem" justify="right" m="auto">
+          <Grid container spacing={1}   alignItems="center" justify="center">
             <Grid item>
               <Fab
                 onClick={this.addActivity}
@@ -100,6 +90,7 @@ class RiskCalculator extends Component {
             </Grid>
           </Grid>
         </Box>
+        </div>
       </div>
     )
   }

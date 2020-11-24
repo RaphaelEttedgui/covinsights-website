@@ -1,7 +1,7 @@
 import React from "react"
 import { ThemeProvider } from "styled-components"
-import Script from "./Script"
 import { Theme, GlobalStyle } from "../css"
+import Paper from '@material-ui/core/Paper';
 
 const Layout = ({ children }) => {
   return (
@@ -11,13 +11,6 @@ const Layout = ({ children }) => {
         {children}
         {/* <Footer /> */}
       </ThemeProvider>
-      <Script
-        innerHTMLCode={`
-            document.querySelector('.logo-btn').addEventListener('click', function (){
-              document.querySelector('.nav-links').classList.toggle("show-nav");
-            })
-          `}
-      />
     </main>
   )
 }
