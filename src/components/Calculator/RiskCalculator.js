@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box"
 import ClearIcon from "@material-ui/icons/Clear"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { IconButton, Button } from "@material-ui/core"
+import Tooltip from '@material-ui/core/Tooltip';
 
 /*
 ***** TODO *****
@@ -23,7 +24,7 @@ class RiskCalculator extends Component {
       name:"Activity Name",
       wearMask: true,
       nbPeople: 0,
-      maskProportion: 0,
+      nbMasked: 0,
       outdoors: false,
       talking: "normal",
       distance: "normal",
@@ -33,12 +34,14 @@ class RiskCalculator extends Component {
   addActivity = (args = this.defaultActivityArgs) => {
     const myId = [this.state.nextId]
     const widget = (
-      <Grid item>
+      <Grid item className="activity_list">
           <RiskForm id={myId} {...args}>
               <div className="delete_button">
+              <Tooltip title="Delete">
               <IconButton aria-label="delete" onClick={() => this.clear(myId[0])}>
               <DeleteIcon />
               </IconButton>
+              </Tooltip>
               </div>
           </RiskForm>
       </Grid>

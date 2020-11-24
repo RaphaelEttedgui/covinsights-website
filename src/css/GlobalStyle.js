@@ -24,7 +24,13 @@ export default createGlobalStyle`
   .edit_button{
     position:relative;
     left:70%;
-    bottom:47px;
+    top:16px;
+    z-index: 2;
+  }
+
+  .show_activity{
+    position:relative;
+    bottom:34px;
   }
 
   .calculator_presentation{
@@ -69,6 +75,12 @@ export default createGlobalStyle`
     }
   
     .risk_form {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .activity_list{
+      position:relative;
     }
   
     .my_body {
