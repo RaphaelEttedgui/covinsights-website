@@ -1,8 +1,11 @@
 import React from "react"
-import RiskCalculator from "../components/Calculator/RiskCalculator.js"
+import RiskCalculator from "./pages/RiskCalculator.js"
+import Layout from './components/Layout.js'
 
 export default ({ data }) => {
   return (
-      <RiskCalculator />
+      <Layout>
+        <RiskCalculator />
+      </Layout>
   )
 }
