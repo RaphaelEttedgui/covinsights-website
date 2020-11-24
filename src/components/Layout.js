@@ -1,5 +1,4 @@
 import React from "react"
-import Navbar from "./Navbar"
 import { ThemeProvider } from "styled-components"
 import Script from "./Script"
 import { Theme, GlobalStyle } from "../css"
@@ -9,7 +8,6 @@ const Layout = ({ children }) => {
     <main>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        <Navbar />
         {children}
         {/* <Footer /> */}
       </ThemeProvider>

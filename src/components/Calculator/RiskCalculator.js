@@ -23,7 +23,7 @@ const defaultBoxProps = {
   style: { width: "20rem", height: "10rem" },
   boxShadow: 3,
   mx: "auto",
-  p: "1rem",
+  px: "1rem",
 }
 
 class RiskCalculator extends Component {
@@ -41,7 +41,6 @@ class RiskCalculator extends Component {
   }
 
   addActivity = (args = this.defaultActivityArgs) => {
-    console.log("bonjour");
     const myId = [this.state.nextId]
     const widget = (
       <Grid item xs={12}>
