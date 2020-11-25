@@ -18,6 +18,15 @@ const styles = (theme) => ({
     margin: theme.spacing(1),
     minWidth: 80,
   },
+    root: {
+    display: 'flex',
+    pt: "2rem",
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
 });
 
 const propsForForm = {
@@ -25,7 +34,7 @@ const propsForForm = {
   borderColor: "text.primary",
   m: "auto",
   border: 0,
-  style: { width: "17rem", height: "30rem" },
+  style: { width: "17rem", height: "35rem" },
   boxShadow: 3,
   mx: "auto",
   px: "1rem",
@@ -59,6 +68,8 @@ class RiskForm extends Component {
     riskProfile: this.props.riskProfile,
     risk : 0,
     activityRisk : 0,
+    heures:Math.floor(this.props.duration/60),
+    minutes:this.props.duration % 60,
     universe: new BasicUniverse(),
   }
 
@@ -87,6 +98,10 @@ class RiskForm extends Component {
     this.props.updateRisk(this.props.id[0], result);
   }
 
+  componentDidMount = () => {
+    this.setActivityRisk();
+  }
+
   getRisk = () => {
     this.setActivityRisk();
     return this.state.risk;
@@ -109,6 +124,20 @@ class RiskForm extends Component {
   handleNbMasked = (event) => {
     this.setState({nbMasked:Number(event.target.value)});
   };
+
+  handleHours = (event) => {
+    this.setState({heures:Number(event.target.value)})
+    this.computeDuration();
+  }
+
+  handleMinutes = (event) => {
+    this.setState({minutes:Number(event.target.value)});
+    this.computeDuration();
+  }
+
+  computeDuration = () => {
+    this.setState({duration:60*this.state.heures+this.state.minutes});
+  }
 
   handleTalking = (event) => {
     this.setState({talking:event.target.value});
@@ -136,16 +165,15 @@ class RiskForm extends Component {
   showForm = () => {
     return (
       <div className="risk_form">
-      <Tooltip title="Edit">
-      <IconButton className="edit_button" aria-label="delete" onClick={() => this.setState({ showForm: false })}>
+      <Tooltip title="Modifier">
+      <IconButton className="edit_button" aria-label="delete" size="small" onClick={() => this.setState({ showForm: false })}>
         <EditIcon />
       </IconButton>
       </Tooltip>
       <Box borderRadius={16} {...propsForDisplay}>
           {this.props.children}
           <div className="show_activity">
-            {this.state.name}
-            Risk : {this.state.risk}
+            {this.state.name}. {/*Risque : {this.state.risk} */}
           </div>
       </Box>
       </div>
@@ -158,9 +186,31 @@ class RiskForm extends Component {
       <div className="risk_form_creator">
       <Box borderRadius={16} {...propsForForm}>
           {this.props.children}
-            <Grid container spacing={1}>
+            <Grid container spacing={1} className="form_activity_grid">
                   <Grid item>
-                      <TextField id="outlined-basic" label="Activity Name" variant="outlined" onChange={this.handleNameField} />
+                      <TextField id="outlined-basic" size="small" label="Nom de l'activité" variant="outlined" defaultValue={this.state.name} onChange={this.handleNameField} />
+                  </Grid>
+                  <Grid item>
+                      <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="heures" variant="outlined" defaultValue={this.state.heures} onChange={this.handleHours} />
+                  </Grid>
+                  <Grid item>
+                      <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="minutes" variant="outlined" defaultValue={this.state.minutes} onChange={this.handleMinutes} />
+                  </Grid>
+                  <Grid item>
+                  <FormControlLabel
+                      control={<Checkbox color="primary" checked={this.state.outdoors}
+                        onChange={this.handleChange}
+                        name="outdoors"
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                      />} label="Est-ce en extérieur ?" />
+                  </Grid>
+                  <Grid item>
+                  <FormControlLabel
+                      control={<Checkbox color="primary" checked={this.state.wearMask}
+                        onChange={this.handleChange}
+                        name="wearMask"
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                      />} label="Portez-vous un masque ?" />
                   </Grid>
                   <Grid item>
                   <FormControl variant="outlined" className={classes.formControl}>
@@ -178,7 +228,7 @@ class RiskForm extends Component {
                   </Grid>
                   <Grid item>
                   <FormControl variant="outlined" className={classes.formControl}>
-                      <InputLabel id="demo-simple-select-label">Nb masked</InputLabel>
+                      <InputLabel id="demo-simple-select-label">Masks</InputLabel>
                       <Select
                         native 
                         id="demo-simple-select"
@@ -191,24 +241,8 @@ class RiskForm extends Component {
                     </FormControl>
                   </Grid>
                   <Grid item>
-                  <FormControlLabel
-                      control={<Checkbox color="primary" checked={this.state.outdoors}
-                        onChange={this.handleChange}
-                        name="outdoors"
-                        inputProps={{ "aria-label": "secondary checkbox" }}
-                      />} label="Is it outdoors ?" />
-                  </Grid>
-                  <Grid item>
-                  <FormControlLabel
-                      control={<Checkbox color="primary" checked={this.state.wearMask}
-                        onChange={this.handleChange}
-                        name="wearMask"
-                        inputProps={{ "aria-label": "secondary checkbox" }}
-                      />} label="Are you wearing a mask ?" />
-                  </Grid>
-                  <Grid item>
                   <FormControl className={classes.formControl}>
-                      <InputLabel id="demo-simple-select-label">Talking</InputLabel>
+                      <InputLabel id="demo-simple-select-label">Conversation</InputLabel>
                       <Select
                         native 
                         id="demo-simple-select"
@@ -216,9 +250,9 @@ class RiskForm extends Component {
                         onChange={this.handleTalking}
                         label="Nb people"
                       >
-                        <option value="normal">Normal</option>
-                        <option value="quiet">Quiet</option>
-                        <option value="loud">Loud</option>
+                        <option value="normal">Normale</option>
+                        <option value="quiet">Sans parler</option>
+                        <option value="loud">Forte</option>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -232,9 +266,9 @@ class RiskForm extends Component {
                         onChange={this.handleDistance}
                         label="Nb people"
                       >
-                        <option value="normal">Normal</option>
-                        <option value="close">Close</option>
-                        <option value="long">Long</option>
+                        <option value="normal">Normale</option>
+                        <option value="close">Proche</option>
+                        <option value="long">Longue</option>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -247,23 +281,24 @@ class RiskForm extends Component {
                         value={this.state.riskProfile}
                         onChange={this.handleRiskProfile}
                       >
-                        <option value="average">Average</option>
-                        <option value="worker">Frontline worker</option>
-                        <option value="nonWorker">Work from home</option>
+                        <option value="average">Standard</option>
+                        <option value="worker">Travailleur de première ligne</option>
+                        <option value="nonWorker">Télétravaille</option>
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => {this.setState({ showForm: true }); this.setActivityRisk()}}
-                    >
-                      {" "}
-                      Submit
-                    </Button>
-                  </Grid>
             </Grid>
+            <br/>
+            <div className={classes.root}>
+            <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {this.setState({ showForm: true }); this.setActivityRisk()}}
+              >
+                {" "}
+                Submit
+              </Button>
+            </div>
       </Box>
       </div>
     )

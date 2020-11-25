@@ -4,12 +4,15 @@ import Fab from "@material-ui/core/Fab"
 import Grid from "@material-ui/core/Grid"
 import AddIcon from "@material-ui/icons/Add"
 import Box from "@material-ui/core/Box"
-import ClearIcon from "@material-ui/icons/Clear"
+import Chip from '@material-ui/core/Chip';
 import DeleteIcon from "@material-ui/icons/Delete"
 import CachedIcon from '@material-ui/icons/Cached';
 import { IconButton, Button } from "@material-ui/core"
 import Tooltip from '@material-ui/core/Tooltip';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
+import { withStyles } from "@material-ui/core/styles";
+import list_activities from '../constants/activities.js';
+import FaceIcon from '@material-ui/icons/Face';
 
 /*
 ***** TODO *****
@@ -18,21 +21,34 @@ Ajouter des boutons avec activités toutes faites, permettant de les ajouter en 
 ***** END TODO *****
 */
 
+const styles = (theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+});
+
 class RiskCalculator extends Component {
   constructor(props){
     super(props);
-    this.state = {activities: [], risks:{}, nextId:0, risk:0}
+    this.state = {activities: [], risks:{}, nextId:0, risk:0, toggleResult:false}
     this.defaultActivityArgs = {
-      name:"Activity Name",
-      wearMask: true,
+      name:"Activité",
+      wearMask: false,
       duration:60,
-      nbPeople: 0,
+      nbPeople: 1,
       nbMasked: 0,
       outdoors: false,
       talking: "normal",
       distance: "normal",
-      riskProfile: 0,
+      riskProfile: "normal",
+      showForm:false,
     }
+    this.refResult = React.createRef();
   }
 
   updateRisk = (id, risk) => {
@@ -47,8 +63,21 @@ class RiskCalculator extends Component {
     {
       result = result + (1-result)* this.state.risks[key];
     }
-    //this.setState({risk:result});
-    console.log(result);
+    this.setState({risk:result});
+    this.setState({toggleResult:true})
+  }
+
+  toggleResult = () => {
+    this.setState({toggleResult:true});
+  }
+
+  showResult = () => {
+    this.refResult.current.scrollIntoView();
+    return (
+      <Box pt="1rem" justify="right" m="auto">
+        Your total risk is {this.state.risk}.
+      </Box>
+    )
   }
 
   addActivity = (args) => {
@@ -57,8 +86,8 @@ class RiskCalculator extends Component {
       <Grid item className="activity_list">
           <RiskForm id={myId} updateRisk={this.updateRisk} {...args}>
               <div className="delete_button">
-              <Tooltip title="Delete">
-              <IconButton aria-label="delete" onClick={() => this.clear(myId[0])}>
+              <Tooltip title="Supprimer">
+              <IconButton aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
               <DeleteIcon />
               </IconButton>
               </Tooltip>
@@ -73,23 +102,38 @@ class RiskCalculator extends Component {
   }
 
   componentDidMount = () => {
-    this.addActivity();
+    this.addActivity(this.defaultActivityArgs);
   }
 
   clearAll = () => {
-    this.setState({ nextId: 0, activities: [] })
+    this.setState({ nextId: 0, activities: [], risks:{}, risk:0, toggleResult:false })
   }
 
   clear = id => {
-    var widgets = this.state.activities.slice()
+    var widgets = this.state.activities.slice();
+    var myRisks = this.state.risks;
     widgets[id] = <div />
-    this.setState({ activities: widgets })
+    myRisks[id] = 0;
+    this.setState({ activities: widgets, risks:myRisks })
+  }
+
+  generatePremadeCards = () => {
+    const { classes } = this.props;
+    return (
+      <div id="premade_cards" className={classes.root}>
+          {list_activities.map((item, index) => {
+            return (
+                  <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addActivity(item)}} />
+            )
+          })}
+      </div>
+    )
   }
 
   render = () => {
     return (
       <div className="risk_calculator">
-        <Grid container spacing={2} justify="center" alignitems="center">
+        <Grid container spacing={1} justify="center" alignitems="center">
           {this.state.activities}
         </Grid>
         <div className="addActivity_buttons">
@@ -119,7 +163,7 @@ class RiskCalculator extends Component {
           <Grid container spacing={1}   alignItems="center" justify="center">
             <Grid item>
               <Fab
-                onClick={() => {this.getRisk()}}
+                onClick={() => {this.getRisk(); this.toggleResult()}}
                 variant="extended"
               >
                 <TouchAppIcon />
@@ -129,9 +173,17 @@ class RiskCalculator extends Component {
           </Grid>
         </Box>
         </div>
+
+        <div id="premade_activities">
+            {this.generatePremadeCards()}
+        </div>
+
+        <div id="calculator-result" ref={this.refResult}>
+        {this.state.toggleResult && this.showResult()}
+        </div>
       </div>
     )
   }
 }
 
-export default RiskCalculator
+export default withStyles(styles)(RiskCalculator);

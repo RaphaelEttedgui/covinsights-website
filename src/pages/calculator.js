@@ -6,7 +6,7 @@ export default ({ data }) => {
       <div>
       <div className="calculator_presentation">
         <h2>
-          Welcome to the risk calculator
+          Bienvenue dans le calculateur de risque !
         </h2>
       </div>
       <RiskCalculator />

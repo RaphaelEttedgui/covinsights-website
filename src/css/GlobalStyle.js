@@ -13,24 +13,35 @@ export default createGlobalStyle`
     font-display: swap;
     font-family: "Helvetica", sans-serif;
     font-size: 1rem;
-    line-height: 1.4;
+    line-height: 1.0;
   }
 
   .delete_button{
     position:relative;
-    left:85%;
+    left:90%;
+    top:8px;
+  }
+
+  .form_activity_grid{
+    position:relative;
+    bottom:5px;
   }
 
   .edit_button{
     position:relative;
     left:70%;
-    top:16px;
+    top:6px;
     z-index: 2;
   }
 
   .show_activity{
     position:relative;
-    bottom:34px;
+    max-width : 80%;
+    bottom:15px;
+  }
+
+  #premade_activities{
+    padding : 2rem;
   }
 
   .calculator_presentation{
@@ -68,9 +79,6 @@ export default createGlobalStyle`
   
     .risk_calculator{
       max-width: 100%;
-      border-style:solid;
-      border-width: thin;
-      border-radius: 25px;
       padding: 1rem;
     }
   
