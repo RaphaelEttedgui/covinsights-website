@@ -110,7 +110,7 @@ class RiskCalculator extends Component {
           <RiskForm id={myId} showForm={true} updateRisk={this.updateRisk} {...args}>
               <div className="delete_button">
               <Tooltip title="Supprimer">
-              <IconButton aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
+              <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
               <DeleteIcon />
               </IconButton>
               </Tooltip>

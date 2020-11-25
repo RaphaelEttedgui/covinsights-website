@@ -188,7 +188,7 @@ class RiskForm extends Component {
           {this.props.children}
             <Grid container spacing={1} className="form_activity_grid">
                   <Grid item>
-                      <TextField id="outlined-basic" size="small" label="Nom de l'activité" variant="outlined" defaultValue={this.state.name} onChange={this.handleNameField} />
+                      <TextField id="outlined-basic" size="small" style={{width: 180}} label="Nom de l'activité" variant="outlined" defaultValue={this.state.name} onChange={this.handleNameField} />
                   </Grid>
                   <Grid item>
                       <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="heures" variant="outlined" defaultValue={this.state.heures} onChange={this.handleHours} />
