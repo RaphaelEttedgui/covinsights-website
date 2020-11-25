@@ -64,9 +64,12 @@ class RiskForm extends Component {
 
   setActivityRisk = () => {
     var maskProportion = 0;
-    if(this.state.nbPeople != 0)
+    if(this.state.nbMasked === 0)
     {
-      maskProportion = this.state.nbMasked/this.state.nbPeople;
+      maskProportion = 0;
+    }
+    else{
+      maskProportion = this.state.nbPeople / this.state.nbMasked;
     }
     var interaction = new InteractionCrowd(this.state.name, this.state.duration, this.state.nbPeople, this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance);
     this.setState({activityRisk: Math.round((interaction.getActivityRisk() + Number.EPSILON) * 100) / 100});
@@ -79,8 +82,9 @@ class RiskForm extends Component {
     {
       profile = new NonWorkerRiskProfile();
     }
-
-    this.setState({risk: Math.round((profile.getProfileRisk()*interaction.getActivityRisk() + Number.EPSILON) * 100) / 100});
+    var result = Math.round((profile.getProfileRisk()*interaction.getActivityRisk() + Number.EPSILON) * 100) / 100;
+    this.setState({risk: result});
+    this.props.updateRisk(this.props.id[0], result);
   }
 
   getRisk = () => {
