@@ -12,7 +12,7 @@ export default [
     },
     {
         name:"Nourriture à emporter (avec masque)",
-        nb_people:1,
+        nbPeople:1,
         duration:5,
         wearMask: true,
         nbMasked:1,
@@ -23,7 +23,7 @@ export default [
     },
     {
         name:"Promenade",
-        nb_people:3,
+        nbPeople:3,
         duration:60,
         wearMask: false,
         nbMasked:0.,
@@ -34,7 +34,7 @@ export default [
     },
     {
         name:"Repas à 2 en extérieur",
-        nb_people:1,
+        nbPeople:1,
         duration:90,
         wearMask: false,
         nbMasked:0.,
@@ -45,7 +45,7 @@ export default [
     },
     {
         name:"bibliothèque/musée (avec masque)",
-        nb_people:5,
+        nbPeople:5,
         duration:120,
         wearMask:true,
         nbMasked:5,
@@ -56,7 +56,7 @@ export default [
     },
     {
         name:"Faire ses courses",
-        nb_people:10,
+        nbPeople:10,
         duration:30,
         wearMask:true,
         nbMasked:10,
@@ -67,7 +67,7 @@ export default [
     },
     {
         name:"Pique-nique de 2h",
-        nb_people:5,
+        nbPeople:5,
         duration:120,
         wearMask:false,
         nbMasked:0,
@@ -78,7 +78,7 @@ export default [
     },
     {
         name:"small 2h dinner party",
-        nb_people:4,
+        nbPeople:4,
         duration:120,
         wearMask:false,
         nbMasked:0,
@@ -89,33 +89,36 @@ export default [
     },
     {
         name:"Cinema/Théâtre",
-        nb_people:50,
+        nbPeople:50,
         duration:120,
         wearMask:true,
         nbMasked:50,
         outdoors:false,
         distance:"long",
         talking:'quiet',
+        riskProfile: "normal",
     },
     {
         name:"Théâtre(1er rang)",
-        nb_people:8,
+        nbPeople:8,
         duration:120,
         wearMask:true,
-        maskProportion:0.,
+        nbMasked:0,
         outdoors:false,
         distance:"long",
         talking:'loud',
+        riskProfile: "normal",
     },
     {
-        name:"Indoors 3h game night",
-        nb_people:4,
+        name:"Soirée jeux de 3h à 5 personnes.",
+        nbPeople:4,
         duration:180,
         wearMask:false,
-        maskProportion:0.,
+        nbMasked:0,
         outdoors:false,
         distance:"normal",
         talking:'loud',
+        riskProfile: "normal",
     }
   ]
   

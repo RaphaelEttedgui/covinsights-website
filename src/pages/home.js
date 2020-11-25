@@ -4,7 +4,10 @@ import { NavLink } from 'react-router-dom';
 class Home extends Component{
     render(){
         return (
-            <NavLink to="/familyGathering/">Family gathering</NavLink>
+            <div className="home_container">
+                Try our calculator : 
+            <NavLink to="/calculator/">Calculator</NavLink>
+            </div>
         )
     }
 }

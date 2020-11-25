@@ -63,6 +63,7 @@ class RiskCalculator extends Component {
     {
       result = result + (1-result)* this.state.risks[key];
     }
+    result = Math.round(result * 100);
     this.setState({risk:result});
     this.setState({toggleResult:true})
   }
@@ -75,7 +76,7 @@ class RiskCalculator extends Component {
     this.refResult.current.scrollIntoView();
     return (
       <Box pt="1rem" justify="right" m="auto">
-        Your total risk is {this.state.risk}.
+        Your total risk is {this.state.risk} %.
       </Box>
     )
   }
@@ -85,6 +86,28 @@ class RiskCalculator extends Component {
     const widget = (
       <Grid item className="activity_list">
           <RiskForm id={myId} updateRisk={this.updateRisk} {...args}>
+              <div className="delete_button">
+              <Tooltip title="Supprimer">
+              <IconButton aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
+              <DeleteIcon />
+              </IconButton>
+              </Tooltip>
+              </div>
+          </RiskForm>
+      </Grid>
+    )
+    this.setState({ nextId: this.state.nextId + 1 })
+    var widgets = this.state.activities.slice()
+    widgets.push(widget)
+    this.setState({ activities: widgets })
+  }
+
+  // Premade activities are already filled.
+  addPremadeActivity = (args) => {
+    const myId = [this.state.nextId]
+    const widget = (
+      <Grid item className="activity_list">
+          <RiskForm id={myId} showForm={true} updateRisk={this.updateRisk} {...args}>
               <div className="delete_button">
               <Tooltip title="Supprimer">
               <IconButton aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
@@ -123,7 +146,7 @@ class RiskCalculator extends Component {
       <div id="premade_cards" className={classes.root}>
           {list_activities.map((item, index) => {
             return (
-                  <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addActivity(item)}} />
+                  <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadeActivity(item)}} />
             )
           })}
       </div>
@@ -160,7 +183,7 @@ class RiskCalculator extends Component {
         </div>
         <div className="addActivity_buttons">
         <Box pt="1rem" justify="right" m="auto">
-          <Grid container spacing={1}   alignItems="center" justify="center">
+          <Grid container spacing={0.5}   alignItems="center" justify="center">
             <Grid item>
               <Fab
                 onClick={() => {this.getRisk(); this.toggleResult()}}
@@ -173,7 +196,6 @@ class RiskCalculator extends Component {
           </Grid>
         </Box>
         </div>
-
         <div id="premade_activities">
             {this.generatePremadeCards()}
         </div>

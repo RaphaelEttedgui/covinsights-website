@@ -18,8 +18,9 @@ export default createGlobalStyle`
 
   .delete_button{
     position:relative;
+    max-width:40px;
     left:90%;
-    top:8px;
+    top:20px;
   }
 
   .form_activity_grid{
@@ -29,14 +30,17 @@ export default createGlobalStyle`
 
   .edit_button{
     position:relative;
-    left:70%;
-    top:6px;
+    left:75%;
+    top:20px;
     z-index: 2;
   }
 
   .show_activity{
     position:relative;
+    display: flex;
+    text-align:center;
     max-width : 80%;
+    height:100%
     bottom:15px;
   }
 
@@ -62,6 +66,14 @@ export default createGlobalStyle`
       align-items: center;
       justify-content: space-between;
     }
+
+    #premade_activities{
+      padding : 2rem;
+      border-style: solid;
+      border-radius: 16px;
+      border-width:thin;
+      margin:1rem;
+    }
   }
 
   @media screen and (min-width: 576px) {
@@ -85,6 +97,10 @@ export default createGlobalStyle`
     .risk_form {
       justify-content: space-between;
       align-items: center;
+    }
+
+    .riskForm_container{
+      display: flex;
     }
 
     .activity_list{

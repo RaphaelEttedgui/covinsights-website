@@ -45,7 +45,7 @@ const propsForDisplay = {
   borderColor: "text.primary",
   m: "auto",
   border: 0,
-  style: { width: "16rem", height: "3rem" },
+  style: { width: "16rem", height: "5rem" },
   boxShadow: 3,
   mx: "auto",
   px: "1rem",
@@ -306,7 +306,7 @@ class RiskForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="riskForm_container">
           {this.state.showForm ? this.showForm() : this.showCreator()}
       </div>
     )
