@@ -295,18 +295,18 @@ class WorkerRiskProfile extends RiskProfile{
 class Activity{
 	/* An activity is an interaction plus a risk profile.
 	We can access the total risk or just the one related to the interaction. */
-	constructor(interaction, riskProfile, universe){
+	constructor(interaction, riskProfile=new RiskProfile(), universe = new BasicUniverse()){
 		this.interaction = interaction;
 		this.riskProfile = riskProfile;
 		this.universe = universe;
 	}
 	
 	getRisk(){
-		return this.interaction.getRisk() * this.riskProfile.getProfileRisk() * this.universe.prevalence;
+		return this.interaction.getActivityRisk() * this.riskProfile.getProfileRisk() * this.universe.prevalence;
 	}
 	
 	getActivityRisk(){
-		return this.interaction.getRisk() * this.riskProfile.getProfileRisk();
+		return this.interaction.getActivityRisk() * this.riskProfile.getProfileRisk();
 	}
 }
 
@@ -346,6 +346,7 @@ class Person extends RiskProfile{
 		{
 			risk = risk + (1-risk)*this.activityList[i].getRisk();
 		}
+		return risk;
 	}
 	
 	getProfileRisk(){
@@ -361,6 +362,7 @@ class Person extends RiskProfile{
 		{
 			risk = risk + (1-risk)*this.activityList[i].getActivityRisk();
 		}
+		return risk;
 	}
 	
 	computeAgeDangerProfile(){
@@ -370,6 +372,18 @@ class Person extends RiskProfile{
 		var riskRea = riskHosp * this.ageFactors[1];
 		var riskDeath = riskHosp * this.ageFactors[2];
 		return [risk, riskHosp, riskRea, riskDeath];
+	}
+}
+
+class PersonWithRisk extends Person{
+	constructor(name, age=20, gender="ND", risk=0, universe=new BasicUniverse())
+	{
+		super(name, age, gender, [], universe);
+		this.risk=risk;
+	}
+
+	getRisk(){
+		return this.risk * this.universe.prevalence;
 	}
 }
 

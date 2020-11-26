@@ -62,7 +62,8 @@ class RiskCalculator extends Component {
 
   getRisk = () => {
     // Updates the risk, and resets and updates the Person
-    this.state.person.clearActivityList();
+    var p = this.state.person;
+    p.clearActivityList();
     var result = 0;
     for (var key in this.state.risks)
     {
@@ -70,10 +71,10 @@ class RiskCalculator extends Component {
     }
     for (var key in this.state.activities)
     {
-      this.state.person.addActivity(this.state.activities[key]);
+      p.addActivity(this.state.activities[key]);
     }
     result = Math.round(result * 100);
-    this.setState({risk:result});
+    this.setState({risk:result, person:p});
     this.setState({toggleResult:true})
   }
 
@@ -83,10 +84,10 @@ class RiskCalculator extends Component {
 
   showResult = () => {
     this.refResult.current.scrollIntoView();
-    console.log(this.state.person)
+    console.log(this.state.person.getRisk());
     return (
       <Box pt="1rem" justify="right" m="auto">
-        Your total risk is {this.state.risk} %. {this.state.person.getRisk()}
+        Your total risk is {this.state.risk} %. This means {Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100} % for a prevalence of {this.state.person.universe.prevalence}.
       </Box>
     )
   }
@@ -135,12 +136,14 @@ class RiskCalculator extends Component {
   }
 
   componentDidMount = () => {
-    this.addActivity(this.defaultActivityArgs);
+    //this.addActivity(this.defaultActivityArgs);
   }
 
   clearAll = () => {
     this.setState({ nextId: 0, blockActivities: [], risks:{}, activities: {}, risk:0, toggleResult:false });
-    this.state.person.clearActivityList();
+    var p = this.state.person;
+    p.clearActivityList();
+    this.setState({person:p});
   }
 
   clear = id => {
