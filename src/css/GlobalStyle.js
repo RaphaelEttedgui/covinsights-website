@@ -25,7 +25,15 @@ export default createGlobalStyle`
 
   .form_activity_grid{
     position:relative;
-    bottom:5px;
+  }
+  
+  .form_inner_grid{
+    position:relative;
+    top:15px;
+  }
+
+  .grid_name_activity{
+    position:relative;
   }
 
   .edit_button{
@@ -74,6 +82,15 @@ export default createGlobalStyle`
       border-width:thin;
       margin:1rem;
     }
+
+    .paper_body{
+      visibility: hidden;
+    }
+
+    .inside_body{
+      visibility: visible;
+    }
+
   }
 
   @media screen and (min-width: 576px) {
@@ -108,7 +125,6 @@ export default createGlobalStyle`
     }
   
     .my_body {
-      background: ${props => props.theme.mainWhite};
       min-height: 100vh;
       min-width: 50%;
       margin: 0 auto;

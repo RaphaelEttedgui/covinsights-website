@@ -13,6 +13,7 @@ import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
 import list_activities from '../constants/activities.js';
 import FaceIcon from '@material-ui/icons/Face';
+import { Person } from "./MyMath.js"
 
 /*
 ***** TODO *****
@@ -35,7 +36,7 @@ const styles = (theme) => ({
 class RiskCalculator extends Component {
   constructor(props){
     super(props);
-    this.state = {activities: [], risks:{}, nextId:0, risk:0, toggleResult:false}
+    this.state = {blockActivities: [], risks:{}, activities: {}, nextId:0, risk:0, toggleResult:false, person: new Person()}
     this.defaultActivityArgs = {
       name:"Activité",
       wearMask: false,
@@ -51,17 +52,25 @@ class RiskCalculator extends Component {
     this.refResult = React.createRef();
   }
 
-  updateRisk = (id, risk) => {
+  updateRisk = (id, risk, acti) => {
     var tab = this.state.risks;
+    var tabActis = this.state.activities;
     tab[id] = risk;
-    this.setState({risks: tab});
+    tabActis[id] =acti;
+    this.setState({risks: tab, activities:tabActis});
   }
 
   getRisk = () => {
+    // Updates the risk, and resets and updates the Person
+    this.state.person.clearActivityList();
     var result = 0;
     for (var key in this.state.risks)
     {
       result = result + (1-result)* this.state.risks[key];
+    }
+    for (var key in this.state.activities)
+    {
+      this.state.person.addActivity(this.state.activities[key]);
     }
     result = Math.round(result * 100);
     this.setState({risk:result});
@@ -74,9 +83,10 @@ class RiskCalculator extends Component {
 
   showResult = () => {
     this.refResult.current.scrollIntoView();
+    console.log(this.state.person)
     return (
       <Box pt="1rem" justify="right" m="auto">
-        Your total risk is {this.state.risk} %.
+        Your total risk is {this.state.risk} %. {this.state.person.getRisk()}
       </Box>
     )
   }
@@ -97,9 +107,9 @@ class RiskCalculator extends Component {
       </Grid>
     )
     this.setState({ nextId: this.state.nextId + 1 })
-    var widgets = this.state.activities.slice()
+    var widgets = this.state.blockActivities.slice()
     widgets.push(widget)
-    this.setState({ activities: widgets })
+    this.setState({ blockActivities: widgets })
   }
 
   // Premade activities are already filled.
@@ -119,9 +129,9 @@ class RiskCalculator extends Component {
       </Grid>
     )
     this.setState({ nextId: this.state.nextId + 1 })
-    var widgets = this.state.activities.slice()
+    var widgets = this.state.blockActivities.slice()
     widgets.push(widget)
-    this.setState({ activities: widgets })
+    this.setState({ blockActivities: widgets })
   }
 
   componentDidMount = () => {
@@ -129,15 +139,18 @@ class RiskCalculator extends Component {
   }
 
   clearAll = () => {
-    this.setState({ nextId: 0, activities: [], risks:{}, risk:0, toggleResult:false })
+    this.setState({ nextId: 0, blockActivities: [], risks:{}, activities: {}, risk:0, toggleResult:false });
+    this.state.person.clearActivityList();
   }
 
   clear = id => {
-    var widgets = this.state.activities.slice();
+    var widgets = this.state.blockActivities.slice();
     var myRisks = this.state.risks;
+    var myActis = this.state.activities;
     widgets[id] = <div />
     myRisks[id] = 0;
-    this.setState({ activities: widgets, risks:myRisks })
+    delete myActis[id];
+    this.setState({ blockActivities: widgets, risks:myRisks, activities:myActis})
   }
 
   generatePremadeCards = () => {
@@ -157,7 +170,7 @@ class RiskCalculator extends Component {
     return (
       <div className="risk_calculator">
         <Grid container spacing={1} justify="center" alignitems="center">
-          {this.state.activities}
+          {this.state.blockActivities}
         </Grid>
         <div className="addActivity_buttons">
         <Box pt="1rem" justify="right" m="auto">
@@ -169,7 +182,7 @@ class RiskCalculator extends Component {
                 variant="extended"
               >
                 <AddIcon />
-                <Box p="0.5rem">Add activity</Box>
+                <Box p="0.5rem">Nouvelle activité</Box>
               </Fab>
             </Grid>
             <Grid item>
@@ -190,7 +203,7 @@ class RiskCalculator extends Component {
                 variant="extended"
               >
                 <TouchAppIcon />
-                <Box p="0.5rem">Compute my risk</Box>
+                <Box p="0.5rem">Calculer mon risque</Box>
               </Fab>
             </Grid>
           </Grid>

@@ -125,7 +125,7 @@ class Universe{
 	"Estimating the burden of SARS-CoV-2 in France"
 	https://hal-pasteur.archives-ouvertes.fr/pasteur-02548181/document
 	*/
-	ageFactors(age, gender="ND"){
+	ageFactors(age="20", gender="ND"){
 		var hospAgeFactor, reaAgeFactor, deathAgeFactor;
 		if(gender==="M"){
 			if (age < 20){
@@ -317,7 +317,8 @@ class Person extends RiskProfile{
 		this.age = age;
 		this.gender = gender;
 		this.activityList = activity_list;
-		this.ageFactors = this.universe.ageFactors()
+		this.universe = universe;
+		this.ageFactors = this.universe.ageFactors(this.age, this.gender);
 	}
 	
 	addActivity(activity){
