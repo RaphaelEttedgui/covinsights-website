@@ -16,6 +16,28 @@ export default createGlobalStyle`
     line-height: 1.0;
   }
 
+  .my_body {
+    min-height: 80vh;
+    min-width: 50%;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .paper_body{
+    min-height: 90vh;
+    min-width: 50%;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .behind_body {
+  padding-top: 2rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+
   .delete_button{
     position:relative;
     max-width:40px;
@@ -91,6 +113,10 @@ export default createGlobalStyle`
       visibility: visible;
     }
 
+    .my_body{
+      padding:0px 0px 0px 0px;
+    }
+
   }
 
   @media screen and (min-width: 576px) {
@@ -123,21 +149,11 @@ export default createGlobalStyle`
     .activity_list{
       position:relative;
     }
-  
-    .my_body {
-      min-height: 100vh;
-      min-width: 50%;
-      margin: 0 auto;
-      display: flex;
+    
+    .paper_body{
+      width:50%;
     }
 
-    .behind_body {
-    padding-top: 2rem;
-    min-height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
   }
 
 
