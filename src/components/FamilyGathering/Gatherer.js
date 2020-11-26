@@ -6,12 +6,21 @@ import AddIcon from "@material-ui/icons/Add"
 import Box from "@material-ui/core/Box"
 import Chip from '@material-ui/core/Chip';
 import CachedIcon from '@material-ui/icons/Cached';
-import { IconButton, Button } from "@material-ui/core"
-import Tooltip from '@material-ui/core/Tooltip';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
-import list_activities from '../constants/activities.js';
+import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
+
+const styles = (theme) => ({
+    root: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      '& > *': {
+        margin: theme.spacing(0.5),
+      },
+    },
+  });
 
 class Gathering extends Component{
     constructor(props){
@@ -30,6 +39,19 @@ class Gathering extends Component{
     }
 
     addPerson = (args) => {
+        const myId = this.state.nextId;
+        const myNewCard = (
+            <Grid item className="person_list">
+                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+            </Grid>
+          )
+        this.setState({ nextId: this.state.nextId + 1 });
+        var myCards = this.state.peopleCards.slice();
+        myCards.push(myNewCard);
+        this.setState({ peopleCards:myCards });
+    }
+
+    addPremadePerson = (args) => {
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
@@ -62,13 +84,68 @@ class Gathering extends Component{
         this.setState({people:myPeople});
       }
 
+    generatePremadeCards = () => {
+    const { classes } = this.props;
+    return (
+        <div id="premade_cards" className={classes.root}>
+            {profiles.map((item, index) => {
+            return (
+                    <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadePerson(item)}} />
+            )
+            })}
+        </div>
+    )
+    }
+
     render = () => {
         return (
-            <div id="Gatherer_container">
+        <div id="Gatherer_container">
+         <Grid container spacing={1} justify="center" alignitems="center">
                 {this.state.peopleCards}
+        </Grid>
+            <div className="addActivity_buttons">
+            <Box pt="1rem" justify="right" m="auto">
+            <Grid container spacing={1}   alignItems="center" justify="center">
+                <Grid item>
+                <Fab
+                    onClick={() => {this.addPerson(this.defaultActivityArgs)}}
+                    color="primary"
+                    variant="extended"
+                >
+                    <AddIcon />
+                    <Box p="0.5rem">Personne</Box>
+                </Fab>
+                </Grid>
+                <Grid item>
+                <Fab onClick={this.clearAll} color="secondary" variant="extended">
+                    <CachedIcon />
+                    <Box p="0.5rem">Reset</Box>
+                </Fab>
+                </Grid>
+            </Grid>
+            </Box>
             </div>
+            <div className="addActivity_buttons">
+            <Box pt="1rem" justify="right" m="auto">
+            <Grid container spacing={1}   alignItems="center" justify="center">
+                <Grid item>
+                <Fab
+                    onClick={() => {this.toggleResult()}}
+                    variant="extended"
+                >
+                    <TouchAppIcon />
+                    <Box p="0.5rem">Calculer le bilan</Box>
+                </Fab>
+                </Grid>
+            </Grid>
+            </Box>
+            <div id="premade_profiles">
+                {this.generatePremadeCards()}
+            </div>
+            </div>
+        </div>
         )
     }
 }
 
-export default Gathering;
+export default withStyles(styles)(Gathering);

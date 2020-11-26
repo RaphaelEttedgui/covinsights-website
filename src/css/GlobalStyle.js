@@ -111,6 +111,10 @@ export default createGlobalStyle`
     padding : 2rem;
   }
 
+  #premade_profiles{
+    padding : 2rem;
+  }
+
   .calculator_presentation{
     width:100%;
     text-align: center;
@@ -133,6 +137,14 @@ export default createGlobalStyle`
     }
 
     #premade_activities{
+      padding : 2rem;
+      border-style: solid;
+      border-radius: 16px;
+      border-width:thin;
+      margin:1rem;
+    }
+
+    #premade_profiles{
       padding : 2rem;
       border-style: solid;
       border-radius: 16px;

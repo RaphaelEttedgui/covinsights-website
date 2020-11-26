@@ -9,26 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { withStyles } from "@material-ui/core/styles";
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from "@material-ui/icons/Delete"
 import {InteractionCrowd, Activity, BasicUniverse, RiskProfile, WorkerRiskProfile, NonWorkerRiskProfile} from '../Calculator/MyMath.js';
-
-const styles = (theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 80,
-  },
-    root: {
-    display: 'flex',
-    pt: "2rem",
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5),
-    },
-  },
-});
 
 const propsForForm = {
   bgcolor: "background.paper",
@@ -172,4 +155,4 @@ class PersonCard extends Component {
 }
 
 
-export default withStyles(styles)(PersonCard);
+export default PersonCard;
