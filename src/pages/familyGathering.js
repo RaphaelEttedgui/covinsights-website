@@ -10,7 +10,7 @@ class FamilyGathering extends Component{
                  Bienvenue dans le simulateur de réunion familiale !
                 </h2>
             </div>
-            <Gathering/>
+            <Gathering globalRisk={this.props.globalRisk} />
             </div>
         )
     }

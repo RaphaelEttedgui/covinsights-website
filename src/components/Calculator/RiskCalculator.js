@@ -75,7 +75,9 @@ class RiskCalculator extends Component {
     }
     result = Math.round(result * 100);
     this.setState({risk:result, person:p});
-    this.setState({toggleResult:true})
+    this.setState({toggleResult:true});
+    // Updating the global value of the risk in Navbar
+    this.props.changeGlobalRisk(result);
   }
 
   toggleResult = () => {
@@ -84,7 +86,6 @@ class RiskCalculator extends Component {
 
   showResult = () => {
     this.refResult.current.scrollIntoView();
-    console.log(this.state.person.getRisk());
     return (
       <Box pt="1rem" justify="right" m="auto">
         Your activity risk is {this.state.risk} %. This means a {Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100} % of getting covid this week,

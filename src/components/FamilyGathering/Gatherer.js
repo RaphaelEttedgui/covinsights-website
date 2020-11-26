@@ -11,6 +11,15 @@ import { withStyles } from "@material-ui/core/styles";
 import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
 
+/*
+**********
+** TODO **
+**********
+
+Ajouter des cases pour le type de réunion familiale (une ligne en bas)
+-> masque ou non, intérieur/extérieur, 
+*/
+
 const styles = (theme) => ({
     root: {
       display: 'flex',
@@ -25,7 +34,9 @@ const styles = (theme) => ({
 class Gathering extends Component{
     constructor(props){
         super(props);
-        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false}
+        // globalRisk contains the person Risk derived from the calculator.
+        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, myRisk:this.props.globalRisk,
+        masks:false, outdoors:false, talking:"normal", distance:"normal"}
         this.defaultPersonArgs = {
             name:"Bobby",
             age: 20,

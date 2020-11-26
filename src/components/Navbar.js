@@ -14,9 +14,21 @@ import Body from './Body.js'
 
 class Navbar extends Component{
 
+  constructor(props)
+  {
+    super(props);
+    // This state is passed to children component
+    // -> Stores the user's risk profile.
+    this.state= { globalRisk:"bite" };
+  }
+
     toggleNav = () => {
 
         document.querySelector('.nav-links').classList.toggle("show-nav");
+    }
+
+    changeGlobalRisk = (risk) => {
+      this.setState({globalRisk:risk});
     }
 
     render(){
@@ -60,8 +72,9 @@ class Navbar extends Component{
                 <Body>
                   <Switch>
                     <Route path="/" component={Home} exact/>
-                    <Route path="/calculator" component={Calculator} exact/>
-                    <Route path="/familyGathering" component={FamilyGathering} />
+                    <Route path="/calculator" component={
+                      () => <Calculator globalRisk={this.state.globalRisk} changeGlobalRisk={this.changeGlobalRisk} />} exact/>
+                    <Route path="/familyGathering" component={() => <FamilyGathering globalRisk={this.state.globalRisk} />} />
                     <Route component={Error}/>
                   </Switch>
                 </Body>
