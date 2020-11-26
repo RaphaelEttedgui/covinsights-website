@@ -5,7 +5,11 @@ class FamilyGathering extends Component{
     render = () => {
         return (
             <div>
-            <h1>Simulateur de réunion !</h1>
+            <div className="family_presentation">
+                <h2>
+                 Bienvenue dans le simulateur de réunion familiale !
+                </h2>
+            </div>
             <Gathering/>
             </div>
         )

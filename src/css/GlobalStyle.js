@@ -31,7 +31,6 @@ export default createGlobalStyle`
   }
 
   .behind_body {
-  padding-top: 2rem;
   min-height: 100vh;
   display: flex;
   justify-content: space-between;
@@ -43,6 +42,40 @@ export default createGlobalStyle`
     max-width:40px;
     left:90%;
     top:20px;
+  }
+
+  .person_delete_button_creator{
+    position:relative;
+    max-width:40px;
+    left:97%;
+  }
+
+  .person_delete_button_show{
+    position:relative;
+    max-width:40px;
+    left:92%;
+    bottom:6px;
+  }
+
+  .person_edit_button{
+    position:relative;
+    left:75%;
+    top:29%;
+  }
+
+  .show_name_person{
+    height:100%;
+    max-width:75%;
+    text-align:center;
+    position:relative;
+    padding : 5px;
+    bottom:3.6rem;
+  }
+
+  .person_name_inner{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
   }
 
   .form_activity_grid{
@@ -83,15 +116,17 @@ export default createGlobalStyle`
     text-align: center;
   }
 
+  .family_presentation{
+    width:100%;
+    text-align: center;
+  }
+
   .addActivity_buttons{
     align-items: center;
     justify-content: space-between;
   }
 
   @media screen and (max-width: 576px){
-    .inside_body{
-      padding-top: 2rem;
-    }
     .risk_calculator{
       align-items: center;
       justify-content: space-between;
@@ -123,6 +158,7 @@ export default createGlobalStyle`
 
     .inside_body{
       padding: 2rem 1rem 0 1rem;
+      width:100%;
     }
 
     .activity_box{

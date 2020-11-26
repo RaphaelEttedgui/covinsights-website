@@ -40,15 +40,15 @@ class Navbar extends Component{
               <ul className="nav-links">
                       <Divider />
                       <li>
-                      <NavLink onClick={this.toggleNav} to="/">Home</NavLink>
+                      <NavLink onClick={this.toggleNav} to="/">Accueil</NavLink>
                       </li>
                       <Divider />
                       <li>
-                      <NavLink onClick={this.toggleNav} to="/calculator">Risk Calculator</NavLink>
+                      <NavLink onClick={this.toggleNav} to="/calculator">Calculateur de risque</NavLink>
                       </li>
                       <Divider />
                       <li>
-                      <NavLink onClick={this.toggleNav} to="/familyGathering/">Family gathering</NavLink>
+                      <NavLink onClick={this.toggleNav} to="/familyGathering/">Réunion familiale</NavLink>
                       </li>
                       <Divider/>
                       <li>

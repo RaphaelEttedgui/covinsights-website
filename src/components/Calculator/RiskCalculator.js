@@ -87,7 +87,8 @@ class RiskCalculator extends Component {
     console.log(this.state.person.getRisk());
     return (
       <Box pt="1rem" justify="right" m="auto">
-        Your total risk is {this.state.risk} %. This means {Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100} % for a prevalence of {this.state.person.universe.prevalence}.
+        Your activity risk is {this.state.risk} %. This means a {Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100} % of getting covid this week,
+        for a prevalence of {this.state.person.universe.prevalence}.
       </Box>
     )
   }
