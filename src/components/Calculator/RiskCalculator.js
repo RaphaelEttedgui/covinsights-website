@@ -201,7 +201,7 @@ class RiskCalculator extends Component {
         </div>
         <div className="addActivity_buttons">
         <Box pt="1rem" justify="right" m="auto">
-          <Grid container spacing={0.5}   alignItems="center" justify="center">
+          <Grid container spacing={1}   alignItems="center" justify="center">
             <Grid item>
               <Fab
                 onClick={() => {this.getRisk(); this.toggleResult()}}

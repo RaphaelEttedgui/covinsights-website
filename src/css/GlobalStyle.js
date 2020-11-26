@@ -20,21 +20,19 @@ export default createGlobalStyle`
     min-height: 80vh;
     min-width: 50%;
     margin: 0 auto;
-    display: flex;
   }
 
   .paper_body{
     min-height: 90vh;
     min-width: 50%;
-    margin: 0 auto;
-    display: flex;
+    margin: auto;
   }
 
   .behind_body {
   min-height: 100vh;
-  display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top:45px;
   }
 
   .delete_button{
@@ -134,6 +132,10 @@ export default createGlobalStyle`
     .risk_calculator{
       align-items: center;
       justify-content: space-between;
+    }
+
+    .behind_body{
+      padding-top:30px;
     }
 
     #premade_activities{

@@ -5,7 +5,7 @@ class Calculator extends Component {
 
   render =() => {
     return (
-      <div>
+      <div className="calculator_container">
       <div className="calculator_presentation">
         <h2>
           Bienvenue dans le calculateur de risque !

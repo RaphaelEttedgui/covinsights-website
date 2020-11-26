@@ -19,7 +19,8 @@ class Navbar extends Component{
     super(props);
     // This state is passed to children component
     // -> Stores the user's risk profile.
-    this.state= { globalRisk:"bite" };
+    this.state = {globalRisk:"bite", calculator: ()=><Calculator changeGlobalRisk={this.changeGlobalRisk}/>,
+        familyGathering: ()=><FamilyGathering />}
   }
 
     toggleNav = () => {
@@ -28,7 +29,7 @@ class Navbar extends Component{
     }
 
     changeGlobalRisk = (risk) => {
-      this.setState({globalRisk:risk});
+      this.setState({familyGathering: () =><FamilyGathering globalRisk={risk}/>});
     }
 
     render(){
@@ -72,9 +73,8 @@ class Navbar extends Component{
                 <Body>
                   <Switch>
                     <Route path="/" component={Home} exact/>
-                    <Route path="/calculator" component={
-                      () => <Calculator globalRisk={this.state.globalRisk} changeGlobalRisk={this.changeGlobalRisk} />} exact/>
-                    <Route path="/familyGathering" component={() => <FamilyGathering globalRisk={this.state.globalRisk} />} />
+                    <Route path="/calculator" component={this.state.calculator} exact/>
+                    <Route path="/familyGathering" component={this.state.familyGathering} />
                     <Route component={Error}/>
                   </Switch>
                 </Body>

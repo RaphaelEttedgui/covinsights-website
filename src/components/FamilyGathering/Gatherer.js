@@ -10,6 +10,7 @@ import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
 import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
+import InteractionOne from '../Calculator/MyMath.js'
 
 /*
 **********
@@ -35,7 +36,7 @@ class Gathering extends Component{
     constructor(props){
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
-        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, myRisk:this.props.globalRisk,
+        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, globalRisk:0,
         masks:false, outdoors:false, talking:"normal", distance:"normal"}
         this.defaultPersonArgs = {
             name:"Bobby",
@@ -46,9 +47,11 @@ class Gathering extends Component{
     }
 
     componentDidMount = () => {
+        console.log(this.props.globalRisk);
         this.addPerson(this.defaultPersonArgs);
     }
 
+    // We only add the card, the person is added on submit.
     addPerson = (args) => {
         const myId = this.state.nextId;
         const myNewCard = (
@@ -62,6 +65,7 @@ class Gathering extends Component{
         this.setState({ peopleCards:myCards });
     }
 
+    // For a premade, we directly enter the person
     addPremadePerson = (args) => {
         const myId = this.state.nextId;
         const myNewCard = (
@@ -71,6 +75,8 @@ class Gathering extends Component{
           )
         this.setState({ nextId: this.state.nextId + 1 });
         var myCards = this.state.peopleCards.slice();
+        var myPeople = this.state.people;
+        myPeople[myId] = [args.age, args.gender, args.risk]
         myCards.push(myNewCard);
         this.setState({ peopleCards:myCards });
     }
@@ -108,6 +114,10 @@ class Gathering extends Component{
     )
     }
 
+    computeResult = () => {
+        console.log(this.state.people);
+    }
+
     render = () => {
         return (
         <div id="Gatherer_container">
@@ -141,7 +151,7 @@ class Gathering extends Component{
             <Grid container spacing={1}   alignItems="center" justify="center">
                 <Grid item>
                 <Fab
-                    onClick={() => {this.toggleResult()}}
+                    onClick={() => {this.toggleResult(); this.computeResult()}}
                     variant="extended"
                 >
                     <TouchAppIcon />

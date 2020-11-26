@@ -2,6 +2,12 @@ import React, {Component} from "react";
 import Gathering from "../components/FamilyGathering/Gatherer.js";
 
 class FamilyGathering extends Component{
+
+    constructor(props){
+        super(props);
+    }
+
+
     render = () => {
         return (
             <div>
