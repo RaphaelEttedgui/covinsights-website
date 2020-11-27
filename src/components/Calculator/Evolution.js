@@ -55,7 +55,7 @@ class Evolution extends Component {
 	
 	render(){
 		return (
-		<div>
+		<div className="recharts_graph">
 		<LineChart width={400} height={300} data={this.state.sim.simulate().y}>
 			<Line type="monotone" yAxisId="left" dataKey="infections" dot={false} stroke="red" />
 			<CartesianGrid stroke="#ccc" />

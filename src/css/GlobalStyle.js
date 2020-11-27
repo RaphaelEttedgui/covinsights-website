@@ -136,6 +136,11 @@ export default createGlobalStyle`
     padding-top:1.5rem;
   }
 
+  .recharts_graph{
+    margin:auto;
+    max-width:400px;
+  }
+
   #button_to_family{
     padding-top:1.5rem;
   }
