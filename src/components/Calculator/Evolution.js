@@ -60,7 +60,7 @@ class Evolution extends Component {
 			<Line type="monotone" yAxisId="left" dataKey="infections" dot={false} stroke="red" />
 			<CartesianGrid stroke="#ccc" />
 			<XAxis dataKey="x" interval={5}>
-                <Label value="(jours)" position='right' offset={0} />
+                <Label value="(jours)" position='right' offset={-15} />
             </XAxis>
 			<YAxis yAxisId="left" />
 			<YAxis width={80} yAxisId="right" orientation="right" tick={{ fontSize: 10, }}>
