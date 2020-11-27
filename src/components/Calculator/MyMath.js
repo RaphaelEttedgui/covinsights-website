@@ -48,6 +48,15 @@ class InteractionOne extends Interaction{
 		if (this.talking === "quiet"){
 			risk = risk / 5;
 		}
+		if (this.distance ==="close"){
+			risk = risk * 2;
+		}
+		if (this.distance === "long"){
+			risk = risk /2;
+		}
+		if (this.distance === "veryLong"){
+			risk = risk /4;
+		}
 		var finalRisk = 0
 		// Adapting the risk to the duration. 6% chance of contamination per hour.
 		var i;
@@ -87,6 +96,15 @@ class InteractionCrowd extends Interaction{
 		}
 		if (this.talking === "quiet"){
 			risk = risk / 5;
+		}
+		if (this.distance ==="close"){
+			risk = risk * 2;
+		}
+		if (this.distance === "long"){
+			risk = risk /2;
+		}
+		if (this.distance === "veryLong"){
+			risk = risk /4;
 		}
 		var finalRisk = 0;
 		var totalRisk = 0;
@@ -260,7 +278,7 @@ class Universe{
 
 class BasicUniverse extends Universe{
 	constructor(){
-		super(0.015); // Prevalence in early November in France.
+		super(0.010); // Prevalence in early November in France.
 	}
 }
 
@@ -344,9 +362,13 @@ class Person extends RiskProfile{
 		var i=0;
 		for(i=0; i<this.activityList.length; i++)
 		{
-			risk = risk + (1-risk)*this.activityList[i].getRisk();
+			risk = risk + (1-risk)*this.activityList[i].getActivityRisk();
 		}
-		return risk;
+		// Hardcap à 0.5 sur le activityRisk
+		if(risk>0.5){
+			risk=0.5
+		}
+		return risk*this.universe.prevalence;
 	}
 	
 	getProfileRisk(){
@@ -473,7 +495,7 @@ class GroupReunion{
 			var deathProba = this.personList[i].ageFactors[2];
 			// Updating the proba that no-one gets hospitalized
 			hospRisk = hospRisk * (1 - myRisk*hospProba);
-			reaRisk = reaRisk  (1 - myRisk*hospProba*reaProba)
+			reaRisk = reaRisk * (1 - myRisk*hospProba*reaProba)
 			deathRisk = deathRisk  *(1 - myRisk*hospProba*deathProba)
 			// Updating the average number of hospitalizations
 			moyenneHosp = moyenneHosp + myRisk*hospProba

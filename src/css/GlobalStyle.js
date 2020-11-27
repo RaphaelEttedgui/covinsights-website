@@ -123,6 +123,27 @@ export default createGlobalStyle`
     text-align: center;
   }
 
+  #calculator_result{
+    text-align:center;
+    padding:1rem;
+  }
+
+  #family_result{
+    text-align:center;
+  }
+
+  #graph_result{
+    padding-top:1.5rem;
+  }
+
+  #button_to_family{
+    padding-top:1.5rem;
+  }
+
+  #text_graph_result{
+    padding-top:1.5rem;
+  }
+
   .addActivity_buttons{
     align-items: center;
     justify-content: space-between;

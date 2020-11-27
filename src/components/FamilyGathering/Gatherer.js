@@ -10,7 +10,9 @@ import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
 import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
-import InteractionOne from '../Calculator/MyMath.js'
+import {InteractionOne, BasicUniverse} from '../Calculator/MyMath.js';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 /*
 **********
@@ -36,18 +38,18 @@ class Gathering extends Component{
     constructor(props){
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
-        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, globalRisk:0,
-        masks:false, outdoors:false, talking:"normal", distance:"normal"}
+        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, result:[], globalRisk:0,
+        masks:false, outdoors:false, duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse()}
         this.defaultPersonArgs = {
             name:"Bobby",
             age: 20,
             gender: "ND",
             risk:0,
-        }
+        };
+        this.refResult = React.createRef();
     }
 
     componentDidMount = () => {
-        console.log(this.props.globalRisk);
         this.addPerson(this.defaultPersonArgs);
     }
 
@@ -76,7 +78,8 @@ class Gathering extends Component{
         this.setState({ nextId: this.state.nextId + 1 });
         var myCards = this.state.peopleCards.slice();
         var myPeople = this.state.people;
-        myPeople[myId] = [args.age, args.gender, args.risk]
+        var ageFactors = this.state.universe.ageFactors(args.age, args.gender);
+        myPeople[myId] = [ageFactors, args.risk];
         myCards.push(myNewCard);
         this.setState({ peopleCards:myCards });
     }
@@ -97,7 +100,8 @@ class Gathering extends Component{
     // Called by the children on mount and submit
     updatePerson = (id, age, gender, risk) => {
         var myPeople = this.state.people;
-        myPeople[id] = [age, gender, risk];
+        var ageFactors = this.state.universe.ageFactors(age, gender);
+        myPeople[id] = [ageFactors, risk];
         this.setState({people:myPeople});
       }
 
@@ -114,8 +118,89 @@ class Gathering extends Component{
     )
     }
 
+    toggleResult = () => {
+        this.setState({toggleResult:true});
+    }
+
+    // Compute the probability that someone is hospitalized, goes to ICU, and dies.
     computeResult = () => {
-        console.log(this.state.people);
+        /*
+		Formulas :
+		- Mean number of people hospitalized : sum(p_hosp)
+        - Probability that at least one person is hospitalized : 1 - prod(1-p_hosp)
+        - Attention, les risques sont entrés par les gens sous forme de pourcentages !!
+		*/
+		var risk = 1.0;
+		var hospRisk = 1.0;
+		var reaRisk = 1.0;
+		var deathRisk = 1.0;
+		var moyenneHosp = 0.0;
+		var moyenneRea = 0.0;
+		var moyenneDeaths = 0.0;
+        var i;
+        var interaction = new InteractionOne("Family gathering", this.state.duration, this.state.masks, this.state.masks,
+            this.state.talking, this.state.outdoors, this.state.distance);
+        var interactionRisk = interaction.getActivityRisk();
+        // Using the risk from the calculator.
+        // We only compute the risk for his family.
+        risk = risk *(1-this.props.globalRisk);
+		for(var key in this.state.people){
+            // The risk passed by the person via the simulator.
+			var myRisk = this.state.people[key][1] / 100
+			// We update the probability that no-one has the disease
+            risk = risk * (1-myRisk);
+            console.log(this.state.people[key])
+			for(var current in this.state.people){
+                if(current != key){
+                    // Updating the risk for person i by taking into account the possible
+				    // contamination by person j.
+				    myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.people[current][1]/100;
+                }
+            }
+            myRisk = myRisk + (1-myRisk)*interactionRisk*this.props.globalRisk;
+			var hospProba = this.state.people[key][0][0]
+			var reaProba = this.state.people[key][0][1]
+			var deathProba = this.state.people[key][0][2]
+			// Updating the proba that no-one gets hospitalized
+			hospRisk = hospRisk * (1 - myRisk*hospProba);
+			reaRisk = reaRisk * (1 - myRisk*hospProba*reaProba)
+			deathRisk = deathRisk  *(1 - myRisk*hospProba*deathProba)
+			// Updating the average number of hospitalizations
+			moyenneHosp = moyenneHosp + myRisk*hospProba
+			moyenneRea = moyenneRea + myRisk*hospProba*reaProba
+			moyenneDeaths = moyenneDeaths + myRisk*hospProba*deathProba
+		}
+		risk = 1-risk;
+		hospRisk = 1-hospRisk;
+		reaRisk = 1-reaRisk;
+        deathRisk = 1-deathRisk;
+        console.log([risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]);
+        var res = 
+		this.setState({result:[risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]});
+    }
+
+    showResult = () => {
+        this.refResult.current.scrollIntoView();
+        const result = this.state.result;
+        const pop_restante = 66000000 * 0.85; // 66millions moins les environ 15% déjà infectés.
+        const nb_over_70 = pop_restante * 0.14; // 14% de la population a plus de 70 ans.
+        const nb_christmas = nb_over_70 / 20; // On estime qu'un sur 20 environ ira à une fête de Noël.
+        return (
+        <div id ="family_result">
+        <Box pt="1rem" justify="right" m="auto">
+            <List>
+                <ListItem> Probabilité qu'une personne au moins ait le covid : {Math.round(result[0] * 100)}%. </ListItem>
+                <ListItem> Probabilité qu'une personne soit hospitalisée : {Math.round(result[1]*100)}%. Bilan :
+                {Math.round(result[4]*nb_christmas)} hospitalisations supplémentaires à l'échelle de la France.</ListItem>
+                <ListItem>Probabilité qu'une personne aille en réa : {Math.round(result[2]*100)}%.
+                Bilan : {Math.round(result[5]*nb_christmas)} réas supplémentaires à l'échelle de la France.</ListItem>
+                <ListItem>Probabilité qu'une personne meure : {Math.round(result[3]*100)}%.
+                Bilan : {Math.round(result[6]*nb_christmas)} morts supplémentaires à l'échelle de la France.</ListItem>
+            </List>
+        </Box>
+      </div>
+      )
+
     }
 
     render = () => {
@@ -126,10 +211,10 @@ class Gathering extends Component{
         </Grid>
             <div className="addActivity_buttons">
             <Box pt="1rem" justify="right" m="auto">
-            <Grid container spacing={1}   alignItems="center" justify="center">
+            <Grid container spacing={1} alignItems="center" justify="center">
                 <Grid item>
                 <Fab
-                    onClick={() => {this.addPerson(this.defaultActivityArgs)}}
+                    onClick={() => {this.addPerson(this.defaultPersonArgs)}}
                     color="primary"
                     variant="extended"
                 >
@@ -160,9 +245,13 @@ class Gathering extends Component{
                 </Grid>
             </Grid>
             </Box>
+            </div>
             <div id="premade_profiles">
                 {this.generatePremadeCards()}
-            </div>
+            </div>  
+            
+            <div ref={this.refResult}>
+            {this.state.toggleResult && this.showResult()}
             </div>
         </div>
         )

@@ -14,10 +14,15 @@ import { withStyles } from "@material-ui/core/styles";
 import list_activities from '../constants/activities.js';
 import FaceIcon from '@material-ui/icons/Face';
 import { Person } from "./MyMath.js"
+import { NavLink } from 'react-router-dom';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import Evolution from './Evolution.js'
 
 /*
 ***** TODO *****
-Ajouter des boutons avec activités toutes faites, permettant de les ajouter en cliquant dessus.
+Faire que le globalRisk soit envoyé non pas au calcul, mais quand on appuie
+sur un bouton "what does it mean for a family reunion"
+(qui link du même coup au family reunion)
 
 ***** END TODO *****
 */
@@ -36,7 +41,7 @@ const styles = (theme) => ({
 class RiskCalculator extends Component {
   constructor(props){
     super(props);
-    this.state = {blockActivities: [], risks:{}, activities: {}, nextId:0, risk:0, toggleResult:false, person: new Person()}
+    this.state = {blockActivities: [], risks:{}, activities: {}, nextId:0, risk:0, toggleResult:false, person: new Person(), capped:false}
     this.defaultActivityArgs = {
       name:"Activité",
       wearMask: false,
@@ -74,23 +79,61 @@ class RiskCalculator extends Component {
       p.addActivity(this.state.activities[key]);
     }
     result = Math.round(result * 100);
+    // Capping the activity risk at 50%.
+    if(result > 50){
+      this.setState({capped:true});
+      result = 50;
+    }
     this.setState({risk:result, person:p});
     this.setState({toggleResult:true});
     // Updating the global value of the risk in Navbar
-    this.props.changeGlobalRisk(result);
+    // this.props.changeGlobalRisk(result);
   }
 
   toggleResult = () => {
     this.setState({toggleResult:true});
   }
 
+  showCapped = () => {
+    return (
+    <div>(Capé à 50%. Notre méthode d'estimation n'est pas adaptée aux risques plus élevés).</div>
+    )
+  }
+
+  // Affiche le résultat (appelé sur clic de calculer mon risque)
+  // Contient le lien vers le simulateur et lui transmet le risque.
   showResult = () => {
     this.refResult.current.scrollIntoView();
+    const riskWeek = Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100;
+    var riskYear=0;
+    for(var i=0; i<52;i++)
+    {
+      riskYear = riskYear + (1-riskYear)*this.state.person.getRisk();
+    }
+    riskYear = Math.round((riskYear * 10000 + Number.EPSILON)) / 100;
     return (
+      <div id="calculator_result">
       <Box pt="1rem" justify="right" m="auto">
-        Your activity risk is {this.state.risk} %. This means a {Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100} % of getting covid this week,
-        for a prevalence of {this.state.person.universe.prevalence}.
+        Le score d'activités est {this.state.risk} % {this.state.capped && this.showCapped()}. Cela signifie {riskWeek} % de chance d'attraper le covid
+        sur une semaine, pour une prévalence de {this.state.person.universe.prevalence}, et {riskYear} % sur un an.
       </Box>
+      <div id="button_to_family">
+      <NavLink to="/familyGathering/">
+      <Fab
+      onClick={() => {this.props.changeGlobalRisk(this.state.person.getRisk());}}
+      variant="extended"
+    >
+      <GroupAddIcon />
+      <Box p="0.5rem">Importer dans le simulateur de réunion familiale</Box>
+    </Fab>
+    </NavLink>
+    </div>
+    <div id="text_graph_result">
+    Evolution de l'épidémie sur un mois si tout le monde a le même profil de risque (chiffres en milliers) :
+    </div>
+    {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
+    <div id='graph_result'><Evolution risk={this.state.risk/100}/></div>
+    </div>
     )
   }
 
@@ -142,7 +185,7 @@ class RiskCalculator extends Component {
   }
 
   clearAll = () => {
-    this.setState({ nextId: 0, blockActivities: [], risks:{}, activities: {}, risk:0, toggleResult:false });
+    this.setState({ nextId: 0, blockActivities: [], risks:{}, activities: {}, risk:0, toggleResult:false, capped:false});
     var p = this.state.person;
     p.clearActivityList();
     this.setState({person:p});
@@ -155,7 +198,7 @@ class RiskCalculator extends Component {
     widgets[id] = <div />
     myRisks[id] = 0;
     delete myActis[id];
-    this.setState({ blockActivities: widgets, risks:myRisks, activities:myActis})
+    this.setState({ blockActivities: widgets, risks:myRisks, activities:myActis, capped:false})
   }
 
   generatePremadeCards = () => {

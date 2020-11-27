@@ -19,8 +19,8 @@ class Navbar extends Component{
     super(props);
     // This state is passed to children component
     // -> Stores the user's risk profile.
-    this.state = {globalRisk:"bite", calculator: ()=><Calculator changeGlobalRisk={this.changeGlobalRisk}/>,
-        familyGathering: ()=><FamilyGathering />}
+    this.state = {globalRisk:0., calculator: ()=><Calculator changeGlobalRisk={this.changeGlobalRisk}/>,
+        familyGathering: ()=><FamilyGathering globalRisk={0.} />}
   }
 
     toggleNav = () => {
@@ -29,6 +29,7 @@ class Navbar extends Component{
     }
 
     changeGlobalRisk = (risk) => {
+      console.log(risk);
       this.setState({familyGathering: () =><FamilyGathering globalRisk={risk}/>});
     }
 

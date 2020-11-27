@@ -58,11 +58,11 @@ class PersonCard extends Component {
   }
 
   handleAge = (e) => {
-      this.setState({age:e.target.value});
+      this.setState({age:Number(e.target.value)});
   }
 
   handleRisk = (e) => {
-      this.setState({risk:e.target.value});
+      this.setState({risk:Number(e.target.value)});
   }
 
   showForm = () => {

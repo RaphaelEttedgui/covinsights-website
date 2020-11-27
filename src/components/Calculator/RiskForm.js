@@ -76,6 +76,10 @@ class RiskForm extends Component {
   }
 
   setActivityRisk = () => {
+    // setting the duration.
+    var newDuration = 60*this.state.heures + this.state.minutes;
+    this.setState({duration:newDuration})
+    console.log(this.state);
     var maskProportion = 0;
     if(this.state.nbMasked === 0)
     {
@@ -84,7 +88,7 @@ class RiskForm extends Component {
     else{
       maskProportion = this.state.nbPeople / this.state.nbMasked;
     }
-    var interaction = new InteractionCrowd(this.state.name, this.state.duration, this.state.nbPeople, this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance);
+    var interaction = new InteractionCrowd(this.state.name, newDuration, this.state.nbPeople, this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance);
     this.setState({activityRisk: Math.round((interaction.getActivityRisk() + Number.EPSILON) * 100) / 100});
     var profile = new RiskProfile();
     if(this.state.riskProfile === "worker")
@@ -131,16 +135,10 @@ class RiskForm extends Component {
 
   handleHours = (event) => {
     this.setState({heures:Number(event.target.value)})
-    this.computeDuration();
   }
 
   handleMinutes = (event) => {
     this.setState({minutes:Number(event.target.value)});
-    this.computeDuration();
-  }
-
-  computeDuration = () => {
-    this.setState({duration:60*this.state.heures+this.state.minutes});
   }
 
   handleTalking = (event) => {
@@ -265,14 +263,16 @@ class RiskForm extends Component {
                           <InputLabel id="demo-simple-select-label">Distance</InputLabel>
                           <Select
                             native 
+                            style={{width: 90}}
                             id="demo-simple-select"
                             value={this.state.distance}
                             onChange={this.handleDistance}
                             label="Nb people"
                           >
-                            <option value="normal">Normale</option>
-                            <option value="close">Proche</option>
-                            <option value="long">Longue</option>
+                            <option value="normal">Normale (1m)</option>
+                            <option value="close">Proche (&le;30cm)</option>
+                            <option value="long">Longue (2m)</option>
+                            <option value="veryLong">Très longue (&ge;3m)</option>
                           </Select>
                         </FormControl>
                       </Grid>
