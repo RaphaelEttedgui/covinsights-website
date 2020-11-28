@@ -183,8 +183,7 @@ class Gathering extends Component{
         this.refResult.current.scrollIntoView();
         const result = this.state.result;
         const pop_restante = 66000000 * 0.85; // 66millions moins les environ 15% déjà infectés.
-        const nb_over_70 = pop_restante * 0.14; // 14% de la population a plus de 70 ans.
-        const nb_christmas = nb_over_70 / 20; // On estime qu'un sur 20 environ ira à une fête de Noël.
+        const nb_christmas = pop_restante/20; // Environ une personne sur 20 va à un rassemblement familial à Noël.
         return (
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
@@ -201,6 +200,20 @@ class Gathering extends Component{
       </div>
       )
 
+    }
+
+    showMyRisk = () => {
+        return (
+            <div className="addActivity_buttons">
+            <Box pt="1rem" justify="right" m="auto">
+            <Grid container spacing={1}   alignItems="center" justify="center">
+                <Grid item>
+                My risk : {this.props.globalRisk} (refresh to delete)
+                </Grid>
+            </Grid>
+            </Box>
+            </div>            
+        )
     }
 
     render = () => {
@@ -246,10 +259,10 @@ class Gathering extends Component{
             </Grid>
             </Box>
             </div>
+            {this.props.globalRisk!==0 && this.showMyRisk()}
             <div id="premade_profiles">
                 {this.generatePremadeCards()}
             </div>  
-            
             <div ref={this.refResult}>
             {this.state.toggleResult && this.showResult()}
             </div>

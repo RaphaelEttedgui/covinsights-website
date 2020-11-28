@@ -79,11 +79,6 @@ class RiskCalculator extends Component {
       p.addActivity(this.state.activities[key]);
     }
     result = Math.round(result * 100);
-    // Capping the activity risk at 50%.
-    if(result > 50){
-      this.setState({capped:true});
-      result = 50;
-    }
     this.setState({risk:result, person:p});
     this.setState({toggleResult:true});
     // Updating the global value of the risk in Navbar
@@ -114,7 +109,7 @@ class RiskCalculator extends Component {
     return (
       <div id="calculator_result">
       <Box pt="1rem" justify="right" m="auto">
-        Le score d'activités est {this.state.risk} % {this.state.capped && this.showCapped()}. Cela signifie {riskWeek} % de chance d'attraper le covid
+        Le score d'activités est {this.state.risk} %. Cela signifie {riskWeek} % de chance d'attraper le covid
         sur une semaine, pour une prévalence de {this.state.person.universe.prevalence}, et {riskYear} % sur un an.
       </Box>
       <div id="button_to_family">

@@ -4,8 +4,11 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label} from 'rec
 var rk4 = require('ode-rk4');   
 
 class EpidemySimulator{
-    // gamma=0.125 correspond à 8 jours de récupération. 7 à 0.14.
-	constructor(beta, gamma=0.125, N=66000, I0=20, tmax=30, R0=15000){
+	// gamma=0.125 correspond à 8 jours de récupération. 7 à 0.14.
+	// gamma=0.377 correspond aux estimations (avec 7 jours de récup) par les data.
+	// https://colab.research.google.com/drive/1xrxKqc5V-tGajRMd4YrFYphDLLIvsCWL?usp=sharing
+	// pour un calcul plus détaillé.
+	constructor(beta, gamma=0.377, N=66000, I0=20, tmax=30, R0=15000){
 		this.beta = beta;
 		this.gamma = gamma;
 		this.number_people = N;

@@ -118,6 +118,10 @@ class InteractionCrowd extends Interaction{
 			totalRisk = totalRisk + (1-totalRisk)*finalRisk;
 		}
 		totalRisk = totalRisk + (1-totalRisk)*finalRisk*this.minutes/60;
+		// Hardcap à 0.5 pour chaque activité individuelle.
+		if(totalRisk>0.5){
+			totalRisk=0.5;
+		}
 		return totalRisk;
 	}
 }
@@ -363,10 +367,6 @@ class Person extends RiskProfile{
 		for(i=0; i<this.activityList.length; i++)
 		{
 			risk = risk + (1-risk)*this.activityList[i].getActivityRisk();
-		}
-		// Hardcap à 0.5 sur le activityRisk
-		if(risk>0.5){
-			risk=0.5
 		}
 		return risk*this.universe.prevalence;
 	}
