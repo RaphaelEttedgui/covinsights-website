@@ -41,7 +41,8 @@ const styles = (theme) => ({
 class RiskCalculator extends Component {
   constructor(props){
     super(props);
-    this.state = {blockActivities: [], risks:{}, activities: {}, nextId:0, risk:0, toggleResult:false, person: new Person(), capped:false}
+    this.state = {blockActivities: [], risks:{}, activities: {}, nextId:0, risk:0, toggleResult:false, person: new Person(), capped:false,
+          evolution:()=><Evolution risk={0}/>}
     this.defaultActivityArgs = {
       name:"Activité",
       wearMask: false,
@@ -70,16 +71,23 @@ class RiskCalculator extends Component {
     var p = this.state.person;
     p.clearActivityList();
     var result = 0;
+    var mySum=0;
     for (var key in this.state.risks)
     {
       result = result + (1-result)* this.state.risks[key];
+      mySum=mySum+this.state.risks[key];
     }
     for (var key in this.state.activities)
     {
       p.addActivity(this.state.activities[key]);
     }
-    result = Math.round(result * 100);
-    this.setState({risk:result, person:p});
+    result = Math.round(result * 1000)/10;
+    var dailyRisk=mySum/7;
+    if(dailyRisk>0.9)
+    {
+      dailyRisk=0.9;
+    }
+    this.setState({risk:result, person:p, evolution:() => {return (<Evolution risk={mySum/7}/> )}});
     this.setState({toggleResult:true});
     // Updating the global value of the risk in Navbar
     // this.props.changeGlobalRisk(result);
@@ -87,6 +95,10 @@ class RiskCalculator extends Component {
 
   toggleResult = () => {
     this.setState({toggleResult:true});
+  }
+
+  toggleOffResult = () => {
+    this.setState({toggleResult:false});
   }
 
   showCapped = () => {
@@ -101,9 +113,10 @@ class RiskCalculator extends Component {
     this.refResult.current.scrollIntoView();
     const riskWeek = Math.round((this.state.person.getRisk() * 10000 + Number.EPSILON)) / 100;
     var riskYear=0;
+    const personRisk = this.state.person.getRisk();
     for(var i=0; i<52;i++)
     {
-      riskYear = riskYear + (1-riskYear)*this.state.person.getRisk();
+      riskYear = riskYear + (1-riskYear)*personRisk;
     }
     riskYear = Math.round((riskYear * 10000 + Number.EPSILON)) / 100;
     return (
@@ -127,7 +140,7 @@ class RiskCalculator extends Component {
     Evolution de l'épidémie sur un mois si tout le monde a le même profil de risque (chiffres en milliers) :
     </div>
     {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
-    <div id='graph_result'><Evolution risk={this.state.risk/100}/></div>
+    <div id='graph_result'>{this.state.evolution()}</div>
     </div>
     )
   }
@@ -136,7 +149,7 @@ class RiskCalculator extends Component {
     const myId = [this.state.nextId]
     const widget = (
       <Grid item className="activity_list">
-          <RiskForm id={myId} updateRisk={this.updateRisk} {...args}>
+          <RiskForm id={myId} updateRisk={this.updateRisk} edit={this.toggleOffResult} {...args}>
               <div className="delete_button">
               <Tooltip title="Supprimer">
               <IconButton aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
@@ -158,7 +171,7 @@ class RiskCalculator extends Component {
     const myId = [this.state.nextId]
     const widget = (
       <Grid item className="activity_list">
-          <RiskForm id={myId} showForm={true} updateRisk={this.updateRisk} {...args}>
+          <RiskForm id={myId} showForm={true} updateRisk={this.updateRisk} edit={this.toggleOffResult} {...args}>
               <div className="delete_button">
               <Tooltip title="Supprimer">
               <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.clear(myId[0])}>
@@ -202,7 +215,7 @@ class RiskCalculator extends Component {
       <div id="premade_cards" className={classes.root}>
           {list_activities.map((item, index) => {
             return (
-                  <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadeActivity(item)}} />
+                  <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadeActivity(item); this.toggleOffResult()}} />
             )
           })}
       </div>
@@ -220,7 +233,7 @@ class RiskCalculator extends Component {
           <Grid container spacing={1}   alignItems="center" justify="center">
             <Grid item>
               <Fab
-                onClick={() => {this.addActivity(this.defaultActivityArgs)}}
+                onClick={() => {this.addActivity(this.defaultActivityArgs); this.toggleOffResult();}}
                 color="primary"
                 variant="extended"
               >
@@ -229,7 +242,7 @@ class RiskCalculator extends Component {
               </Fab>
             </Grid>
             <Grid item>
-              <Fab onClick={this.clearAll} color="secondary" variant="extended">
+              <Fab onClick={() => {this.clearAll(); this.toggleOffResult();}} color="secondary" variant="extended">
                 <CachedIcon />
                 <Box p="0.5rem">Reset</Box>
               </Fab>

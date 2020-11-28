@@ -8,7 +8,7 @@ class EpidemySimulator{
 	// gamma=0.377 correspond aux estimations (avec 7 jours de récup) par les data.
 	// https://colab.research.google.com/drive/1xrxKqc5V-tGajRMd4YrFYphDLLIvsCWL?usp=sharing
 	// pour un calcul plus détaillé.
-	constructor(beta, gamma=0.377, N=66000, I0=20, tmax=30, R0=15000){
+	constructor(beta, gamma=0.125, N=66000, I0=20, tmax=30, R0=15000){
 		this.beta = beta;
 		this.gamma = gamma;
 		this.number_people = N;
@@ -44,7 +44,6 @@ class EpidemySimulator{
 	}
 	
 	simulate(){
-        console.log(this.beta)
 		return this.integrate(this.sir.bind(this), 0, [this.number_people-this.I0-this.R0,this.I0,this.R0], 1, this.tmax);
 	}
 		

@@ -208,7 +208,7 @@ class Gathering extends Component{
             <Box pt="1rem" justify="right" m="auto">
             <Grid container spacing={1}   alignItems="center" justify="center">
                 <Grid item>
-                My risk : {this.props.globalRisk} (refresh to delete)
+                My risk : {this.props.globalRisk} (reload page to delete)
                 </Grid>
             </Grid>
             </Box>

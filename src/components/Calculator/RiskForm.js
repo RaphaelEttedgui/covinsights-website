@@ -68,7 +68,6 @@ class RiskForm extends Component {
     distance: this.props.distance,
     riskProfile: this.props.riskProfile,
     risk : 0,
-    activityRisk : 0,
     heures:Math.floor(this.props.duration/60),
     minutes:this.props.duration % 60,
     activity:new Activity(),
@@ -79,7 +78,6 @@ class RiskForm extends Component {
     // setting the duration.
     var newDuration = 60*this.state.heures + this.state.minutes;
     this.setState({duration:newDuration})
-    console.log(this.state);
     var maskProportion = 0;
     if(this.state.nbMasked === 0)
     {
@@ -89,8 +87,10 @@ class RiskForm extends Component {
       maskProportion = this.state.nbPeople / this.state.nbMasked;
     }
     var interaction = new InteractionCrowd(this.state.name, newDuration, this.state.nbPeople, this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance);
-    this.setState({activityRisk: Math.round((interaction.getActivityRisk() + Number.EPSILON) * 100) / 100});
     var profile = new RiskProfile();
+    // Note that the cap at 50% is before applying the profile.
+    // The risk profile represents a variation in the prevalence, not the
+    // activity itself.
     if(this.state.riskProfile === "worker")
     {
       profile = new WorkerRiskProfile();
@@ -168,7 +168,7 @@ class RiskForm extends Component {
     return (
       <div className="risk_form">
       <Tooltip title="Modifier">
-      <IconButton className="edit_button" aria-label="delete" size="small" onClick={() => this.setState({ showForm: false })}>
+      <IconButton className="edit_button" aria-label="delete" size="small" onClick={() => {this.setState({ showForm: false }); this.props.edit()}}>
         <EditIcon />
       </IconButton>
       </Tooltip>

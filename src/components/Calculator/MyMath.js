@@ -111,18 +111,18 @@ class InteractionCrowd extends Interaction{
 		// Adapting the risk to the duration. 6% chance of contamination per hour.
 		var i;
 		var j;
-		for(j=0; j<this.nb_people; j++){
-			finalRisk = finalRisk + (1-finalRisk)*risk;
-		}
 		for (i=0; i< this.hours; i++){
-			totalRisk = totalRisk + (1-totalRisk)*finalRisk;
+			totalRisk = totalRisk + (1-totalRisk)*risk;
 		}
-		totalRisk = totalRisk + (1-totalRisk)*finalRisk*this.minutes/60;
+		totalRisk = totalRisk + (1-totalRisk)*risk*this.minutes/60;
 		// Hardcap à 0.5 pour chaque activité individuelle.
 		if(totalRisk>0.5){
 			totalRisk=0.5;
 		}
-		return totalRisk;
+		for(j=0; j<this.nb_people; j++){
+			finalRisk = finalRisk + (1-finalRisk)*totalRisk;
+		}
+		return finalRisk;
 	}
 }
 
