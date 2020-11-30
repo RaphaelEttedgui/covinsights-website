@@ -4,17 +4,19 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label} from 'rec
 var rk4 = require('ode-rk4');   
 
 class EpidemySimulator{
-	// gamma=0.125 correspond à 8 jours de récupération. 7 à 0.14.
-	// gamma=0.377 correspond aux estimations (avec 7 jours de récup) par les data.
-	// https://colab.research.google.com/drive/1xrxKqc5V-tGajRMd4YrFYphDLLIvsCWL?usp=sharing
-	// pour un calcul plus détaillé.
-	constructor(beta, gamma=0.125, N=66000, I0=20, tmax=30, R0=15000){
-		this.beta = beta;
+	// Estimation of the incubation period to 5days : 
+	// https://www.acpjournals.org/doi/full/10.7326/M20-0504
+	// Estimation of the infectious period to 3 days
+	// https://www.medrxiv.org/content/medrxiv/early/2020/01/28/2020.01.23.20018549.full.pdf
+	// https://gabgoh.github.io/COVID/index.html
+	constructor(riskList, gamma=0.333, alpha=0.2, N=66000000, E0 = 20000, I0=20000, tmax=30, R0=15000000){
+		this.riskList = riskList;
 		this.gamma = gamma;
 		this.number_people = N;
 		this.I0 = I0;
 		this.tmax = tmax;
 		this.R0 = R0;
+		this.alpha = alpha;
 	}
 	
 	copy(x) {
@@ -22,9 +24,23 @@ class EpidemySimulator{
 	}
 	
 	sir(dydt, y, t){
-		dydt[0] = -1.0 * this.beta * y[0] * y[1] / this.number_people;
-		dydt[1] = this.beta * y[0] * y[1] / this.number_people - this.gamma * y[1];
-		dydt[2] = this.gamma * y[1];
+		var prevalence = y[2] / this.number_people; // Proportion d'infectés
+		var riskPerson = 1; // Will contain the probability that one individual becomes contaminated.
+		for (var i=0; i<this.riskList.length; i++)
+		{
+			var myActi = this.riskList[i].getRisk(); // [risk, hours, minutes, nb_people]
+			var myRisk = myActi[0] * prevalence; // proba for 1h, 1 person
+            // Handle duration
+			var composedRisk = 1 - Math.pow((1-myRisk),myActi[1])*(1-myRisk*myActi[2]/60);
+            // Handle nb people
+			var totalRisk = Math.pow((1-composedRisk), myActi[3]); // gives 1-the risk 
+			riskPerson = riskPerson * totalRisk;
+		}
+		riskPerson = 1 - riskPerson;
+		dydt[0] = -1.0 * y[0] * riskPerson; // S
+		dydt[1] = y[0] * riskPerson - this.alpha * y[1]; // E
+		dydt[2] = this.alpha * y[1] - this.gamma * y[2]; // I
+		dydt[3] = this.gamma * y[2]; // R
 	}
 	
 	integrate(f,t0,y0,step,tmax) {
@@ -34,17 +50,18 @@ class EpidemySimulator{
 		var ta = [];
 		var ya = [];
 		ta.push(t0);
-		ya.push({x:t, infections:y[1], hosp:y[1]* 2.6 / 100, rea: y[1]* (2.6 / 100) * (18.2 / 100)});
+		ya.push({x:t, infections:Math.round(y[2])}); //, hosp:Math.round((y[1]* 2.6 / 100) * 1000)/1000, rea: Math.round((y[1]* (2.6 / 100) * (18.2 / 100)) * 1000) / 1000});
 		for(t=t0+step;t<tmax; t=t+step){
 			integrator=integrator.step();
-			ya.push({x:t, infections:integrator.y[1], hosp:integrator.y[1]* 2.6 / 100, rea:integrator.y[1]* (2.6 / 100) * (18.2 / 100)});
+			ya.push({x:t, infections:Math.round(integrator.y[2]*1000)/1000});
 			ta.push(t);
 		}
 	  return {t:ta,y:ya};
 	}
 	
 	simulate(){
-		return this.integrate(this.sir.bind(this), 0, [this.number_people-this.I0-this.R0,this.I0,this.R0], 1, this.tmax);
+		// we estimate E0=I0.
+		return this.integrate(this.sir.bind(this), 0, [this.number_people-this.I0-this.R0,this.I0, this.I0,this.R0], 1, this.tmax);
 	}
 		
 }
@@ -52,7 +69,7 @@ class EpidemySimulator{
 class Evolution extends Component {
 	constructor(props){
 		super(props);
-		this.state = {sim: new EpidemySimulator(props.risk)};
+		this.state = {sim: new EpidemySimulator(props.riskList, props.gamma, props.alpha)};
 	}
 	
 	render(){

@@ -15,7 +15,7 @@ export default createGlobalStyle`
     font-size: 1rem;
     line-height: 1.0;
   }
-
+  
   .my_body {
     min-height: 80vh;
     min-width: 50%;

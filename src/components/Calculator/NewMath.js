@@ -1,131 +1,3 @@
-class Interaction{
-	constructor(name){
-		this.name = name;
-	}
-	
-	getRisk(){
-		return 0;
-	}
-}
-
-class InteractionOne extends Interaction{
-	constructor(name="an activity", duration=60, maskA=false, maskB=false, talking="normal", outdoors=false, distance="normal"){
-		/* A one on one interaction. Options are :
-		talking = "normal", "loud" (x3), "quiet" (/3)
-		outdoors (/20)
-		distance = "normal", "close" (x2), "long" (/2) */
-		super(name);
-		this.duration=duration;
-		this.maskA=maskA;
-		this.maskB=maskB;
-		this.talking = talking;
-		this.outdoors=outdoors;
-		this.distance=distance;
-		this.hours = Math.floor(duration/60);
-		this.minutes = duration % 60;
-	}
-	
-	setMask(maskA,maskB){
-		this.maskA = maskA;
-		this.maskB = maskB;
-	}
-	
-	// Returns the risk of contamination if the other has the disease.
-	getActivityRisk(){
-		var risk = 0.06
-		if (this.maskA){
-			risk = risk / 2;
-		}
-		if (this.maskB){
-			risk = risk / 4;
-		}
-		if (this.outdoors){
-			risk = risk / 20;
-		}
-		if (this.talking === "loud"){
-			risk = risk * 5;
-		}
-		if (this.talking === "quiet"){
-			risk = risk / 5;
-		}
-		if (this.distance ==="close"){
-			risk = risk * 2;
-		}
-		if (this.distance === "long"){
-			risk = risk /2;
-		}
-		if (this.distance === "veryLong"){
-			risk = risk /4;
-		}
-		var finalRisk = 0
-		// Adapting the risk to the duration. 6% chance of contamination per hour.
-		var i;
-		for (i=0; i< this.hours; i++){
-			finalRisk = finalRisk + (1-finalRisk)*risk;
-		}
-		finalRisk = finalRisk + (1-finalRisk)*risk*this.minutes/60;
-		return finalRisk;
-	}
-}
-
-class InteractionCrowd extends Interaction{
-	constructor(name="an activity", duration=60, nb_people=1, mask=false, maskProportion=0., talking="normal", outdoors=false, distance="normal"){
-		super(name);
-		this.duration=duration;
-		this.nb_people = nb_people;
-		this.mask = mask;
-		this.maskProportion = maskProportion;
-		this.talking = talking;
-		this.outdoors=outdoors;
-		this.distance=distance;
-		this.hours = Math.floor(duration/60);
-		this.minutes = duration % 60;
-	}
-	
-	getActivityRisk(){
-		var risk = 0.06
-		if (this.mask){
-			risk = risk / 2;
-		}
-		risk = risk * (1 - 0.75 * this.maskProportion);
-		if (this.outdoors){
-			risk = risk / 20;
-		}
-		if (this.talking === "loud"){
-			risk = risk * 5;
-		}
-		if (this.talking === "quiet"){
-			risk = risk / 5;
-		}
-		if (this.distance ==="close"){
-			risk = risk * 2;
-		}
-		if (this.distance === "long"){
-			risk = risk /2;
-		}
-		if (this.distance === "veryLong"){
-			risk = risk /4;
-		}
-		var finalRisk = 0;
-		var totalRisk = 0;
-		// Adapting the risk to the duration. 6% chance of contamination per hour.
-		var i;
-		var j;
-		for (i=0; i< this.hours; i++){
-			totalRisk = totalRisk + (1-totalRisk)*risk;
-		}
-		totalRisk = totalRisk + (1-totalRisk)*risk*this.minutes/60;
-		// Hardcap à 0.5 pour chaque activité individuelle.
-		if(totalRisk>0.5){
-			totalRisk=0.5;
-		}
-		for(j=0; j<this.nb_people; j++){
-			finalRisk = finalRisk + (1-finalRisk)*totalRisk;
-		}
-		return finalRisk;
-	}
-}
-
 class Universe{
 	/*
 	The universe class contains the prevalence at time, as well as the
@@ -314,21 +186,48 @@ class WorkerRiskProfile extends RiskProfile{
 	}
 }
 
-class Activity{
-	/* An activity is an interaction plus a risk profile.
-	We can access the total risk or just the one related to the interaction. */
-	constructor(interaction, riskProfile=new RiskProfile(), universe = new BasicUniverse()){
-		this.interaction = interaction;
-		this.riskProfile = riskProfile;
-		this.universe = universe;
+class CustomActivity{
+    constructor(name="an activity", duration=60, nb_people=1, mask=false, maskProportion=0., talking="normal", outdoors=false, distance="normal", riskProfile=new RiskProfile()){
+		this.name = name;
+		this.duration=duration;
+		this.nb_people = nb_people;
+		this.mask = mask;
+		this.maskProportion = maskProportion;
+		this.talking = talking;
+		this.outdoors=outdoors;
+		this.distance=distance;
+		this.hours = Math.floor(duration/60);
+        this.minutes = duration % 60;
+        this.riskProfile=riskProfile;
 	}
-	
-	getRisk(){
-		return this.interaction.getActivityRisk() * this.riskProfile.getProfileRisk() * this.universe.prevalence;
-	}
-	
-	getActivityRisk(){
-		return this.interaction.getActivityRisk() * this.riskProfile.getProfileRisk();
+    
+    getRisk(){
+		var risk = 0.06
+		if (this.mask){
+			risk = risk / 2;
+		}
+		risk = risk * (1 - 0.75 * this.maskProportion);
+		if (this.outdoors){
+			risk = risk / 20;
+		}
+		if (this.talking === "loud"){
+			risk = risk * 5;
+		}
+		if (this.talking === "quiet"){
+			risk = risk / 5;
+		}
+		if (this.distance ==="close"){
+			risk = risk * 2;
+		}
+		if (this.distance === "long"){
+			risk = risk /2;
+		}
+		if (this.distance === "veryLong"){
+			risk = risk /4;
+		}
+        risk = risk * this.riskProfile.getProfileRisk();
+        // This, multiplied by the prevalence, gives the probability of getting covid from a 1h interaction with the person
+		return [risk, this.hours, this.minutes, this.nb_people];
 	}
 }
 
@@ -347,10 +246,6 @@ class Person extends RiskProfile{
 		this.activityList.push(activity);
 	}
 	
-	addInteraction(interaction){
-		this.activityList.append(Activity(interaction));
-	}
-	
 	clearActivityList(){
 		// Javascript has a garbage collector so no need to care about memory release.
 		this.activityList = [];
@@ -358,7 +253,7 @@ class Person extends RiskProfile{
 	
 	getRisk(){
 		// Returns the probability of having the disease
-		var risk=0;
+		var risk=1;
 		if(this.activityList === undefined || this.activityList.length === 0)
 		{
 			return 0;
@@ -366,24 +261,16 @@ class Person extends RiskProfile{
 		var i=0;
 		for(i=0; i<this.activityList.length; i++)
 		{
-			risk = risk + (1-risk)*this.activityList[i].getRisk();
-		}
-		return risk*this.universe.prevalence;
-	}
-	
-	getProfileRisk(){
-		// Returns how many time the person is more risky than the average.
-		// Multiply par the universe prevalence to get the risk.
-		var risk=0;
-		if(this.activityList === undefined || this.activityList.length === 0)
-		{
-			return 0;
-		}
-		var i=0;
-		for(i=0; i<this.activityList.length; i++)
-		{
-			risk = risk + (1-risk)*this.activityList[i].getActivityRisk();
-		}
+            var myActi = this.activityList[i].getRisk(); // [risk, hours, minutes, nb_people]
+            var myRisk = myActi[0] * this.universe.prevalence;
+            // Handle duration
+            var composedRisk = 1 - Math.pow((1-myRisk),myActi[1])*(1-myRisk*myActi[2]/60);
+            // Handle nb people
+            var totalRisk = Math.pow((1-composedRisk), myActi[3]); // gives 1-the risk
+
+			risk = risk*totalRisk;
+        }
+        risk=1-risk;
 		return risk;
 	}
 	
@@ -397,26 +284,86 @@ class Person extends RiskProfile{
 	}
 }
 
-class PersonWithRisk extends Person{
-	constructor(name, age=20, gender="ND", risk=0, universe=new BasicUniverse())
-	{
-		super(name, age, gender, [], universe);
-		this.risk=risk;
-	}
 
+
+class Interaction{
+	constructor(name){
+		this.name = name;
+	}
+	
 	getRisk(){
-		return this.risk * this.universe.prevalence;
+		return 0;
+	}
+}
+
+class InteractionOne extends Interaction{
+	constructor(name="an activity", duration=60, maskA=false, maskB=false, talking="normal", outdoors=false, distance="normal"){
+		/* A one on one interaction. Options are :
+		talking = "normal", "loud" (x3), "quiet" (/3)
+		outdoors (/20)
+		distance = "normal", "close" (x2), "long" (/2) */
+		super(name);
+		this.duration=duration;
+		this.maskA=maskA;
+		this.maskB=maskB;
+		this.talking = talking;
+		this.outdoors=outdoors;
+		this.distance=distance;
+		this.hours = Math.floor(duration/60);
+		this.minutes = duration % 60;
+	}
+	
+	setMask(maskA,maskB){
+		this.maskA = maskA;
+		this.maskB = maskB;
+	}
+	
+	// Returns the risk of contamination if the other has the disease.
+	getActivityRisk(){
+		var risk = 0.06
+		if (this.maskA){
+			risk = risk / 2;
+		}
+		if (this.maskB){
+			risk = risk / 4;
+		}
+		if (this.outdoors){
+			risk = risk / 20;
+		}
+		if (this.talking === "loud"){
+			risk = risk * 5;
+		}
+		if (this.talking === "quiet"){
+			risk = risk / 5;
+		}
+		if (this.distance ==="close"){
+			risk = risk * 2;
+		}
+		if (this.distance === "long"){
+			risk = risk /2;
+		}
+		if (this.distance === "veryLong"){
+			risk = risk /4;
+		}
+		var finalRisk = 0
+		// Adapting the risk to the duration. 6% chance of contamination per hour.
+		var i;
+		for (i=0; i< this.hours; i++){
+			finalRisk = finalRisk + (1-finalRisk)*risk;
+		}
+		finalRisk = finalRisk + (1-finalRisk)*risk*this.minutes/60;
+		return finalRisk;
 	}
 }
 
 // Recreating the defaultdict from python.
 class DefaultDict {
-  constructor(defaultVal) {
-    return new Proxy({}, {
-      get: (target, name) => name in target ? target[name] : defaultVal
-    })
+    constructor(defaultVal) {
+      return new Proxy({}, {
+        get: (target, name) => name in target ? target[name] : defaultVal
+      })
+    }
   }
-}
 
 class GroupReunion{
 	/*
@@ -510,4 +457,4 @@ class GroupReunion{
 	}
 }
 
-export {Interaction, InteractionCrowd, InteractionOne, BasicUniverse, Activity, Person, Universe, GroupReunion, RiskProfile, NonWorkerRiskProfile, WorkerRiskProfile};
+export {BasicUniverse, CustomActivity, Person, Universe, GroupReunion, RiskProfile, NonWorkerRiskProfile, WorkerRiskProfile};

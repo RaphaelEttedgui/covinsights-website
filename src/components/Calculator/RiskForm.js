@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from '@material-ui/core/Tooltip';
-import {InteractionCrowd, Activity, BasicUniverse, RiskProfile, WorkerRiskProfile, NonWorkerRiskProfile} from './MyMath.js';
+import {CustomActivity, BasicUniverse, RiskProfile, WorkerRiskProfile, NonWorkerRiskProfile} from './NewMath.js';
 
 const styles = (theme) => ({
   formControl: {
@@ -67,10 +67,9 @@ class RiskForm extends Component {
     talking: this.props.talking,
     distance: this.props.distance,
     riskProfile: this.props.riskProfile,
-    risk : 0,
     heures:Math.floor(this.props.duration/60),
     minutes:this.props.duration % 60,
-    activity:new Activity(),
+    activity:{},
     universe: new BasicUniverse(),
   }
 
@@ -86,7 +85,6 @@ class RiskForm extends Component {
     else{
       maskProportion = this.state.nbPeople / this.state.nbMasked;
     }
-    var interaction = new InteractionCrowd(this.state.name, newDuration, this.state.nbPeople, this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance);
     var profile = new RiskProfile();
     // Note that the cap at 50% is before applying the profile.
     // The risk profile represents a variation in the prevalence, not the
@@ -99,20 +97,14 @@ class RiskForm extends Component {
     {
       profile = new NonWorkerRiskProfile();
     }
-    var result = Math.round((profile.getProfileRisk()*interaction.getActivityRisk() + Number.EPSILON) * 100) / 100;
-    this.setState({risk: result});
-    var myActivity = new Activity(interaction, profile, this.state.universe);
+    var myActivity = new CustomActivity(this.state.name, newDuration, this.state.nbPeople,
+        this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance, profile);
     this.setState({activity:myActivity});
-    this.props.updateRisk(this.props.id[0], result, myActivity);
+    this.props.updateRisk(this.props.id[0], myActivity);
   }
 
   componentDidMount = () => {
     this.setActivityRisk();
-  }
-
-  getRisk = () => {
-    this.setActivityRisk();
-    return this.state.risk;
   }
 
   handleChange = event => {
