@@ -18,7 +18,6 @@ import { NavLink } from 'react-router-dom';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import Evolution from './Evolution.js';
 import * as Scroll from 'react-scroll';
-import TextField from '@material-ui/core/TextField';
 
 /*
 ***** TODO *****
@@ -51,7 +50,7 @@ class RiskCalculator extends Component {
       duration:60,
       nbPeople: 1,
       nbMasked: 0,
-      outdoors: false,
+      location:"indoors",
       talking: "normal",
       distance: "normal",
       riskProfile: "normal",

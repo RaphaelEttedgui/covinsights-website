@@ -187,14 +187,14 @@ class WorkerRiskProfile extends RiskProfile{
 }
 
 class CustomActivity{
-    constructor(name="an activity", duration=60, nb_people=1, mask=false, maskProportion=0., talking="normal", outdoors=false, distance="normal", riskProfile=new RiskProfile()){
+    constructor(name="an activity", duration=60, nb_people=1, mask=false, maskProportion=0., talking="normal", location="indoors", distance="normal", riskProfile=new RiskProfile()){
 		this.name = name;
 		this.duration=duration;
 		this.nb_people = nb_people;
 		this.mask = mask;
 		this.maskProportion = maskProportion;
 		this.talking = talking;
-		this.outdoors=outdoors;
+		this.location=location;
 		this.distance=distance;
 		this.hours = Math.floor(duration/60);
         this.minutes = duration % 60;
@@ -207,8 +207,14 @@ class CustomActivity{
 			risk = risk / 2;
 		}
 		risk = risk * (1 - 0.75 * this.maskProportion);
-		if (this.outdoors){
+		if (this.location=="outdoors"){
 			risk = risk / 20;
+        }
+        if (this.location=="train" || this.location=="car"){
+			risk = risk / 4;
+        }
+        if (this.location=="plane"){
+			risk = risk / 6;
 		}
 		if (this.talking === "loud"){
 			risk = risk * 5;

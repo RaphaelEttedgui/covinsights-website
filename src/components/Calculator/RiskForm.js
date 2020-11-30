@@ -20,7 +20,7 @@ const styles = (theme) => ({
   },
     root: {
     display: 'flex',
-    pt: "2rem",
+    pt: "3rem",
     justifyContent: 'center',
     flexWrap: 'wrap',
     '& > *': {
@@ -63,7 +63,7 @@ class RiskForm extends Component {
     wearMask: this.props.wearMask,
     nbPeople: this.props.nbPeople,
     nbMasked:this.props.nbMasked,
-    outdoors: this.props.outdoors,
+    location:this.props.location,
     talking: this.props.talking,
     distance: this.props.distance,
     riskProfile: this.props.riskProfile,
@@ -98,7 +98,7 @@ class RiskForm extends Component {
       profile = new NonWorkerRiskProfile();
     }
     var myActivity = new CustomActivity(this.state.name, newDuration, this.state.nbPeople,
-        this.state.wearMask, maskProportion, this.state.talking, this.state.outdoors, this.state.distance, profile);
+        this.state.wearMask, maskProportion, this.state.talking, this.state.location, this.state.distance, profile);
     this.setState({activity:myActivity});
     this.props.updateRisk(this.props.id[0], myActivity);
   }
@@ -144,6 +144,10 @@ class RiskForm extends Component {
   handleRiskProfile = (event) => {
     this.setState({riskProfile:event.target.value});
   };
+
+  handleLocation = (event) => {
+    this.setState({location: event.target.value});
+  }
 
   generateNbPeople1 = (i) => {
     return (
@@ -191,12 +195,22 @@ class RiskForm extends Component {
                           <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="minutes" variant="outlined" defaultValue={this.state.minutes} onChange={this.handleMinutes} />
                       </Grid>
                       <Grid item>
-                      <FormControlLabel
-                          control={<Checkbox color="primary" checked={this.state.outdoors}
-                            onChange={this.handleChange}
-                            name="outdoors"
-                            inputProps={{ "aria-label": "secondary checkbox" }}
-                          />} label="Est-ce en extérieur ?" />
+                      <FormControl className={classes.formControl}>
+                          <InputLabel id="demo-simple-select-label">Endroit</InputLabel>
+                          <Select
+                            native 
+                            id="demo-simple-select"
+                            value={this.state.location}
+                            onChange={this.handleLocation}
+                            label="Endroit"
+                          >
+                            <option value="indoors">Intérieur</option>
+                            <option value="outdoors">Extérieur</option>
+                            <option value="train">Train avec filtration de l'air</option>
+                            <option value="car">Voiture en déplacement fenêtres ouvertes</option>
+                            <option value="plane">Avion</option>
+                          </Select>
+                        </FormControl>
                       </Grid>
                       <Grid item>
                       <FormControlLabel
@@ -288,13 +302,4 @@ class RiskForm extends Component {
   }
 }
 
-RiskForm.defaultProps = {
-  showForm: false,
-  wearMask: false,
-  nbPeople: 0,
-  maskProportion: 0,
-  outdoors: false,
-  talking: "normal",
-  distance: "normal",
-}
 export default withStyles(styles)(RiskForm);
