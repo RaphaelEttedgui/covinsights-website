@@ -207,32 +207,10 @@ class RiskForm extends Component {
                           />} label="Portez-vous un masque ?" />
                       </Grid>
                       <Grid item>
-                      <FormControl variant="outlined" className={classes.formControl}>
-                          <InputLabel id="demo-simple-select-label">Nb people</InputLabel>
-                          <Select
-                            native 
-                            id="demo-simple-select"
-                            value={this.state.nbPeople}
-                            onChange={this.handleNbPeople}
-                            label="Nb people"
-                          >
-                            {this.generateNbPeople()}
-                          </Select>
-                        </FormControl>
+                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="Nb people" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
                       </Grid>
                       <Grid item>
-                      <FormControl variant="outlined" className={classes.formControl}>
-                          <InputLabel id="demo-simple-select-label">Masks</InputLabel>
-                          <Select
-                            native 
-                            id="demo-simple-select"
-                            value={this.state.nbMasked}
-                            onChange={this.handleNbMasked}
-                            label="Nb people"
-                          >
-                            {this.generateNbPeople()}
-                          </Select>
-                        </FormControl>
+                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="Masks" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
                       </Grid>
                       <Grid item>
                       <FormControl className={classes.formControl}>

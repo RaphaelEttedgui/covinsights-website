@@ -18,6 +18,7 @@ import { NavLink } from 'react-router-dom';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import Evolution from './Evolution.js';
 import * as Scroll from 'react-scroll';
+import TextField from '@material-ui/core/TextField';
 
 /*
 ***** TODO *****
@@ -43,7 +44,7 @@ class RiskCalculator extends Component {
   constructor(props){
     super(props);
     this.state = {blockActivities: [], activities: {}, nextId:0, risk:0, toggleResult:false, person: new Person(),
-          evolution:()=><Evolution risk={0}/>, alpha:0.2, gamma:1/3}
+          evolution:()=><Evolution risk={0}/>, alpha:0.2, gamma:0.33}
     this.defaultActivityArgs = {
       name:"Activité",
       wearMask: false,
@@ -90,6 +91,10 @@ class RiskCalculator extends Component {
   toggleOffResult = () => {
     this.setState({toggleResult:false});
   }
+  
+  reset = (event) => {
+    this.setState({alpha:0.2, gamma:1/3});
+  }
 
   // Affiche le résultat (appelé sur clic de calculer mon risque)
   // Contient le lien vers le simulateur et lui transmet le risque.
@@ -120,8 +125,7 @@ class RiskCalculator extends Component {
     </div>
     {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
     <div id='graph_result'>{this.state.evolution()}</div>
-    Modèle : SEIR, alpha={Math.round(this.state.alpha*1000)/1000}, gamma={Math.round(this.state.gamma*1000)/1000}.
-    </div>
+  </div>
     )
   }
 

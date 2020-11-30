@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label} from 'recharts';
+import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
 
 var rk4 = require('ode-rk4');   
 
@@ -12,6 +14,7 @@ class EpidemySimulator{
 	constructor(riskList, gamma=0.333, alpha=0.2, N=66000000, E0 = 20000, I0=20000, tmax=30, R0=15000000){
 		this.riskList = riskList;
 		this.gamma = gamma;
+		console.log(this.gamma)
 		this.number_people = N;
 		this.I0 = I0;
 		this.tmax = tmax;
@@ -69,23 +72,42 @@ class EpidemySimulator{
 class Evolution extends Component {
 	constructor(props){
 		super(props);
-		this.state = {sim: new EpidemySimulator(props.riskList, props.gamma, props.alpha)};
+		this.state = {alpha:props.alpha, gamma:props.gamma, riskList:props.riskList, sim: new EpidemySimulator(props.riskList, props.gamma, props.alpha)};
 	}
+
+	handleGamma = (event) => {
+		this.setState({gamma:event.target.value, sim : new EpidemySimulator(this.state.riskList, event.target.value, this.state.alpha)});
+	  }
+	
+	handleAlpha = (event) => {
+		this.setState({alpha: event.target.value, sim : new EpidemySimulator(this.state.riskList, this.state.gamma, event.target.value)});
+	  }
+	
 	
 	render(){
 		return (
+		<div id="graph_container">
 		<div className="recharts_graph">
-		<LineChart width={400} height={300} data={this.state.sim.simulate().y}>
-			<Line type="monotone" yAxisId="left" dataKey="infections" dot={false} stroke="red" />
-			<CartesianGrid stroke="#ccc" />
-			<XAxis dataKey="x" interval={5}>
-                <Label value="(jours)" position='right' offset={-15} />
-            </XAxis>
-			<YAxis yAxisId="left" />
-			<YAxis width={80} yAxisId="right" orientation="right" tick={{ fontSize: 10, }}>
-			</YAxis>
-			<Tooltip />
-		</LineChart>
+			<LineChart width={400} height={300} data={this.state.sim.simulate().y}>
+				<Line type="monotone" yAxisId="left" dataKey="infections" dot={false} stroke="red" />
+				<CartesianGrid stroke="#ccc" />
+				<XAxis dataKey="x" interval={5}>
+					<Label value="(jours)" position='right' offset={-15} />
+				</XAxis>
+				<YAxis yAxisId="left" />
+				<YAxis width={80} yAxisId="right" orientation="right" tick={{ fontSize: 10, }}>
+				</YAxis>
+				<Tooltip />
+			</LineChart>
+		</div>
+        <div id="parameters_result">
+			<Grid container spacing={1} justify="center">
+			<Grid item><TextField id="outlined-basic" style={{width: 90}} type="number"
+			InputLabelProps={{shrink: true,}} label="alpha" variant="outlined" defaultValue={this.state.alpha} onChange={this.handleAlpha} /></Grid>
+			<Grid item><TextField id="outlined-basic" style={{width: 90}} type="number"
+			InputLabelProps={{shrink: true,}} label="gamma" variant="outlined" defaultValue={this.state.gamma} onChange={this.handleGamma} /></Grid>
+			</Grid>
+			</div>
 		</div>
 		);
 	}
