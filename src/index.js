@@ -4,7 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Layout from './components/Layout';
 import Navbar from './components/Navbar.js'
-import 'fontsource-roboto';
+import "fontsource-roboto/500.css"
 
 ReactDOM.render(
   <Layout>

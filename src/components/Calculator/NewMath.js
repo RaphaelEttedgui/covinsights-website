@@ -270,7 +270,11 @@ class Person extends RiskProfile{
             var myActi = this.activityList[i].getRisk(); // [risk, hours, minutes, nb_people]
             var myRisk = myActi[0] * this.universe.prevalence;
             // Handle duration
-            var composedRisk = 1 - Math.pow((1-myRisk),myActi[1])*(1-myRisk*myActi[2]/60);
+			var composedRisk = 1 - Math.pow((1-myRisk),myActi[1])*(1-myRisk*myActi[2]/60);
+			// We hardcap the risk from one single person to the household value, 0.5.
+			if(composedRisk>0.5){
+				composedRisk=0.5;
+			}
             // Handle nb people
             var totalRisk = Math.pow((1-composedRisk), myActi[3]); // gives 1-the risk
 
@@ -389,7 +393,7 @@ class GroupReunion{
 		this.personList = personList;
 		this.generateMasked();
 		// We use a one-on-one interaction to compute the various risks.
-		this.interaction = new InteractionOne("meeting", this.duration, false, false, this.talking, this.outdoors, this.distance);
+        this.interaction = new InteractionOne("meeting", this.duration, false, false, this.talking, this.outdoors, this.distance);
 		// *** TODO *** Ajouter le calcul du profil de risque.
 	}
 	
@@ -463,4 +467,4 @@ class GroupReunion{
 	}
 }
 
-export {BasicUniverse, CustomActivity, Person, Universe, GroupReunion, RiskProfile, NonWorkerRiskProfile, WorkerRiskProfile};
+export {BasicUniverse, CustomActivity, Person, Universe, GroupReunion, RiskProfile, NonWorkerRiskProfile, WorkerRiskProfile, InteractionOne};

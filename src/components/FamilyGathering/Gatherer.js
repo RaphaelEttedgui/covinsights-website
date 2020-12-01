@@ -10,9 +10,10 @@ import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
 import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
-import {InteractionOne, BasicUniverse} from '../Calculator/MyMath.js';
+import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import TextField from '@material-ui/core/TextField';
 
 /*
 **********
@@ -39,7 +40,7 @@ class Gathering extends Component{
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
         this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, result:[], globalRisk:0,
-        masks:false, outdoors:false, duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse()}
+        masks:false, location:"indoors", duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse(), globalRisk:this.props.globalRisk}
         this.defaultPersonArgs = {
             name:"Bobby",
             age: 20,
@@ -106,6 +107,7 @@ class Gathering extends Component{
       }
 
     generatePremadeCards = () => {
+    profiles.sort((a, b) => (a.name > b.name) ? 1 : -1);
     const { classes } = this.props;
     return (
         <div id="premade_cards" className={classes.root}>
@@ -143,7 +145,7 @@ class Gathering extends Component{
         var interactionRisk = interaction.getActivityRisk();
         // Using the risk from the calculator.
         // We only compute the risk for his family.
-        risk = risk *(1-this.props.globalRisk);
+        risk = risk *(1-this.state.globalRisk);
 		for(var key in this.state.people){
             // The risk passed by the person via the simulator.
 			var myRisk = this.state.people[key][1] / 100
@@ -157,7 +159,7 @@ class Gathering extends Component{
 				    myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.people[current][1]/100;
                 }
             }
-            myRisk = myRisk + (1-myRisk)*interactionRisk*this.props.globalRisk;
+            myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.globalRisk;
 			var hospProba = this.state.people[key][0][0]
 			var reaProba = this.state.people[key][0][1]
 			var deathProba = this.state.people[key][0][2]
@@ -189,11 +191,11 @@ class Gathering extends Component{
         <Box pt="1rem" justify="right" m="auto">
             <List>
                 <ListItem> Probabilité qu'une personne au moins ait le covid : {Math.round(result[0] * 100)}%. </ListItem>
-                <ListItem> Probabilité qu'une personne soit hospitalisée : {Math.round(result[1]*100)}%. Bilan :
-                {Math.round(result[4]*nb_christmas)} hospitalisations supplémentaires à l'échelle de la France.</ListItem>
-                <ListItem>Probabilité qu'une personne aille en réa : {Math.round(result[2]*100)}%.
+                <ListItem> Probabilité qu'une personne soit hospitalisée : {Math.round(result[1]*100)}%. <br />
+                Bilan : {Math.round(result[4]*nb_christmas)} hospitalisations supplémentaires à l'échelle de la France.</ListItem>
+                <ListItem>Probabilité qu'une personne aille en réa : {Math.round(result[2]*100)}%. <br />
                 Bilan : {Math.round(result[5]*nb_christmas)} réas supplémentaires à l'échelle de la France.</ListItem>
-                <ListItem>Probabilité qu'une personne meure : {Math.round(result[3]*100)}%.
+                <ListItem>Probabilité qu'une personne meure : {Math.round(result[3]*100)}%. <br />
                 Bilan : {Math.round(result[6]*nb_christmas)} morts supplémentaires à l'échelle de la France.</ListItem>
             </List>
         </Box>
@@ -202,13 +204,23 @@ class Gathering extends Component{
 
     }
 
+    handleGlobalRisk = (event) => {
+        this.setState({globalRisk: Number(event.target.value)/100})
+    }
+
     showMyRisk = () => {
         return (
-            <div className="addActivity_buttons">
+            <div className="showMyRisk">
             <Box pt="1rem" justify="right" m="auto">
-            <Grid container spacing={1}   alignItems="center" justify="center">
+            <Grid container spacing={1} alignItems="center" justify="center">
                 <Grid item>
-                My risk : {Math.round(this.props.globalRisk*10000)/100} % (reload page to delete)
+                Mon risque :
+                </Grid>
+                <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
+			InputLabelProps={{shrink: true,}} label="Risque" variant="outlined" defaultValue={Math.round(this.state.globalRisk*10000)/100} onChange={this.handleGlobalRisk} />
+                </Grid>
+                <Grid item>
+                %
                 </Grid>
             </Grid>
             </Box>
@@ -246,7 +258,7 @@ class Gathering extends Component{
             </div>
             <div className="addActivity_buttons">
             <Box pt="1rem" justify="right" m="auto">
-            <Grid container spacing={1}   alignItems="center" justify="center">
+            <Grid container spacing={1} alignItems="center" justify="center">
                 <Grid item>
                 <Fab
                     onClick={() => {this.toggleResult(); this.computeResult()}}
@@ -259,7 +271,7 @@ class Gathering extends Component{
             </Grid>
             </Box>
             </div>
-            {this.props.globalRisk!==0 && this.showMyRisk()}
+            {this.showMyRisk()}
             <div id="premade_profiles">
                 {this.generatePremadeCards()}
             </div>  

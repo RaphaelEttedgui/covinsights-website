@@ -4,8 +4,8 @@ import logo from '../images/logo.png';
 import { NavLink } from 'react-router-dom';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import Divider from '@material-ui/core/Divider';
-import Calculator from '../pages/calculator.js'
-import Home from '../pages/home.js'
+import Calculator from '../pages/calculator.js';
+import Insights from '../pages/insights.js';
 import FamilyGathering from '../pages/familyGathering.js'
 import Error from '../pages/Error.js'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -20,7 +20,7 @@ class Navbar extends Component{
     // This state is passed to children component
     // -> Stores the user's risk profile.
     this.state = {globalRisk:0., calculator: ()=><Calculator changeGlobalRisk={this.changeGlobalRisk}/>,
-        familyGathering: ()=><FamilyGathering globalRisk={0.} />}
+        familyGathering: ()=><FamilyGathering globalRisk={0.} />, insights: () => <Insights />}
   }
 
     toggleNav = () => {
@@ -54,10 +54,6 @@ class Navbar extends Component{
               <ul className="nav-links">
                       <Divider />
                       <li>
-                      <NavLink onClick={this.toggleNav} to="/">Accueil</NavLink>
-                      </li>
-                      <Divider />
-                      <li>
                       <NavLink onClick={this.toggleNav} to="/calculator">Calculateur de risque</NavLink>
                       </li>
                       <Divider />
@@ -66,14 +62,19 @@ class Navbar extends Component{
                       </li>
                       <Divider/>
                       <li>
-                        <NavLink onClick={this.toggleNav} to="/">Sources</NavLink>
+                        <NavLink onClick={this.toggleNav} to="/insights">Insights</NavLink>
+                      </li>
+                      <Divider/>
+                      <li>
+                        <NavLink onClick={this.toggleNav} to="/">White Paper</NavLink>
                       </li>
                   </ul>
               </Paper>
               </NavbarWrapper>
                 <Body>
                   <Switch>
-                    <Route path="/" component={Home} exact/>
+                    <Route path="/" component={this.state.calculator} exact/>
+                    <Route path="/insights" component={this.state.insights} />
                     <Route path="/calculator" component={this.state.calculator} exact/>
                     <Route path="/familyGathering" component={this.state.familyGathering} />
                     <Route component={Error}/>

@@ -11,7 +11,7 @@ export default createGlobalStyle`
     background: ${props => props.theme.mainGrey};
     color: ${props => props.theme.mainBlack};
     font-display: swap;
-    font-family: "Helvetica", sans-serif;
+    font-family: "Roboto"
     font-size: 1rem;
     line-height: 1.0;
   }
@@ -23,14 +23,15 @@ export default createGlobalStyle`
 
   .my_body {
     min-height: 80vh;
-    min-width: 50%;
+    min-width: 60%;
     margin: 0 auto;
   }
 
   .paper_body{
     min-height: 90vh;
-    min-width: 50%;
+    min-width: 60%;
     margin: auto;
+    padding-bottom : 20px;
   }
 
   .behind_body {
@@ -69,16 +70,16 @@ export default createGlobalStyle`
   .show_name_person{
     height:100%;
     max-width:75%;
-    text-align:center;
     position:relative;
+    vertical-align:middle;
     padding : 5px;
     bottom:3.6rem;
   }
 
   .person_name_inner{
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .form_activity_grid{
@@ -127,6 +128,10 @@ export default createGlobalStyle`
     width:100%;
     text-align: center;
   }
+  
+  .recharts-wrapper {
+    margin : 0 auto;
+  }
 
   #calculator_result{
     text-align:center;
@@ -135,6 +140,9 @@ export default createGlobalStyle`
 
   #family_result{
     text-align:center;
+    border-style: solid;
+    border-radius: 16px;
+    border-width:thin;
   }
 
   #graph_result{
@@ -157,6 +165,45 @@ export default createGlobalStyle`
   .addActivity_buttons{
     align-items: center;
     justify-content: space-between;
+  }
+
+  .showMyRisk{
+    align-items: center;
+    justify-content: space-between;
+    margin-top:5px;
+  }
+
+  .green-dot{
+    height: 9px;
+    width: 9px;
+    background-color: #82ca9d;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right:4px;
+  }
+
+  .yellow-dot{
+    height: 9px;
+    width: 9px;
+    background-color: #F8E716;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .orange-dot{
+    height: 9px;
+    width: 9px;
+    background-color: orange;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .red-dot{
+    height: 9px;
+    width: 9px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
   }
 
   @media screen and (max-width: 576px){
@@ -239,9 +286,6 @@ export default createGlobalStyle`
 
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Impact", sans-serif;
-    letter-spacing: ${props => props.theme.mainSpacing};
-    font-display: swap;
     margin-bottom: 1.25rem;
   }
 

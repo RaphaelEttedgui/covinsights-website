@@ -24,7 +24,7 @@ export default [
     {
         name: "Cours de danse (partenaire fixe)",
         wearMask: true,
-        duration:120,
+        duration:60,
         nbPeople: 20,
         nbMasked: 20,
         location: "indoors",
@@ -59,7 +59,7 @@ export default [
         nbPeople: 10,
         duration: 480,
         wearMask: true,
-        nbMasked: 30,
+        nbMasked: 10,
         location: "indoors",
         distance: "long",
         talking: 'quiet',
