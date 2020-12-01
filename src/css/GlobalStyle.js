@@ -129,8 +129,11 @@ export default createGlobalStyle`
     text-align: center;
   }
   
-  .recharts-wrapper {
+  .recharts_wrapper {
     margin : 0 auto;
+    height:500px;
+    width:600px;
+    align-items: center;
   }
 
   #calculator_result{
@@ -204,6 +207,15 @@ export default createGlobalStyle`
     background-color: red;
     border-radius: 50%;
     display: inline-block;
+  }
+
+  @media screen and (max-width: 1080px){
+    .recharts_wrapper {
+      margin : 0 auto;
+      height:300px;
+      width:350px;
+      align-items: center;
+    }
   }
 
   @media screen and (max-width: 576px){

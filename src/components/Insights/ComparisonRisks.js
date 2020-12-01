@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import list_activities from '../constants/activities.js';
-import { ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Cell, Scatter} from 'recharts';
+import { ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Cell, Scatter, Label, ResponsiveContainer} from 'recharts';
 import { CustomActivity, NonWorkerRiskProfile, WorkerRiskProfile, RiskProfile, BasicUniverse} from '../Calculator/NewMath.js';
-import { orange, red } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid'
 
 class ComparisonRisk extends Component{
@@ -26,8 +25,6 @@ class ComparisonRisk extends Component{
             }
             var a = new CustomActivity(current.name, current.duration, current.nbPeople, current.wearMask, current.nbMasked/current.nbPeople, current.talking, current.location, current.distance, profile);
             var myActi = a.getRisk();
-            console.log(current.name);
-            console.log(myActi)
             var myRisk = myActi[0] * this.state.universe.prevalence;
             // Handle duration
             var composedRisk = 1 - Math.pow((1-myRisk),myActi[1])*(1-myRisk*myActi[2]/60);
@@ -67,12 +64,15 @@ class ComparisonRisk extends Component{
 
     render = () => {
         return (
-            <div style={{textAlign:"center"}}>
+            <div style={{textAlign:"center", alignItems:"center"}}>
             <div className="recharts_wrapper">
-            <ScatterChart width={630} height={600}
+            <ResponsiveContainer width="100%" height="100%">
+            <ScatterChart
                 margin={{ top: 20, right:15, bottom: 10, left: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="risk" type="number" domain={['dataMin', 'dataMax']} scale="log" ticks={ [0.5, 3, 10] } />
+                <XAxis dataKey="risk" type="number" domain={['dataMin', 'dataMax']} scale="log" ticks={ [0.5, 3, 10] }>
+                    <Label value="(log)" position='right' offset={-20} />
+                </XAxis>
                 <YAxis dataKey="name" type='category' interval={5} />
                 <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                 <Scatter data={this.state.actis} fill={"#82ca9d"}>
@@ -83,19 +83,20 @@ class ComparisonRisk extends Component{
                 }
                 </Scatter>
             </ScatterChart>
-            </div>         
+            </ResponsiveContainer>
+            </div>    
             <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid item>
-                    <span class="green-dot"></span> risque {"< 0.5"} % sur un an.
+                    <span className="green-dot"></span> risque {"< 0.5"} % sur un an.
                 </Grid>
                 <Grid item>
-                    <span class="yellow-dot"></span> entre {"0.5"} et {"3"}%
+                    <span className="yellow-dot"></span> entre {"0.5"} et {"3"}%
                 </Grid>
                 <Grid item>
-                    <span class="orange-dot"></span> entre {"3"} et {"10"}%
+                    <span className="orange-dot"></span> entre {"3"} et {"10"}%
                 </Grid>
                 <Grid item>
-                    <span class="red-dot"></span> {">10"} "%
+                    <span className="red-dot"></span> {">10"} %
                 </Grid>
             </Grid>    
             </div>
