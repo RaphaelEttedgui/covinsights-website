@@ -14,7 +14,7 @@ class Insights extends Component {
       </Helmet>        
       <div className="calculator_presentation">
         <h2>
-            Quelques activités classiques, classées par risque :
+            Quelques activités classiques, classées par risque sur 1 an :
         </h2>
       </div>
       <ComparisonRisks />

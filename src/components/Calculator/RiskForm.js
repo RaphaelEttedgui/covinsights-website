@@ -253,8 +253,8 @@ class RiskForm extends Component {
                             onChange={this.handleDistance}
                             label="Nb people"
                           >
-                            <option value="normal">Normale (1m)</option>
                             <option value="close">Proche (&le;30cm)</option>
+                            <option value="normal">Normale (1m)</option>
                             <option value="long">Longue (2m)</option>
                             <option value="veryLong">Très longue (&ge;3m)</option>
                           </Select>

@@ -124,6 +124,33 @@ export default createGlobalStyle`
     text-align: center;
   }
 
+  .whitepaper_presentation{
+    width:100%;
+    text-align: center;
+  }
+
+  .whitepaper{
+    font-size:20px;
+    margin : 30px 80px 20px 80px;
+  }
+
+  .center_gray{
+    background-color: #EBE9E4;
+    border-radius: 16px;
+    padding:1rem;
+    margin: 20px 10px 20px 10px;
+    font-size: 1.4em;
+    text-align:center;
+  }
+
+  .disclaimer{
+    border-style: solid;
+    border-width: medium;
+    border-color: orange;
+    padding : 15px;
+    background-color: #FCEBC1;
+  }
+
   .family_presentation{
     width:100%;
     text-align: center;
@@ -208,6 +235,13 @@ export default createGlobalStyle`
     border-radius: 50%;
     display: inline-block;
   }
+  
+  .seir_image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
 
   @media screen and (max-width: 1080px){
     .recharts_wrapper {
@@ -219,9 +253,36 @@ export default createGlobalStyle`
   }
 
   @media screen and (max-width: 576px){
+    .visible_except_mobile{
+      display: none;
+    }
+
+    .seir_image{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    body{
+      background-color: #FAF9F7;
+    }
+
     .risk_calculator{
       align-items: center;
       justify-content: space-between;
+    }
+
+    .whitepaper{
+      font-size:16px;
+      margin : 30px;
+      text-align : justify;
+    }
+
+    h2{
+      text-align:center;
+      padding-left:5px;
+      padding-right:5px;
     }
 
     .behind_body{
@@ -259,7 +320,9 @@ export default createGlobalStyle`
   }
 
   @media screen and (min-width: 576px) {
-
+    .visible_mobile_only{
+      display: none;
+    }
     .inside_body{
       padding: 2rem 1rem 0 1rem;
       width:100%;
@@ -302,6 +365,7 @@ export default createGlobalStyle`
   }
 
   p {
+    text-indent: 1.5em;
     margin-bottom: 1.25rem;
   }
 

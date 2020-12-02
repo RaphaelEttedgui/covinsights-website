@@ -8,6 +8,7 @@ import Calculator from '../pages/calculator.js';
 import Insights from '../pages/insights.js';
 import FamilyGathering from '../pages/familyGathering.js'
 import Error from '../pages/Error.js'
+import WhitePaper from '../pages/WhitePaper.js'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Body from './Body.js'
@@ -66,7 +67,7 @@ class Navbar extends Component{
                       </li>
                       <Divider/>
                       <li>
-                        <NavLink onClick={this.toggleNav} to="/">White Paper</NavLink>
+                        <NavLink onClick={this.toggleNav} to="/whitepaper">White Paper</NavLink>
                       </li>
                   </ul>
               </Paper>
@@ -77,6 +78,7 @@ class Navbar extends Component{
                     <Route path="/insights" component={this.state.insights} />
                     <Route path="/calculator" component={this.state.calculator} exact/>
                     <Route path="/familyGathering" component={this.state.familyGathering} />
+                    <Route path="/whitepaper" component={WhitePaper}/>
                     <Route component={Error}/>
                   </Switch>
                 </Body>
