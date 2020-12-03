@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import PersonCard from "./PersonCard.js"
+import PersonCardEng from "./PersonCardEng.js"
 import Fab from "@material-ui/core/Fab"
 import Grid from "@material-ui/core/Grid"
 import AddIcon from "@material-ui/icons/Add"
@@ -35,7 +35,7 @@ const styles = (theme) => ({
     },
   });
 
-class Gathering extends Component{
+class GatheringEng extends Component{
     constructor(props){
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
@@ -59,7 +59,7 @@ class Gathering extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
-                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+                <PersonCardEng id={myId} showForm={false} updatePerson={this.updatePerson} delete={this.clear} {...args} />
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -73,7 +73,7 @@ class Gathering extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
-                <PersonCard id={myId} showForm={true} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+                <PersonCardEng id={myId} showForm={true} updatePerson={this.updatePerson} delete={this.clear} {...args} />
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -195,13 +195,13 @@ class Gathering extends Component{
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
             <List>
-                <ListItem> Probabilité qu'une personne au moins ait le covid : {Math.round(result[0] * 10000) / 100}%. </ListItem>
-                <ListItem> Probabilité qu'une personne soit hospitalisée : {Math.round(result[1]*10000) / 100}%. <br />
-                Bilan : {Math.round(result[4]*nb_christmas)} hospitalisations supplémentaires à l'échelle de la France.</ListItem>
-                <ListItem>Probabilité qu'une personne aille en réa : {Math.round(result[2]*10000) / 100}%. <br />
-                Bilan : {Math.round(result[5]*nb_christmas)} réas supplémentaires à l'échelle de la France.</ListItem>
-                <ListItem>Probabilité qu'une personne meure : {Math.round(result[3]*10000) / 100}%. <br />
-                Bilan : {Math.round(result[6]*nb_christmas)} morts supplémentaires à l'échelle de la France.</ListItem>
+                <ListItem> Probability of someone having covid : {Math.round(result[0] * 10000) / 100}%. </ListItem>
+                <ListItem> Probability of at least one person being hospitalized : {Math.round(result[1]*10000) / 100}%. <br />
+                In total : {Math.round(result[4]*nb_christmas)} more hospitalizations in the country.</ListItem>
+                <ListItem>Probability of at least one person going into ICU : {Math.round(result[2]*10000) / 100}%. <br />
+                In total : {Math.round(result[5]*nb_christmas)} more ICUs in the country.</ListItem>
+                <ListItem>Probabiliity of someone dying : {Math.round(result[3]*10000) / 100}%. <br />
+                In total: {Math.round(result[6]*nb_christmas)} deaths in the country.</ListItem>
             </List>
         </Box>
       </div>
@@ -249,7 +249,7 @@ class Gathering extends Component{
                     variant="extended"
                 >
                     <AddIcon />
-                    <Box p="0.5rem">Personne</Box>
+                    <Box p="0.5rem">Person</Box>
                 </Fab>
                 </Grid>
                 <Grid item>
@@ -270,7 +270,7 @@ class Gathering extends Component{
                     variant="extended"
                 >
                     <TouchAppIcon />
-                    <Box p="0.5rem">Calculer le bilan</Box>
+                    <Box p="0.5rem">Compute the outcome</Box>
                 </Fab>
                 </Grid>
             </Grid>
@@ -285,14 +285,14 @@ class Gathering extends Component{
             </div>
             <br/><br/>
             <div className="disclaimer">
-                <h3>Disclaimer</h3>
-                Ce site n'a pas fait l'objet d'un processus de revue par des pairs, et représente donc
-                uniquement les estimations des auteurs étant donné les connaissances à leur disposition. Nous ne sommes en aucun cas des experts de ce sujet, même si nous avons lu beaucoup de papiers d'experts. Ceci n'est pas une source primaire d'information
-                sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
-                </div>
+            <h3>Disclaimer</h3>
+            This website was not peer-reviewed, and only represents the author's best estimations given the knowledge at hand. We are not experts in this topic by any
+            means, even if we read many expert's papers. This website is not a primary information source about COVID.
+            Do not use the tools from this website to take medical decisions. Keep following government recommendation.
+            </div>
         </div>
         )
     }
 }
 
-export default withStyles(styles)(Gathering);
+export default withStyles(styles)(GatheringEng);

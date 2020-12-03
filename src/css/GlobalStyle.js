@@ -64,7 +64,7 @@ export default createGlobalStyle`
   .person_edit_button{
     position:relative;
     left:75%;
-    top:29%;
+    top:31%;
   }
 
   .show_name_person{
@@ -257,6 +257,16 @@ export default createGlobalStyle`
       display: none;
     }
 
+    .translate_non_mobile{
+      display:none;
+    }
+
+    .translate_mobile{
+      position:absolute;
+      left:270px;
+      top:36px;
+    }
+
     .seir_image{
       display: block;
       margin-left: auto;
@@ -323,6 +333,12 @@ export default createGlobalStyle`
     .visible_mobile_only{
       display: none;
     }
+
+    .translate_mobile{
+      display:none;
+      z-index:2000;
+    }
+
     .inside_body{
       padding: 2rem 1rem 0 1rem;
       width:100%;

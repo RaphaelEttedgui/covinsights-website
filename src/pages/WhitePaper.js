@@ -150,6 +150,16 @@ class WhitePaper extends Component {
       des estimations de la probabilité d'être hospitalisé et d'aller en réa par classe d'âge), pour en déduire une estimation du nombre réel de cas. Il suffit alors
       de diviser ce nombre par la population totale pour obtenir la prévalence.
     </p>
+    En résumé, le risque sur 1h est donné par :
+    <div className="visible_except_mobile">
+    <MathComponent tex={String.raw`\left[\text{Risque de base}\right] \times \left[ \text{facteurs de modification} \right]`} />
+    <MathComponent tex={String.raw`\times \left[ \text{profil de risque de B} \right] \times \text{prevalence}`} />
+    </div>
+    <div className="visible_mobile_only">
+    <MathComponent tex={String.raw`\left[\text{Risque de base}\right] \times \left[ \text{facteurs modif} \right]`} />
+    <MathComponent tex={String.raw`\times \left[ \text{profil de risque de B} \right] \times \text{prevalence}`} />
+    </div>
+
     <br/>
     <h3>Durée et nombre de personnées</h3>
     Tout cela donne le risque de transmission lié à l'activité pendant une heure. Pour obtenir le risque lié à la pratique de l'activité plusieurs heures durant, on calcule
@@ -179,14 +189,18 @@ class WhitePaper extends Component {
     Notons qu'il s'agit là de la différence majeure entre notre algorithme et celui de Microcovid, qui additionne les risques liés à chaque heure et chaque personne.
     Il s'agit d'une approximation fonctionnant bien pour les risques très faibles, mais surestimant généralement le résultat total.
     </p>
-    <br /><br/>
+    <br />
     <h2>2. Impact sur l'épidémie</h2>
     <p>
-    Le calcul précédent nous permet d'estimer le risque individuel, autrement dit la probabilité d'être contaminé par le covid en fonction de ses activités sur une semaine.
-    Cela ne nous dit toutefois pas quel peut être l'impact de ce risque à l'échelle de l'épidémie. Autrement dit, contribuons-nous à accélérer, ou freiner, la circulation du virus ?
-    Si prédire le déroulement de l'épidémie en situation réelle est une tâche extrêmement compliquée (certains d'entre nous ont travaillé sur ce sujet et peuvent en témoigner) de par
-    le nombre gigantesque de paramètres à prendre en compte et la quantité d'incertitude existante, rendant les intervalles de confiance gigantesques, il est possible de donner
-    une réponse aux questions ci-dessus en simplifiant le problème de la façon suivante :
+    Le calcul précédent nous permet d'estimer le risque individuel, autrement dit la probabilité d'être contaminé en fonction de ses activités sur une semaine.
+    Cela ne nous dit toutefois pas quel peut être l'impact de ce risque à l'échelle de l'épidémie. Autrement dit, contribuons-nous à accélérer, ou freiner, la circulation du virus?
+    </p>
+    <p>
+    Prédire le déroulement de l'épidémie en situation réelle est une tâche extrêmement compliquée (certains d'entre nous ont travaillé sur ce sujet et peuvent en témoigner) de par
+    le nombre de paramètres à prendre en compte et le degré d'incertitude, qui imposent des intervalles de confiance importants.
+    </p>
+    <p>
+    Toutefois, il est possible de donner une réponse aux questions ci-dessus en simplifiant le problème de la façon suivante :
     </p>
     <div className="center_gray">
         Comment l'épidémie évoluerait-elle si tout le monde avait le même profil de risque que moi ?
@@ -214,8 +228,34 @@ class WhitePaper extends Component {
     </div>
     Où la probabilité de contamination pour chaque personne est calculée suivant la formule de la section précédente, en utilisant une prévélence de I(t)/N, autrement dit la
     probabilité qu'une personne aléatoire ait le virus à l'instant t.
+    <br/>
+    Notons que contrairement au modèle SEIR classique, dès qu'une activité implique plus d'une personne ou une durée de plus d'une heure, le risque de chaque individu n'est pas
+    proportionel à la prévalence.
+    <br /><br/>
+    <h2>3. Réunions familiales</h2>
     <p>
-     
+    L'un des enjeux les plus importants de l'épidémie est la période des fêtes de la fin 2020. Les personnes âgées sont particulièrement vulnérables et susceptibles d'être
+    hospitalisées et de mourir du virus, tandis que les jeunes adultes sont généralement la population socialisant le plus et étant donc le plus susceptible d'être contaminées.
+    Par conséquence, les réunions familiales, qui par nature mettent en contact les différentes classes d'âge, peuvent avoir des conséquences désastreuses si elles ne sont pas
+    soigneusement préparées.
+    </p>
+    <p>
+    Nous avons par conséquent utilisé l'algorithme de calcul de risque pour créer un simulateur de réunion familiale. En entrant un ensemble d'activités via le calculateur,
+    ansi que des participants à la réunion, il estime la probabilité que l'un d'entre eux développe une forme grave, et fait le bilan à l'échelle de la France.
+    </p>
+    <p>
+      Pour cela, nous avons utilisé le calculateur de risque pour évaluer la probabilité de contamination, puis
+      les estimations de <a href='https://hal-pasteur.archives-ouvertes.fr/pasteur-02548181'>l'institut Pasteur</a> afin de calculer la probabilité
+      d'hospitalisation, de réa et de mort une fois contaminé, pour chaque personne de la réunion en fonction de son âge.
+    </p>
+    <p>
+      Il a ensuite fallu estimer le nombre de réunions familiales. Nous sommes partis de la population française (66 millions), en retranchant un pourcentage déjà infecté
+      (nous avons calculé, à partir du nombre de réanimations, qu'entre 10 et 14% de la population était déjà infectée début Décembre 2020). Nous prenons le partie d'être
+      pessimistes, et considérons 56 millions de personnes susceptibles restantes.
+    </p>
+    <p>
+      Ensuite, toujours suivant le principe "que se passerait-il si tout le monde faisait comme moi", nous divisons la population susceptible par le nombre de personnes à la réunion
+      familiale, pour estimer le nombre de réunions. Cela permet d'obtenir le nombre estimé d'hospitalisations, de réanimations et de morts à l'échelle de la France.
     </p>
     </div>
     </div>

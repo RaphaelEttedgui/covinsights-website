@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import list_activities from '../constants/activities.js';
+import list_activities from '../constants/activitiesEng.js';
 import { ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Cell, Scatter, Label, ResponsiveContainer} from 'recharts';
 import { CustomActivity, NonWorkerRiskProfile, WorkerRiskProfile, RiskProfile, BasicUniverse} from '../Calculator/NewMath.js';
 import Grid from '@material-ui/core/Grid'
 
-class ComparisonRisk extends Component{
+class ComparisonRiskEng extends Component{
     constructor(props){
         super(props);
         this.state = {actis:[], universe:new BasicUniverse()};
@@ -87,13 +87,13 @@ class ComparisonRisk extends Component{
             </div>    
             <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid item>
-                    <span className="green-dot"></span> risque {"< 0.5"} % sur un an.
+                    <span className="green-dot"></span> risk {"< 0.5"} % over 1 year.
                 </Grid>
                 <Grid item>
-                    <span className="yellow-dot"></span> entre {"0.5"} et {"3"}%
+                    <span className="yellow-dot"></span> between {"0.5"} and {"3"}%
                 </Grid>
                 <Grid item>
-                    <span className="orange-dot"></span> entre {"3"} et {"10"}%
+                    <span className="orange-dot"></span> between {"3"} and {"10"}%
                 </Grid>
                 <Grid item>
                     <span className="red-dot"></span> {">10"} %
@@ -102,13 +102,13 @@ class ComparisonRisk extends Component{
             <br/><br/><br/>
             <div className="disclaimer">
             <h3>Disclaimer</h3>
-            Ce site n'a pas fait l'objet d'un processus de revue par des pairs, et représente donc
-            uniquement les estimations des auteurs étant donné les connaissances à leur disposition. Nous ne sommes en aucun cas des experts de ce sujet, même si nous avons lu beaucoup de papiers d'experts. Ceci n'est pas une source primaire d'information
-            sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
-            </div> 
+            This website was not peer-reviewed, and only represents the author's best estimations given the knowledge at hand. We are not experts in this topic by any
+            means, even if we read many expert's papers. This website is not a primary information source about COVID.
+            Do not use the tools from this website to take medical decisions. Keep following government recommendation.
+            </div>
             </div>
         )
     }
 }
 
-export default ComparisonRisk;
+export default ComparisonRiskEng;
