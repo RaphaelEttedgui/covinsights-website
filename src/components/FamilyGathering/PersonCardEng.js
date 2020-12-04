@@ -67,25 +67,19 @@ class PersonCardEng extends Component {
 
   showForm = () => {
     return (
+        <div className="risk_form">
+        <Tooltip title="Modifier">
+        <IconButton className="edit_button" aria-label="modify" size="small" onClick={() => this.setState({ showForm: false })}>
+        <EditIcon />
+        </IconButton>
+        </Tooltip>          
         <Box borderRadius={16} {...propsForDisplay}>
-            <Tooltip title="Modifier">
-            <IconButton className="person_edit_button" aria-label="modify" size="small" onClick={() => this.setState({ showForm: false })}>
-            <EditIcon />
-            </IconButton>
-            </Tooltip>
-            <div className="person_delete_button_show">
-                <Tooltip title="Supprimer">
-                <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.props.delete()}>
-                <DeleteIcon />
-                </IconButton>
-                </Tooltip>
-            </div>
-            <div className="show_name_person">
-                    <span className="person_name_inner">
-                    {this.state.name}.
-                    </span>
-            </div>
+        {this.props.children}
+        <div className="show_activity">
+                {this.state.name}.
+        </div>
         </Box>
+    </div>
     )
   }
 

@@ -31,10 +31,12 @@ const propsForDisplay = {
   borderColor: "text.primary",
   m: "auto",
   border: 0,
-  style: { width: "14rem", height: "5rem" },
+  style: { width: "16rem", height: "5rem" },
   boxShadow: 3,
   mx: "auto",
   px: "1rem",
+  position:"relative",
+  bottom:"2rem"
 }
 
 class PersonCard extends Component {
@@ -67,25 +69,19 @@ class PersonCard extends Component {
 
   showForm = () => {
     return (
-        <Box borderRadius={16} {...propsForDisplay}>
+        <div className="risk_form">
             <Tooltip title="Modifier">
-            <IconButton className="person_edit_button" aria-label="modify" size="small" onClick={() => this.setState({ showForm: false })}>
+            <IconButton className="edit_button" aria-label="modify" size="small" onClick={() => this.setState({ showForm: false })}>
             <EditIcon />
             </IconButton>
-            </Tooltip>
-            <div className="person_delete_button_show">
-                <Tooltip title="Supprimer">
-                <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.props.delete()}>
-                <DeleteIcon />
-                </IconButton>
-                </Tooltip>
-            </div>
-            <div className="show_name_person">
-                    <span className="person_name_inner">
+            </Tooltip>          
+        <Box borderRadius={16} {...propsForDisplay}>
+          {this.props.children}
+            <div className="show_activity">
                     {this.state.name}.
-                    </span>
             </div>
         </Box>
+        </div>
     )
   }
 

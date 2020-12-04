@@ -7,7 +7,7 @@ import Box from "@material-ui/core/Box"
 import Chip from '@material-ui/core/Chip';
 import DeleteIcon from "@material-ui/icons/Delete"
 import CachedIcon from '@material-ui/icons/Cached';
-import { IconButton, Button } from "@material-ui/core"
+import { IconButton} from "@material-ui/core"
 import Tooltip from '@material-ui/core/Tooltip';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";

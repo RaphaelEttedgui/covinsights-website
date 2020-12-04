@@ -12,6 +12,9 @@ import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
 import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import { IconButton} from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
 
 /*
 **********
@@ -37,8 +40,9 @@ class Gathering extends Component{
     constructor(props){
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
-        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, result:[], globalRisk:0,
-        masks:false, location:"indoors", duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse(), globalRisk:this.props.globalRisk}
+        this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, result:[],
+        masks:false, location:"indoors", duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse(), 
+        globalRisk:(isNaN(this.props.globalRisk)? 0:this.props.globalRisk)}
         this.defaultPersonArgs = {
             name:"Bobby",
             age: 20,
@@ -56,8 +60,16 @@ class Gathering extends Component{
     addPerson = (args) => {
         const myId = this.state.nextId;
         const myNewCard = (
-            <Grid item className="person_list">
-                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args} />
+            <Grid item className="activity_list">
+                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args}>
+                    <div className="delete_button">
+                    <Tooltip title="Supprimer">
+                    <IconButton aria-label="delete" size="small" onClick={() => {this.clear(myId); this.toggleOffResult()}}>
+                    <DeleteIcon />
+                    </IconButton>
+                    </Tooltip>
+                    </div>
+                </PersonCard>
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -70,8 +82,16 @@ class Gathering extends Component{
     addPremadePerson = (args) => {
         const myId = this.state.nextId;
         const myNewCard = (
-            <Grid item className="person_list">
-                <PersonCard id={myId} showForm={true} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args} />
+            <Grid item className="activity_list">
+                <PersonCard id={myId} showForm={true} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args}>
+                    <div className="delete_button">
+                    <Tooltip title="Supprimer">
+                    <IconButton aria-label="delete" size="small" onClick={() => {this.clear(myId); this.toggleOffResult()}}>
+                    <DeleteIcon />
+                    </IconButton>
+                    </Tooltip>
+                    </div>
+                </PersonCard>
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -147,14 +167,12 @@ class Gathering extends Component{
         var interactionRisk = interaction.getActivityRisk();
         // Using the risk from the calculator.
         // We only compute the risk for his family.
-        var globalRisk = (isNaN(this.state.globalRisk? 0 : this.state.globalRisk));
-        risk = risk *(1-globalRisk);
+        risk = risk *(1-this.state.globalRisk);
 		for(var key in this.state.people){
             // The risk passed by the person via the simulator.
 			var myRisk = this.state.people[key][1] / 100
 			// We update the probability that no-one has the disease
             risk = risk * (1-myRisk);
-            console.log(this.state.people[key])
 			for(var current in this.state.people){
                 if(current != key){
                     // Updating the risk for person i by taking into account the possible
@@ -162,7 +180,7 @@ class Gathering extends Component{
 				    myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.people[current][1]/100;
                 }
             }
-            myRisk = myRisk + (1-myRisk)*interactionRisk*globalRisk;
+            myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.globalRisk;
 			var hospProba = this.state.people[key][0][0]
 			var reaProba = this.state.people[key][0][1]
 			var deathProba = this.state.people[key][0][2]
@@ -179,7 +197,6 @@ class Gathering extends Component{
 		hospRisk = 1-hospRisk;
 		reaRisk = 1-reaRisk;
         deathRisk = 1-deathRisk;
-        console.log([risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]);
         var res = 
 		this.setState({result:[risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]});
     }
@@ -210,30 +227,30 @@ class Gathering extends Component{
             <Grid container spacing={3}>
                 <Grid item xs={4}>
                 <div className="result_cases">
-                    <div class="result_cases_top">
+                    <div className="result_cases_top">
                         {Math.round(result[4]*nb_christmas)}
                     </div>
-                    <div class="result_cases_bottom">
+                    <div className="result_cases_bottom">
                         hospitalisations
                     </div>
                 </div>
                 </Grid>
                 <Grid item xs={4}>
                 <div className="result_cases">
-                    <div class="result_cases_top">
+                    <div className="result_cases_top">
                     {Math.round(result[5]*nb_christmas)}
                     </div>
-                    <div class="result_cases_bottom">
+                    <div className="result_cases_bottom">
                     réanimationss
                     </div>
                 </div>
                 </Grid>
                 <Grid item xs={4}>
                 <div className="result_cases">
-                    <div class="result_cases_top">
+                    <div className="result_cases_top">
                     {Math.round(result[6]*nb_christmas)}
                     </div>
-                    <div class="result_cases_bottom">
+                    <div className="result_cases_bottom">
                     morts
                     </div>
                 </div>
@@ -244,30 +261,30 @@ class Gathering extends Component{
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                 <div className="result_cases">
-                    <div class="result_cases_top">
+                    <div className="result_cases_top">
                         {Math.round(result[4]*nb_christmas)}
                     </div>
-                    <div class="result_cases_bottom">
+                    <div className="result_cases_bottom">
                         hospitalisations
                     </div>
                 </div>
                 </Grid>
                 <Grid item xs={12}>
                 <div className="result_cases">
-                    <div class="result_cases_top">
+                    <div className="result_cases_top">
                     {Math.round(result[5]*nb_christmas)}
                     </div>
-                    <div class="result_cases_bottom">
+                    <div className="result_cases_bottom">
                     réas
                     </div>
                 </div>
                 </Grid>
                 <Grid item xs={12}>
                 <div className="result_cases">
-                    <div class="result_cases_top">
+                    <div className="result_cases_top">
                     {Math.round(result[6]*nb_christmas)}
                     </div>
-                    <div class="result_cases_bottom">
+                    <div className="result_cases_bottom">
                     morts
                     </div>
                 </div>
@@ -281,7 +298,7 @@ class Gathering extends Component{
     }
 
     handleGlobalRisk = (event) => {
-        this.setState({globalRisk: Number(event.target.value)/100})
+        this.setState({globalRisk: Number(event.target.value)/100});
     }
 
     showMyRisk = () => {
@@ -306,7 +323,7 @@ class Gathering extends Component{
 
     render = () => {
         return (
-        <div id="Gatherer_container">
+        <div className="risk_calculator">
          <Grid container spacing={1} justify="center" alignitems="center">
                 {this.state.peopleCards}
         </Grid>
