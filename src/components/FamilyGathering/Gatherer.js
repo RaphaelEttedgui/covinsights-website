@@ -11,8 +11,6 @@ import { withStyles } from "@material-ui/core/styles";
 import profiles from '../constants/profiles.js';
 import FaceIcon from '@material-ui/icons/Face';
 import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 
 /*
@@ -51,7 +49,7 @@ class Gathering extends Component{
     }
 
     componentDidMount = () => {
-        this.addPerson(this.defaultPersonArgs);
+        
     }
 
     // We only add the card, the person is added on submit.
@@ -59,7 +57,7 @@ class Gathering extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
-                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args} />
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -73,7 +71,7 @@ class Gathering extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
-                <PersonCard id={myId} showForm={true} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+                <PersonCard id={myId} showForm={true} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args} />
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -113,7 +111,7 @@ class Gathering extends Component{
         <div id="premade_cards" className={classes.root}>
             {profiles.map((item, index) => {
             return (
-                    <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadePerson(item)}} />
+                    <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadePerson(item); this.toggleOffResult()}} />
             )
             })}
         </div>
@@ -122,6 +120,10 @@ class Gathering extends Component{
 
     toggleResult = () => {
         this.setState({toggleResult:true});
+    }
+
+    toggleOffResult = () => {
+        this.setState({toggleResult:false});
     }
 
     // Compute the probability that someone is hospitalized, goes to ICU, and dies.
@@ -145,7 +147,8 @@ class Gathering extends Component{
         var interactionRisk = interaction.getActivityRisk();
         // Using the risk from the calculator.
         // We only compute the risk for his family.
-        risk = risk *(1-this.state.globalRisk);
+        var globalRisk = (isNaN(this.state.globalRisk? 0 : this.state.globalRisk));
+        risk = risk *(1-globalRisk);
 		for(var key in this.state.people){
             // The risk passed by the person via the simulator.
 			var myRisk = this.state.people[key][1] / 100
@@ -159,7 +162,7 @@ class Gathering extends Component{
 				    myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.people[current][1]/100;
                 }
             }
-            myRisk = myRisk + (1-myRisk)*interactionRisk*this.state.globalRisk;
+            myRisk = myRisk + (1-myRisk)*interactionRisk*globalRisk;
 			var hospProba = this.state.people[key][0][0]
 			var reaProba = this.state.people[key][0][1]
 			var deathProba = this.state.people[key][0][2]
@@ -186,23 +189,90 @@ class Gathering extends Component{
         const result = this.state.result;
         const pop_restante = 66000000 * 0.9; // 66millions moins les environ 10 à 15% déjà infectés.
         var n_pers = 0;
+        var nb_christmas
+
         if(this.state.globalRisk !=0){
             n_pers = n_pers + 1;
         }
         n_pers = n_pers + Object.keys(this.state.people).length;
-        const nb_christmas = pop_restante/n_pers; // Chacun fait comme moi.
+        if(n_pers==0)
+        {
+            nb_christmas=0;
+        }
+        else{
+            nb_christmas = pop_restante * 0.7 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
+        }
         return (
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
-            <List>
-                <ListItem> Probabilité qu'une personne au moins ait le covid : {Math.round(result[0] * 10000) / 100}%. </ListItem>
-                <ListItem> Probabilité qu'une personne soit hospitalisée : {Math.round(result[1]*10000) / 100}%. <br />
-                Bilan : {Math.round(result[4]*nb_christmas)} hospitalisations supplémentaires à l'échelle de la France.</ListItem>
-                <ListItem>Probabilité qu'une personne aille en réa : {Math.round(result[2]*10000) / 100}%. <br />
-                Bilan : {Math.round(result[5]*nb_christmas)} réas supplémentaires à l'échelle de la France.</ListItem>
-                <ListItem>Probabilité qu'une personne meure : {Math.round(result[3]*10000) / 100}%. <br />
-                Bilan : {Math.round(result[6]*nb_christmas)} morts supplémentaires à l'échelle de la France.</ListItem>
-            </List>
+            <div className="visible_except_mobile">
+            <Grid container spacing={3}>
+                <Grid item xs={4}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                        {Math.round(result[4]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                        hospitalisations
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[5]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    réas
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[6]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    morts
+                    </div>
+                </div>
+                </Grid>
+            </Grid>
+            </div>
+            <div className="visible_mobile_only">
+            <Grid container spacing={1}>
+                <Grid item xs={12}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                        {Math.round(result[4]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                        hospitalisations
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={12}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[5]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    réas
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={12}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[6]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    morts
+                    </div>
+                </div>
+                </Grid>
+            </Grid>
+            </div>
         </Box>
       </div>
       )
@@ -253,7 +323,7 @@ class Gathering extends Component{
                 </Fab>
                 </Grid>
                 <Grid item>
-                <Fab onClick={this.clearAll} color="secondary" variant="extended">
+                <Fab onClick={() => {this.clearAll(); this.toggleOffResult();}} color="secondary" variant="extended">
                     <CachedIcon />
                     <Box p="0.5rem">Reset</Box>
                 </Fab>

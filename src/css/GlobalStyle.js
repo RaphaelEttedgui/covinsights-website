@@ -175,6 +175,21 @@ export default createGlobalStyle`
     border-width:thin;
   }
 
+  .result_cases{
+    margin:1rem 1rem 2rem 1rem;
+    align-items:center;
+    text-align : center;
+  }
+
+  .result_cases_top{
+    font-size:3rem;
+    font-weight: bold;
+  }
+
+  .result_cases_bottom{
+
+  }
+
   #graph_result{
     padding-top:1.5rem;
   }

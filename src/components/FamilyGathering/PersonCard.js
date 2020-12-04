@@ -75,7 +75,7 @@ class PersonCard extends Component {
             </Tooltip>
             <div className="person_delete_button_show">
                 <Tooltip title="Supprimer">
-                <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.props.delete(this.state.id)}>
+                <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.props.delete()}>
                 <DeleteIcon />
                 </IconButton>
                 </Tooltip>
@@ -94,7 +94,7 @@ class PersonCard extends Component {
         <Box borderRadius={16} {...propsForForm}>
         <div className="person_delete_button_creator">
                 <Tooltip title="Supprimer">
-                <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.props.delete(this.state.id)}>
+                <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => this.props.delete()}>
                 <DeleteIcon />
                 </IconButton>
                 </Tooltip>

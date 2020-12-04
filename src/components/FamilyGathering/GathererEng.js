@@ -51,7 +51,7 @@ class GatheringEng extends Component{
     }
 
     componentDidMount = () => {
-        this.addPerson(this.defaultPersonArgs);
+        
     }
 
     // We only add the card, the person is added on submit.
@@ -59,7 +59,7 @@ class GatheringEng extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
-                <PersonCardEng id={myId} showForm={false} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+                <PersonCardEng id={myId} showForm={false} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args} />
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -73,7 +73,7 @@ class GatheringEng extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="person_list">
-                <PersonCardEng id={myId} showForm={true} updatePerson={this.updatePerson} delete={this.clear} {...args} />
+                <PersonCardEng id={myId} showForm={true} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args} />
             </Grid>
           )
         this.setState({ nextId: this.state.nextId + 1 });
@@ -113,7 +113,7 @@ class GatheringEng extends Component{
         <div id="premade_cards" className={classes.root}>
             {profiles.map((item, index) => {
             return (
-                    <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadePerson(item)}} />
+                    <Chip icon={<FaceIcon />} label={item.name} clickable onClick={() => {this.addPremadePerson(item); this.toggleOffResult()}} />
             )
             })}
         </div>
@@ -122,6 +122,10 @@ class GatheringEng extends Component{
 
     toggleResult = () => {
         this.setState({toggleResult:true});
+    }
+
+    toggleOffResult = () => {
+        this.setState({toggleResult:false});
     }
 
     // Compute the probability that someone is hospitalized, goes to ICU, and dies.
@@ -244,7 +248,7 @@ class GatheringEng extends Component{
             <Grid container spacing={1} alignItems="center" justify="center">
                 <Grid item>
                 <Fab
-                    onClick={() => {this.addPerson(this.defaultPersonArgs)}}
+                    onClick={() => {this.addPerson(this.defaultPersonArgs); this.toggleOffResult()}}
                     color="primary"
                     variant="extended"
                 >
@@ -253,7 +257,7 @@ class GatheringEng extends Component{
                 </Fab>
                 </Grid>
                 <Grid item>
-                <Fab onClick={this.clearAll} color="secondary" variant="extended">
+                <Fab onClick={() => {this.clearAll(); this.toggleOffResult()}} color="secondary" variant="extended">
                     <CachedIcon />
                     <Box p="0.5rem">Reset</Box>
                 </Fab>

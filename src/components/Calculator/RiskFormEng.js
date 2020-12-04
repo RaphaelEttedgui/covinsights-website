@@ -163,7 +163,7 @@ class RiskFormEng extends Component {
   showForm = () => {
     return (
       <div className="risk_form">
-      <Tooltip title="Modifier">
+      <Tooltip title="Edit">
       <IconButton className="edit_button" aria-label="delete" size="small" onClick={() => {this.setState({ showForm: false }); this.props.edit()}}>
         <EditIcon />
       </IconButton>

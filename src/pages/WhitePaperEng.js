@@ -62,7 +62,7 @@ class WhitePaperEng extends Component {
     </div>
     <Divider />
     <div className="whitepaper">
-        <h2>Présentation</h2>
+        <h2>Presentation</h2>
         <p>
             The main goal of this website is to diffuse some mathematical reasonings about the covid19 epidemy, so that everyone can estimate, as well as possible
             given the current state of knowledge, the individual risk as well as the impact that each individual behavior can have on the epidemy as a whole.

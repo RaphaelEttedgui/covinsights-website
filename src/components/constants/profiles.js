@@ -3,7 +3,13 @@ export default [
         name: "Safe Susie",
         age: 20,
         gender: 'F',
-        risk: 0.06,
+        risk: 0.0005,
+    },
+    {
+        name: "Average Alban",
+        age: 32,
+        gender : 'ND',
+        risk: 0.006,
     },
     {
         name: "Risky Rufus",
@@ -15,7 +21,7 @@ export default [
         name: "Busy Bhagya",
         age: 75,
         gender : 'F',
-        risk:0.1,
+        risk:0.005,
     },
     {
         name: "Family Farid",
