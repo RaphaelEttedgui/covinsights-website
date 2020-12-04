@@ -8,11 +8,9 @@ import Chip from '@material-ui/core/Chip';
 import CachedIcon from '@material-ui/icons/Cached';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
-import profiles from '../constants/profiles.js';
+import profiles from '../constants/profilesEng.js';
 import FaceIcon from '@material-ui/icons/Face';
 import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 
 /*
@@ -190,11 +188,19 @@ class GatheringEng extends Component{
         const result = this.state.result;
         const pop_restante = 66000000 * 0.9; // 66millions moins les environ 10 à 15% déjà infectés.
         var n_pers = 0;
+        var nb_christmas
+
         if(this.state.globalRisk !=0){
             n_pers = n_pers + 1;
         }
         n_pers = n_pers + Object.keys(this.state.people).length;
-        const nb_christmas = pop_restante/n_pers; // Chacun fait comme moi.
+        if(n_pers==0)
+        {
+            nb_christmas=0;
+        }
+        else{
+            nb_christmas = pop_restante * 0.75 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
+        }
         return (
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">

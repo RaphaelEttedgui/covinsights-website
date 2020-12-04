@@ -200,7 +200,7 @@ class Gathering extends Component{
             nb_christmas=0;
         }
         else{
-            nb_christmas = pop_restante * 0.7 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
+            nb_christmas = pop_restante * 0.75 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
         }
         return (
         <div id ="family_result">

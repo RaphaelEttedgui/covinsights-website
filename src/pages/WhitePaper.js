@@ -12,7 +12,6 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from "@material-ui/core/styles";
 import seir_image from '../images/SEIR.png';
 import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button'
 import { ListItem } from "@material-ui/core";
 
 function createData(name, risk) {
@@ -278,12 +277,14 @@ class WhitePaper extends Component {
     </p>
     <p>
       Il a ensuite fallu estimer le nombre de réunions familiales. Nous sommes partis de la population française (66 millions), en retranchant un pourcentage déjà infecté
-      (nous avons calculé, à partir du nombre de réanimations, qu'entre 10 et 14% de la population était déjà infectée début Décembre 2020). Nous prenons le partie d'être
-      pessimistes, et considérons 56 millions de personnes susceptibles restantes.
+      (nous avons calculé, à partir du nombre de réanimations, qu'entre 10 et 14% de la population était déjà infectée début Décembre 2020). Nous considérons
+      56 millions de personnes susceptibles restantes (cas le plus large). Parmi eux, nous estimons que 3 personnes sur 4 iront à au moins une réunion familiale
+      dans l'année, ce qui donne 42 millions de personnes allant à des rassemblements.
     </p>
     <p>
-      Ensuite, toujours suivant le principe "que se passerait-il si tout le monde faisait comme moi", nous divisons la population susceptible par le nombre de personnes à la réunion
-      familiale, pour estimer le nombre de réunions. Cela permet d'obtenir le nombre estimé d'hospitalisations, de réanimations et de morts à l'échelle de la France.
+      Pour finir, toujours suivant le principe "que se passerait-il si tout le monde faisait comme moi", nous divisons ce chiffre par le nombre de personnes à la réunion
+      familiale entrée dans le simulateur, pour estimer le nombre de réunions. Cela permet d'obtenir le nombre estimé d'hospitalisations,
+      de réanimations et de morts à l'échelle de la France.
     </p>
     </div>
     </div>

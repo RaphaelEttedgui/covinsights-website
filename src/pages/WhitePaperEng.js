@@ -82,7 +82,7 @@ class WhitePaperEng extends Component {
     </div>
     <Divider />
     <div className="whitepaper">
-        <h2>Table des matières</h2>
+        <h2>Table of content</h2>
         <List disablePadding={true}>
           <ListItem button={true} onClick={() => this.goToRisk()}>1. Risk computation</ListItem>
           <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact on the epidemic</ListItem>
@@ -264,11 +264,12 @@ class WhitePaperEng extends Component {
     </p>
     <p>
       We then estimated the number of family reunion. We start with the french population (66 millions), subtract the percentage of already immune people (we computed
-      that to be around 10 to 14% from the number of ICUs, and this is confirmed by Institut Pasteur), to get around 55 Millions.
+      that to be around 10 to 14% from the number of ICUs, and this is confirmed by Institut Pasteur), to get around 56 Millions. Among these, around three third will
+      attend at least one family gathering, which gives 42 millions.
     </p>
     <p>
-      Finally, following the principle "what would happen if everyone does like me", we divide the susceptible population by the number of poeple going to the reunion, to
-      estimate the number of reunions. This allows us to compute the outcome for the whole country.
+      Finally, following the principle "what would happen if everyone does like me", we divide this population by the number of poeple going to the reunion that was
+      entered in the simulator, to estimate the number of reunions. This allows us to compute the outcome for the whole country.
     </p>
     </div>
     </div>
