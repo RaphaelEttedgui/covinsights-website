@@ -104,9 +104,9 @@ class RiskCalculator extends Component {
     riskYear = Math.round((riskYear * 10000 + Number.EPSILON)) / 100;
     return (
       <div id="calculator_result">
-      <Box pt="1rem" justify="right" m="auto">
-        Vous avez {riskWeek} % de chance d'attraper le covid
-        sur une semaine, pour une prévalence de {this.state.person.universe.prevalence}. Cela donne {riskYear} % sur un an.
+      <Box justify="right" m="auto">
+        Vous avez <span style={{fontWeight:"bold", color:"red"}}>{riskWeek} %</span> de chance d'attraper le covid
+        sur une semaine, pour une prévalence de {this.state.person.universe.prevalence}. Cela donne <span style={{fontWeight:"bold", color:"red"}}>{riskYear} %</span> sur un an.
       </Box>
       <div id="button_to_family">
       <NavLink to="/familyGathering/">

@@ -11,6 +11,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from "@material-ui/core/styles";
 import seir_image from '../images/SEIR.png';
+import List from '@material-ui/core/List';
+import { ListItem } from "@material-ui/core";
 
 function createData(name, risk) {
   return { name, risk };
@@ -46,6 +48,24 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 class WhitePaperEng extends Component {
+  constructor(props){
+    super(props);
+    this.refRisque = React.createRef();
+    this.refImpact = React.createRef();
+    this.refFamily = React.createRef();
+  }
+
+  goToRisk = () => {
+    this.refRisque.current.scrollIntoView({behavior: "smooth"});
+  }
+
+  goToImpact = () => {
+    this.refImpact.current.scrollIntoView({behavior: "smooth"});
+  }
+
+  goToFamily = () => {
+    this.refFamily.current.scrollIntoView({behavior: "smooth"});
+  }
 
   render =() => {
     return (
@@ -62,14 +82,21 @@ class WhitePaperEng extends Component {
     </div>
     <Divider />
     <div className="whitepaper">
+        <h2>Table des matières</h2>
+        <List disablePadding={true}>
+          <ListItem button={true} onClick={() => this.goToRisk()}>1. Risk computation</ListItem>
+          <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact on the epidemic</ListItem>
+          <ListItem button={true} onClick={() => this.goToFamily()}>3. Family gathering</ListItem>
+        </List>
+        <br />
         <h2>Presentation</h2>
         <p>
-            The main goal of this website is to diffuse some mathematical reasonings about the covid19 epidemy, so that everyone can estimate, as well as possible
-            given the current state of knowledge, the individual risk as well as the impact that each individual behavior can have on the epidemy as a whole.
+            The main goal of this website is to diffuse some mathematical reasonings about the covid19 epidemic, so that everyone can estimate, as well as possible
+            given the current state of knowledge, the individual risk as well as the impact that each individual behavior can have on the epidemic as a whole.
         </p>
         <p>
             We believe that information is the key to success in the fight against a pandemic. By giving everyone the means to adjust their behavior to the state of
-            virus circulation, it is possible to maintain the epidemy under control, so that extreme sanitary measures will only be a last resort, instead of a regular
+            virus circulation, it is possible to maintain the epidemic under control, so that extreme sanitary measures will only be a last resort, instead of a regular
             necessity as it is right now.
         </p>
         <div className="disclaimer">
@@ -81,7 +108,7 @@ class WhitePaperEng extends Component {
           Do not use the tools from this website to make medical decisions. Please continue to follow government guidance.
         </div>
         <br />
-        <h2>1. Risk computation</h2>
+        <h2 ref={this.refRisque}>1. Risk computation</h2>
         <p>
             We use the algorithm for risk computation that was developed by the team of <a href="http://microcovid.org/paper/">Microcovid</a> as the basis for the rest of our work.
             For more details and links to the scientific sources on which their numbers are based, we highly encourage you to visit their website. They have accomplished some
@@ -178,22 +205,22 @@ class WhitePaperEng extends Component {
     that work well for small risks, but usually overestimate the result otherwise.
     </p>
     <br />
-    <h2>2. Impact on the epidemy</h2>
+    <h2 ref={this.refImpact}>2. Impact on the epidemic</h2>
     <p>
     The computation above allows us to estimate the individual risk, which is the probability of being contaminated given one's activities over the week.
-    However, this does not indicate the impact over the epidemy as a whole : do we contribute to accelerate, or slow down, the circulation of the virus ?
+    However, this does not indicate the impact over the epidemic as a whole : do we contribute to accelerate, or slow down, the circulation of the virus ?
     </p>
     <p>
-    It is extremely hard to make predictions about the evolution of the epidemy in a real scenario (some of us worked on that topic, and can confirm that), because of the number
+    It is extremely hard to make predictions about the evolution of the epidemic in a real scenario (some of us worked on that topic, and can confirm that), because of the number
     of parameters to take into account, as well as the uncertainty, that lead to large confidence intervals.
     </p>
     <p>
     However, it is possible to answer the question above by making the following simplification :
     </p>
     <div className="center_gray">
-        How would the epidemy advance if everyone had the same risk profile as me ?
+        How would the epidemic advance if everyone had the same risk profile as me ?
     </div>
-    This simplification allows us to compute the evolution of the epidemy quite easily, by using a variant of
+    This simplification allows us to compute the evolution of the epidemic quite easily, by using a variant of
     the <a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SEIR</a> model. We assume that there are
     no multiple infections (or a negligeable number), and we pose :
     <ul style={{listStylePosition: 'inside', margin:'15px'}}>
@@ -221,7 +248,7 @@ class WhitePaperEng extends Component {
     to the prevalence.
 
     <br /><br/>
-    <h2>3. Family gatherings</h2>
+    <h2 ref={this.refFamily}>3. Family gatherings</h2>
     <p>
     One of the most important stakes of the epidemic is Christmas. Old people are especially vulnerable and are the most susceptible to be hospitalized and dying of the virus,
     whereas young adults are the one that socialize the most, and so take the most risks. Hence, family gathering, where by natures different age groups meet, may have

@@ -185,7 +185,7 @@ class Gathering extends Component{
     }
 
     showResult = () => {
-        this.refResult.current.scrollIntoView();
+        this.refResult.current.scrollIntoView({ behavior: "smooth" });
         const result = this.state.result;
         const pop_restante = 66000000 * 0.9; // 66millions moins les environ 10 à 15% déjà infectés.
         var n_pers = 0;
@@ -205,6 +205,7 @@ class Gathering extends Component{
         return (
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
+            Bilan sur la France : <br /> <br/>
             <div className="visible_except_mobile">
             <Grid container spacing={3}>
                 <Grid item xs={4}>
@@ -223,7 +224,7 @@ class Gathering extends Component{
                     {Math.round(result[5]*nb_christmas)}
                     </div>
                     <div class="result_cases_bottom">
-                    réas
+                    réanimationss
                     </div>
                 </div>
                 </Grid>

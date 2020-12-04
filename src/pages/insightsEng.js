@@ -14,8 +14,11 @@ class Insights extends Component {
       </Helmet>        
       <div className="calculator_presentation">
         <h2>
-            A few classical activities, ordered by risk :
+            A few classical activities, ordered by risk over a year:
         </h2>
+        <div className="calculator_introduction">
+          This chart represents the risk of contamination when doing only this one activity, every week for a year.
+        </div>
       </div>
       <ComparisonRisksEng />
       </div>

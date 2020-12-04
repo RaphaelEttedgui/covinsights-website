@@ -11,6 +11,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from "@material-ui/core/styles";
 import seir_image from '../images/SEIR.png';
+import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button'
+import { ListItem } from "@material-ui/core";
 
 function createData(name, risk) {
   return { name, risk };
@@ -24,7 +27,7 @@ const rows = [
   createData('Chaque mètre de distance supplémentaire', '/2'),
   createData('Conversation forte (crier,  chanter, parler au-dessus de la musique', 'x5'),
   createData('Personne ne parle (typiquement dans un train)', '/5'),
-  createData('Être dans un train avec filtration d\air, ou une voiture en mouvement fenêtres ouvertes', '/4'),
+  createData('Être dans un train avec filtration d\'air, ou une voiture en mouvement fenêtres ouvertes', '/4'),
 ];
 
 const StyledTableCell = withStyles((theme) => ({
@@ -46,6 +49,24 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 class WhitePaper extends Component {
+  constructor(props){
+    super(props);
+    this.refRisque = React.createRef();
+    this.refImpact = React.createRef();
+    this.refFamily = React.createRef();
+  }
+
+  goToRisk = () => {
+    this.refRisque.current.scrollIntoView({behavior: "smooth"});
+  }
+
+  goToImpact = () => {
+    this.refImpact.current.scrollIntoView({behavior: "smooth"});
+  }
+
+  goToFamily = () => {
+    this.refFamily.current.scrollIntoView({behavior: "smooth"});
+  }
 
   render =() => {
     return (
@@ -62,6 +83,13 @@ class WhitePaper extends Component {
     </div>
     <Divider />
     <div className="whitepaper">
+        <h2>Table des matières</h2>
+        <List disablePadding={true}>
+          <ListItem button={true} onClick={() => this.goToRisk()}>1. Calcul du risque</ListItem>
+          <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact sur l'épidémie</ListItem>
+          <ListItem button={true} onClick={() => this.goToFamily()}>3. Réunion familiale</ListItem>
+        </List>
+        <br />
         <h2>Présentation</h2>
         <p>
             L'objectif principal de ce site est de rendre accessibles un ensemble de connaissances et raisonnements mathématiques sur l'épidémie de covid19, afin de permettre à chacun
@@ -82,7 +110,7 @@ class WhitePaper extends Component {
           sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
         </div>
         <br />
-        <h2>1. Calcul de risque</h2>
+        <h2 ref={this.refRisque}>1. Calcul de risque</h2>
         <p>
             Nous utilisons l'algorithme de calcul de risque développé par l'équipe de <a href="http://microcovid.org/paper/">Microcovid</a>. Pour plus de détails et les liens vers les
             publications scientifiques sur lesquelles reposent les chiffres, nous vous encourageons vivement à consulter leur site. Ils ont accompli un travail considérable et
@@ -190,7 +218,7 @@ class WhitePaper extends Component {
     Il s'agit d'une approximation fonctionnant bien pour les risques très faibles, mais surestimant généralement le résultat total.
     </p>
     <br />
-    <h2>2. Impact sur l'épidémie</h2>
+    <h2 ref={this.refImpact}>2. Impact sur l'épidémie</h2>
     <p>
     Le calcul précédent nous permet d'estimer le risque individuel, autrement dit la probabilité d'être contaminé en fonction de ses activités sur une semaine.
     Cela ne nous dit toutefois pas quel peut être l'impact de ce risque à l'échelle de l'épidémie. Autrement dit, contribuons-nous à accélérer, ou freiner, la circulation du virus?
@@ -232,7 +260,7 @@ class WhitePaper extends Component {
     Notons que contrairement au modèle SEIR classique, dès qu'une activité implique plus d'une personne ou une durée de plus d'une heure, le risque de chaque individu n'est pas
     proportionel à la prévalence.
     <br /><br/>
-    <h2>3. Réunions familiales</h2>
+    <h2 ref={this.refFamily}>3. Réunions familiales</h2>
     <p>
     L'un des enjeux les plus importants de l'épidémie est la période des fêtes de la fin 2020. Les personnes âgées sont particulièrement vulnérables et susceptibles d'être
     hospitalisées et de mourir du virus, tandis que les jeunes adultes sont généralement la population socialisant le plus et étant donc le plus susceptible d'être contaminées.

@@ -198,15 +198,75 @@ class GatheringEng extends Component{
         return (
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
-            <List>
-                <ListItem> Probability of someone having covid : {Math.round(result[0] * 10000) / 100}%. </ListItem>
-                <ListItem> Probability of at least one person being hospitalized : {Math.round(result[1]*10000) / 100}%. <br />
-                In total : {Math.round(result[4]*nb_christmas)} more hospitalizations in the country.</ListItem>
-                <ListItem>Probability of at least one person going into ICU : {Math.round(result[2]*10000) / 100}%. <br />
-                In total : {Math.round(result[5]*nb_christmas)} more ICUs in the country.</ListItem>
-                <ListItem>Probabiliity of someone dying : {Math.round(result[3]*10000) / 100}%. <br />
-                In total: {Math.round(result[6]*nb_christmas)} deaths in the country.</ListItem>
-            </List>
+            Outcome for France : <br /> <br/>
+            <div className="visible_except_mobile">
+            <Grid container spacing={3}>
+                <Grid item xs={4}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                        {Math.round(result[4]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                        hospitalizations
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[5]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    ICUs
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[6]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    deaths
+                    </div>
+                </div>
+                </Grid>
+            </Grid>
+            </div>
+            <div className="visible_mobile_only">
+            <Grid container spacing={1}>
+                <Grid item xs={12}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                        {Math.round(result[4]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                        hospitalisations
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={12}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[5]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    réas
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={12}>
+                <div className="result_cases">
+                    <div class="result_cases_top">
+                    {Math.round(result[6]*nb_christmas)}
+                    </div>
+                    <div class="result_cases_bottom">
+                    morts
+                    </div>
+                </div>
+                </Grid>
+            </Grid>
+            </div>
         </Box>
       </div>
       )

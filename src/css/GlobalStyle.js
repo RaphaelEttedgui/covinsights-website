@@ -121,7 +121,22 @@ export default createGlobalStyle`
 
   .calculator_presentation{
     width:100%;
+    font-size:1.2em;
     text-align: center;
+    margin-bottom : 2rem;
+  }
+
+  .calculator_introduction{
+    font-size:0.9em;
+    width:80%;
+    margin: 2rem auto;
+    padding:1rem;
+    background-color : #E0ECFA;
+    font-weight:450;
+    line-height: 1.4;
+    border-style: solid;
+    border-width: medium;
+    border-color: #9AC8FE;
   }
 
   .whitepaper_presentation{
@@ -165,6 +180,8 @@ export default createGlobalStyle`
 
   #calculator_result{
     text-align:center;
+    font-size:1.1em;
+    line-height:1.6;
     padding:1rem;
   }
 

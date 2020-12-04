@@ -102,7 +102,7 @@ class Evolution extends Component {
 		</div>
         <div id="parameters_result">
 			<Grid container spacing={1} justify="center" alignItems="center">
-			<Grid item>Modèle : SEIR.</Grid>
+			<Grid item>Model : SEIR.</Grid>
 			<Grid item><TextField id="outlined-basic" style={{width: 90}} type="number"
 			InputLabelProps={{shrink: true,}} label="alpha" variant="outlined" defaultValue={this.state.alpha} onChange={this.handleAlpha} /></Grid>
 			<Grid item><TextField id="outlined-basic" style={{width: 90}} type="number"

@@ -14,8 +14,11 @@ class Insights extends Component {
       </Helmet>        
       <div className="calculator_presentation">
         <h2>
-            Quelques activités classiques, classées par risque sur 1 an :
+            Quelques activités, classées par risque sur 1 an :
         </h2>
+        <div className="calculator_introduction">
+          Le graphique ci-dessous représente le risque d'avoir le covid en faisant uniquement ce type d'activité, chaque semaine pendant un an.
+        </div>
       </div>
       <ComparisonRisks />
       </div>

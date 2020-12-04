@@ -154,7 +154,7 @@ class Universe{
 
 class BasicUniverse extends Universe{
 	constructor(){
-		super(0.010); // Prevalence in early November in France.
+		super(0.008); // Prevalence in early December in France.
 	}
 }
 
