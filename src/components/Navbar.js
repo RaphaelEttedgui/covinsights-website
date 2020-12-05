@@ -1,18 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, lazy, Suspense} from 'react';
 import { NavbarWrapper } from "../css"
 import logo from '../images/logo.png';
 import { NavLink } from 'react-router-dom';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import Divider from '@material-ui/core/Divider';
-import Calculator from '../pages/calculator.js';
-import CalculatorEng from '../pages/calculatorEng.js';
-import Insights from '../pages/insights.js';
-import InsightsEng from '../pages/insightsEng.js';
-import FamilyGathering from '../pages/familyGathering.js'
-import FamilyGatheringEng from '../pages/familyGatheringEng.js'
-import Error from '../pages/Error.js'
-import WhitePaper from '../pages/WhitePaper.js'
-import WhitePaperEng from '../pages/WhitePaperEng.js'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Body from './Body.js'
@@ -20,6 +11,25 @@ import Button from '@material-ui/core/Button'
 import TranslateIcon from '@material-ui/icons/Translate';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const load = (Component) => (props) => {
+  return (
+  <Suspense fallback={<CircularProgress />}>
+    <Component {...props}/>
+  </Suspense>
+  )
+}
+
+const WhitePaper = load(lazy( () =>  import('../pages/WhitePaper.js')));
+const WhitePaperEng = load(lazy( () =>  import('../pages/WhitePaperEng.js')));
+const Insights = load(lazy( () =>  import('../pages/insights.js')));
+const InsightsEng = load(lazy( () =>  import('../pages/insightsEng.js')));
+const FamilyGathering = load(lazy( () =>  import('../pages/familyGathering.js')));
+const FamilyGatheringEng = load(lazy( () =>  import('../pages/familyGatheringEng.js')));
+const Calculator = load(lazy( () =>  import('../pages/calculator.js')));
+const CalculatorEng = load(lazy( () =>  import('../pages/calculatorEng.js')));
+const Error = load(lazy( () =>  import('../pages/Error.js')));
 
 class Navbar extends Component{
 

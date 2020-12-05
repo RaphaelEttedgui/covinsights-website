@@ -1,7 +1,6 @@
-import React, {Component} from "react"
+import React, {Component, lazy, Suspense} from "react"
 import { Helmet } from 'react-helmet'
 import Divider from '@material-ui/core/Divider';
-import { MathComponent } from 'mathjax-react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,6 +12,17 @@ import { withStyles } from "@material-ui/core/styles";
 import seir_image from '../images/SEIR.png';
 import List from '@material-ui/core/List';
 import { ListItem } from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const load = (Component) => (props) => {
+  return (
+  <Suspense fallback={<CircularProgress />}>
+    <Component {...props}/>
+  </Suspense>
+  )
+}
+
+const MathComponent = load(lazy( () =>  import('../components/Whitepaper/MathComp.js')));
 
 function createData(name, risk) {
   return { name, risk };
