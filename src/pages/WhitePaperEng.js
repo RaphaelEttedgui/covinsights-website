@@ -1,7 +1,6 @@
 import React, {Component} from "react"
 import { Helmet } from 'react-helmet'
 import Divider from '@material-ui/core/Divider';
-import { MathComponent } from 'mathjax-react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -116,16 +115,15 @@ class WhitePaperEng extends Component {
         </p>
         We can divide the risk of an activity in two pieces : the transmission risk during the activity, and the risk profile of the person with whom we practice it:
         <div className="visible_except_mobile">
-        <MathComponent tex={String.raw`\mathbb{P}\left[ \text{B contamine A} \right] = \mathbb{P}\left[ \text{B contamine A} \vert
-          \text{B a le covid} \right] \times \mathbb{P}\left[ \text{B a le covid} \right]`} />
+          <div className="Math">
+            P(B contaminates A) = P(B contaminates A | B has covid) x P(B has covid)
+          </div>
         </div>
         <div className="visible_mobile_only">
-        <MathComponent tex={String.raw`\mathbb{P}\left[ \text{B contamine A} \right]`} />
-          <MathComponent tex={String.raw`= \mathbb{P}\left[ \text{B contamine A} \vert
-          \text{B a le covid} \right]`} />
-          <MathComponent tex={String.raw`\times \mathbb{P}\left[ \text{B a le covid} \right]`} />
+        <div className="Math">
+          P(B contaminates A) = P(B contaminates A | B has covid) x P(B has covid)
+          </div>
         </div>
-
         <h3>Transmission risk</h3>
         We start with an estimation in the simplest case :
         <div className="center_gray">
@@ -169,12 +167,14 @@ class WhitePaperEng extends Component {
     </p>
     To sum up, the risk over 1h with 1 person is :
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`\left[\text{Base risk}\right] \times \left[ \text{activity factors} \right]`} />
-    <MathComponent tex={String.raw`\times \left[ \text{risk profile} \right] \times \text{prevalence}`} />
+        <div className="Math">
+            [Base risk] x [modification factors] x [B's risk profile] x [Prevalence] 
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`\left[\text{Base risk}\right] \times \left[ \text{activity factors} \right]`} />
-    <MathComponent tex={String.raw`\times \left[ \text{risk profile} \right] \times \text{prevalence}`} />
+        <div className="Math">
+          [Base risk] x [modification factors] x [B's risk profile] x [Prevalence] 
+        </div>
     </div>
 
     <br/>
@@ -182,10 +182,14 @@ class WhitePaperEng extends Component {
     All of this gives the transmission risk for 1h of the activity. To get the risk over several hours, we compute the probability of being contaminated during
     at least one of these hours. That means the opposite of not being contaminated in any of these hours. If the risk over 1h is p, then the one over n hours will be :
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contamination in n hours} \right] = 1- (1-p)^{\text{n}}`} />
+        <div className="Math">
+            P(contamination during n hours) = 1 - (1-p)<sup>n</sup>
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contam n hours} \right] \newline = 1- (1-p)^{\text{n}}`} />
+        <div className="Math">
+        P(contamination during n hours) = 1 - (1-p)<sup>n</sup>
+        </div>
     </div>
     <p>
     We cap the risk for a given person over a single week to 50%, which corresponds to the risk of being contaminated by a household partner having covid in this duration.
@@ -195,10 +199,14 @@ class WhitePaperEng extends Component {
     these people, following the same calculation as above. If the probability of contamination by one person is P, then for N people :
     </p>
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contamination with N people} \right] = 1- (1-P)^{\text{N}}`} />
+        <div className="Math">
+            P(contamination with N people) = 1 - (1-P)<sup>N</sup>
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contam N people} \right] = 1- (1-P)^{\text{N}}`} />
+        <div className="Math">
+            P(contamination with N people) = 1 - (1-P)<sup>N</sup>
+        </div>
     </div>
     <p>
     Note that this is the major difference between our algorithm and Microcovid's, which add up the risks related to each hour and person. It is an approximation
@@ -236,10 +244,14 @@ class WhitePaperEng extends Component {
     the incubation period and how long a person remains contagious). However, we compute the number of contaminated in a different way :
     </p>
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`E(t+1)-E(t) = \sum_{\text{person}}\mathbb{P}\left[ \text{contamination} \right]`} />
+        <div className="Math">
+            E(t+1)-E(t) = P(S<sub>1</sub> contaminé) + ... + P(S<sub>m</sub> contaminé)
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`E(t+1)-E(t) = \sum_{\text{person}}\mathbb{P}\left[ \text{contamination} \right]`} />
+        <div className="Math">
+            E(t+1)-E(t) = P(S<sub>1</sub> contaminé) + ... + P(S<sub>m</sub> contaminé)
+        </div>
     </div>
     Where the probability of contamination for each person is calculated following the formula from last section, using a prevalence of I(t)/N, meaning the probability that
     any random person has the virus at time t.

@@ -1,4 +1,4 @@
-import React, {Component, lazy, Suspense} from "react"
+import React, {Component} from "react"
 import { Helmet } from 'react-helmet'
 import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
@@ -12,17 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 import seir_image from '../images/SEIR.png';
 import List from '@material-ui/core/List';
 import { ListItem } from "@material-ui/core";
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-const load = (Component) => (props) => {
-  return (
-  <Suspense fallback={<CircularProgress />}>
-    <Component {...props}/>
-  </Suspense>
-  )
-}
-
-const MathComponent = load(lazy( () =>  import('../components/Whitepaper/MathComp.js')));
 
 function createData(name, risk) {
   return { name, risk };
@@ -127,14 +117,14 @@ class WhitePaper extends Component {
         </p>
         On peut décomposer le risque lié à une activité en deux morceaux : le risque de transmission durant l'activité, et le profil de risque de la personne avec qui on la pratique:
         <div className="visible_except_mobile">
-        <MathComponent tex={String.raw`\mathbb{P}\left[ \text{B contamine A} \right] = \mathbb{P}\left[ \text{B contamine A} \vert
-          \text{B a le covid} \right] \times \mathbb{P}\left[ \text{B a le covid} \right]`} />
+          <div className="Math">
+            P(B contamine A) = P(B contamine A | B a le covid) x P(B a le covid)
+          </div>
         </div>
         <div className="visible_mobile_only">
-        <MathComponent tex={String.raw`\mathbb{P}\left[ \text{B contamine A} \right]`} />
-          <MathComponent tex={String.raw`= \mathbb{P}\left[ \text{B contamine A} \vert
-          \text{B a le covid} \right]`} />
-          <MathComponent tex={String.raw`\times \mathbb{P}\left[ \text{B a le covid} \right]`} />
+        <div className="Math">
+            P(B contamine A) = P(B contamine A | B a le covid) x P(B a le covid)
+          </div>
         </div>
 
         <h3>Risque de transmission</h3>
@@ -189,12 +179,14 @@ class WhitePaper extends Component {
     </p>
     En résumé, le risque sur 1h est donné par :
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`\left[\text{Risque de base}\right] \times \left[ \text{facteurs de modification} \right]`} />
-    <MathComponent tex={String.raw`\times \left[ \text{profil de risque de B} \right] \times \text{prevalence}`} />
+        <div className="Math">
+            [Risque de base] x [facteurs de modification] x [profil de risque de B] x [Prevalence] 
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`\left[\text{Risque de base}\right] \times \left[ \text{facteurs modif} \right]`} />
-    <MathComponent tex={String.raw`\times \left[ \text{profil de risque de B} \right] \times \text{prevalence}`} />
+        <div className="Math">
+            [Risque de base] x [facteurs de modification] x [profil de risque de B] x [Prevalence] 
+        </div>
     </div>
 
     <br/>
@@ -203,10 +195,14 @@ class WhitePaper extends Component {
     la probabilité d'être contaminé durant au moins une de ces heures. Autrement dit, l'inverse de n'être contaminé pendant aucune des heures en question. Si le risque sur
     1h est p, alors celui d'être contaminé sur n heures sera :
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contamination en N heures} \right] = 1- (1-p)^{\text{n}}`} />
+        <div className="Math">
+            P(contamination en n heures) = 1 - (1-p)<sup>n</sup>
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contam N heures} \right] \newline = 1- (1-p)^{\text{n}}`} />
+        <div className="Math">
+            P(contamination en n heures) = 1 - (1-p)<sup>n</sup>
+        </div>
     </div>
     <p>
     Nous limitons dans notre calcul le risque lié à une personne donnée (quel que soit le nombre d'heures en une semaine) à 50%, ce qui représente environ le risque
@@ -217,10 +213,14 @@ class WhitePaper extends Component {
     personnes, suivant le même calcul que précédemment. Si la probabilité de contamination par une personne est P, alors pour N personnes :
     </p>
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contamination avec N personnes} \right] = 1- (1-P)^{\text{N}}`} />
+        <div className="Math">
+            P(contamination avec N personnes) = 1 - (1-P)<sup>N</sup>
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`\mathbb{P}\left[ \text{contam N personnes} \right] = 1- (1-P)^{\text{N}}`} />
+        <div className="Math">
+            P(contamination avec N personnes) = 1 - (1-P)<sup>N</sup>
+        </div>
     </div>
     <p>
     Notons qu'il s'agit là de la différence majeure entre notre algorithme et celui de Microcovid, qui additionne les risques liés à chaque heure et chaque personne.
@@ -255,15 +255,20 @@ class WhitePaper extends Component {
     <img src={seir_image} alt="SEIR" className="seir_image" />
     <p>
     Comme dans le modèle SEIR, les transitions de E vers I et de I vers R se font à taux constants (respectivement alpha et gamma, qui représentent l'inverse de
-    la durée d'incubation et de la durée de contagiosité). Toutefois, le calcul du nombre de nouveaux contaminés est différent du modèle classique :
+    la durée d'incubation et de la durée de contagiosité). Toutefois, le calcul du nombre de nouveaux contaminés est différent du modèle classique : on somme la probabilité
+    de contamination de chaque susceptible pour obtenir le nombre moyen de contaminés.
     </p>
     <div className="visible_except_mobile">
-    <MathComponent tex={String.raw`E(t+1)-E(t) = \sum_{\text{personne}}\mathbb{P}\left[ \text{contamination} \right]`} />
+        <div className="Math">
+            E(t+1)-E(t) = P(S<sub>1</sub> contaminé) + ... + P(S<sub>m</sub> contaminé)
+        </div>
     </div>
     <div className="visible_mobile_only">
-    <MathComponent tex={String.raw`E(t+1)-E(t) = \sum_{\text{personne}}\mathbb{P}\left[ \text{contamination} \right]`} />
+        <div className="Math">
+            E(t+1)-E(t) = P(S<sub>1</sub> contaminé) + ... + P(S<sub>m</sub> contaminé)
+        </div>
     </div>
-    Où la probabilité de contamination pour chaque personne est calculée suivant la formule de la section précédente, en utilisant une prévélence de I(t)/N, autrement dit la
+    Où S<sub>i</sub> sont les individus susceptibles, et la probabilité de contamination pour chaque personne est calculée suivant la formule de la section précédente, en utilisant une prévélence de I(t)/N, autrement dit la
     probabilité qu'une personne aléatoire ait le virus à l'instant t.
     <br/>
     Notons que contrairement au modèle SEIR classique, dès qu'une activité implique plus d'une personne ou une durée de plus d'une heure, le risque de chaque individu n'est pas

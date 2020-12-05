@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, lazy, Suspense } from "react"
 import RiskForm from "./RiskForm.js"
 import Fab from "@material-ui/core/Fab"
 import Grid from "@material-ui/core/Grid"
@@ -16,8 +16,19 @@ import FaceIcon from '@material-ui/icons/Face';
 import { Person } from "./NewMath.js"
 import { NavLink } from 'react-router-dom';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import Evolution from './Evolution.js';
 import * as Scroll from 'react-scroll';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
+const load = (Component) => (props) => {
+  return (
+  <Suspense fallback={<CircularProgress />}>
+    <Component {...props}/>
+  </Suspense>
+  )
+}
+
+const Evolution = load(lazy( () =>  import('./Evolution.js')));
 
 /*
 ***** TODO *****

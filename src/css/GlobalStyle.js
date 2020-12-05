@@ -102,6 +102,13 @@ export default createGlobalStyle`
     z-index: 2;
   }
 
+  .Math{
+    width:100%;
+    text-align:center;
+    font-weight: 500;
+    margin : 1rem auto 1rem auto;
+  }
+
   .show_activity{
     position:relative;
     display: flex;
