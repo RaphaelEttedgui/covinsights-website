@@ -17,7 +17,7 @@ class Insights extends Component {
             A few classical activities, ordered by risk over a year:
         </h2>
         <div className="calculator_introduction">
-          This chart represents the risk of contamination when doing only this one activity, every week for a year.
+          This chart represents the risk of contamination after one year, when doing only this one activity, every week.
         </div>
       </div>
       <ComparisonRisksEng />

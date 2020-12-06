@@ -17,7 +17,7 @@ class Insights extends Component {
             Quelques activités, classées par risque sur 1 an :
         </h2>
         <div className="calculator_introduction">
-          Le graphique ci-dessous représente le risque d'avoir le covid en faisant uniquement ce type d'activité, chaque semaine pendant un an.
+          Le graphique ci-dessous représente le risque d'avoir le covid sur 1 an, en faisant uniquement ce type d'activité chaque semaine.
         </div>
       </div>
       <ComparisonRisks />

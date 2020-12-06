@@ -147,6 +147,20 @@ export default createGlobalStyle`
     border-color: #9AC8FE;
   }
 
+  .explanation_test{
+    text-align : center;
+    font-size:1em;
+    width:80%;
+    margin: 2rem auto;
+    padding:1rem;
+    background-color : #DEFFE1;
+    font-weight:450;
+    line-height: 1.4;
+    border-style: solid;
+    border-width: medium;
+    border-color: #7CBB82;
+  }
+
   .whitepaper_presentation{
     width:100%;
     text-align: center;

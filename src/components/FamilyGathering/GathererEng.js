@@ -221,6 +221,7 @@ class GatheringEng extends Component{
             nb_christmas = pop_restante * 0.75 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
         }
         return (
+        <div>
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
             Outcome for France : <br /> <br/>
@@ -294,6 +295,10 @@ class GatheringEng extends Component{
             </div>
         </Box>
       </div>
+      <div className="explanation_test">
+        To lighten the outcome, you can quarantine for some days before the reunion, and reduce the riskiest activities.
+        </div>
+        </div>
       )
 
     }

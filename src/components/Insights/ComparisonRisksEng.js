@@ -99,6 +99,9 @@ class ComparisonRiskEng extends Component{
                     <span className="red-dot"></span> {">10"} %
                 </Grid>
             </Grid>  
+            <div className="explanation_test">
+          Pour réduire votre risque, ne pratiquez les activités les plus risquées que ponctuellement, et uniquement avec des personnes surveillant leur risque.
+            </div>
             <br/><br/><br/>
             <div className="disclaimer">
             <h3>Disclaimer</h3>

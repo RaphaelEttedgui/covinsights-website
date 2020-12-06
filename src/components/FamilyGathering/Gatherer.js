@@ -220,6 +220,7 @@ class Gathering extends Component{
             nb_christmas = pop_restante * 0.75 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
         }
         return (
+        <div>
         <div id ="family_result">
         <Box pt="1rem" justify="right" m="auto">
             Bilan sur la France : <br /> <br/>
@@ -293,6 +294,10 @@ class Gathering extends Component{
             </div>
         </Box>
       </div>
+        <div className="explanation_test">
+        Pour alléger le bilan, vous pouvez effectuer des jours de quarantaine avant les fêtes, et réduire les activités à risque.
+        </div>
+    </div>
       )
 
     }
