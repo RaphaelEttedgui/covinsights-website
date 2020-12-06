@@ -120,6 +120,7 @@ export default createGlobalStyle`
 
   #premade_activities{
     padding : 2rem;
+    text-align: center;
   }
 
   #premade_profiles{

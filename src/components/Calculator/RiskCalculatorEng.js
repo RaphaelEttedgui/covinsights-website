@@ -118,7 +118,7 @@ class RiskCalculatorEng extends Component {
       <div id="calculator_result">
       <Box pt="1rem" justify="right" m="auto">
         You have <span style={{fontWeight:"bold", color:"red"}}>{riskWeek} %</span> chance of getting covid over a week, for a
-         prevalence of {this.state.person.universe.prevalence}. That means <span style={{fontWeight:"bold", color:"red"}}>{riskYear} %</span> over a year.
+         prevalence of {this.state.person.universe.prevalence*100}%. That means <span style={{fontWeight:"bold", color:"red"}}>{riskYear} %</span> over a year.
       </Box>
       <div id="button_to_family">
       <NavLink to="/familyGathering/">
@@ -262,6 +262,7 @@ class RiskCalculatorEng extends Component {
         </Box>
         </div>
         <div id="premade_activities">
+          <h4>Sample activities:</h4>
             {this.generatePremadeCards()}
         </div>
 

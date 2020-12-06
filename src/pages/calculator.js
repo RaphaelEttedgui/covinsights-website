@@ -17,10 +17,12 @@ class Calculator extends Component {
           Bienvenue dans le calculateur de risque !
         </h2>
         <div className="calculator_introduction">
-          Entrez vos activités de la semaine en cliquant sur "nouvelle activité" où sur l'une des activités pré-rentrées.
+        <span style={{fontWeight:"bold"}}>Contribuez-vous à améliorer, ou empirer la situation ?</span>
           <br/>
-          Vous pouvez ensuite calculer votre probabilité d'être contaminé cette semaine, et l'évolution de l'épidémie si tout le monde
-          fait les mêmes activités. Contribuez-vous à améliorer, ou empirer la situation ?
+          <div style={{marginTop:"1rem"}}>
+          Entrez vos activités de la semaine pour calculer votre risque, ainsi que comment l'épidémie évoluerait si tout le monde 
+          faisait exactement la même chose !
+          </div>
         </div>
       </div>
       <RiskCalculator globalRisk={this.props.globalRisk} changeGlobalRisk={this.props.changeGlobalRisk} />

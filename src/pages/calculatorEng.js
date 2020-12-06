@@ -17,10 +17,12 @@ class CalculatorEng extends Component {
           Welcome to the risk calculator !
         </h2>
         <div className="calculator_introduction">
-          Enter your weekly activities by clicking on "New activity" or on one of the pre-made cards.
+         <span style={{fontWeight:"bold"}}>Are you contributing to better, or worsen the situation ?</span>
           <br/>
-          You can then compute your probability of being contaminated this week, as well as the evolution of the epidemic
-          if everyone was doing the same activities. Are you contributing to better, or worsen the situation ?
+          <div style={{marginTop:"1rem"}}>
+          Enter the activities you did this week, to compute your risk and how the epidemic would evolve if everyone did the
+         exact same things as you !
+          </div>
         </div>
       </div>
       <RiskCalculatorEng globalRisk={this.props.globalRisk} changeGlobalRisk={this.props.changeGlobalRisk} />

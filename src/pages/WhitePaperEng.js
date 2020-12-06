@@ -90,8 +90,8 @@ class WhitePaperEng extends Component {
         <br />
         <h2>Presentation</h2>
         <p>
-            The main goal of this website is to diffuse some mathematical reasonings about the covid19 epidemic, so that everyone can estimate, as well as possible
-            given the current state of knowledge, the individual risk as well as the impact that each individual behavior can have on the epidemic as a whole.
+            The main goal of this website is to diffuse some mathematical reasonings about the covid19 epidemic, so that everyone can estimate as well as possible
+            given the current state of knowledge, the risk for themselves and their relatives, as well as their impact on the epidemic as a whole.
         </p>
         <p>
             We believe that information is the key to success in the fight against a pandemic. By giving everyone the means to adjust their behavior to the state of

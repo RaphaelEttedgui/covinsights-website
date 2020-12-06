@@ -118,11 +118,25 @@ class RiskForm extends Component {
   }
 
   handleNbPeople = (event) => {
-    this.setState({nbPeople:Number(event.target.value)});
+    var nb=Number(event.target.value);
+    if(nb<0)
+    {
+      nb=0;
+    }
+    this.setState({nbPeople:nb});
   };
 
   handleNbMasked = (event) => {
-    this.setState({nbMasked:Number(event.target.value)});
+    var nb=Number(event.target.value);
+    if(nb<0)
+    {
+      nb=0;
+    }
+    if(nb>this.state.nbPeople)
+    {
+      nb=this.state.nbPeople;
+    }
+    this.setState({nbMasked:nb});
   };
 
   handleHours = (event) => {
@@ -221,10 +235,14 @@ class RiskForm extends Component {
                           />} label="Portez-vous un masque ?" />
                       </Grid>
                       <Grid item>
-                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="Nb people" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
+                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} 
+                       InputProps={{inputProps: { 
+                        max: 100, min: 0 }}} label="other people" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
                       </Grid>
                       <Grid item>
-                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="Masks" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
+                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}}
+                        InputProps={{inputProps: { 
+                          max: this.state.nbPeople, min: 0 }}} label="other masks" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
                       </Grid>
                       <Grid item>
                       <FormControl className={classes.formControl}>

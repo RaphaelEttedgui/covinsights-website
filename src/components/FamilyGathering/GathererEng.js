@@ -308,13 +308,13 @@ class GatheringEng extends Component{
             <Box pt="1rem" justify="right" m="auto">
             <Grid container spacing={1} alignItems="center" justify="center">
                 <Grid item>
-                Mon risque :
+                My risk :
                 </Grid>
                 <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
 			InputLabelProps={{shrink: true,}} label="Risque" variant="outlined" defaultValue={Math.round(this.state.globalRisk*10000)/100} onChange={this.handleGlobalRisk} />
                 </Grid>
                 <Grid item>
-                %
+                %. (Prevalence : {this.state.universe.prevalence*100} %)
                 </Grid>
             </Grid>
             </Box>

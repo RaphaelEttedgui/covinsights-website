@@ -221,10 +221,14 @@ class RiskFormEng extends Component {
                           />} label="Are you wearing a mask ?" />
                       </Grid>
                       <Grid item>
-                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="Nb people" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
+                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} 
+                       InputProps={{inputProps: { 
+                        max: 100, min: 0 }}} label="other people" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
                       </Grid>
                       <Grid item>
-                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="Masks" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
+                        <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}}
+                        InputProps={{inputProps: { 
+                          max: this.state.nbPeople, min: 0 }}} label="other masks" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
                       </Grid>
                       <Grid item>
                       <FormControl className={classes.formControl}>

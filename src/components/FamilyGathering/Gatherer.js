@@ -313,7 +313,7 @@ class Gathering extends Component{
 			InputLabelProps={{shrink: true,}} label="Risque" variant="outlined" defaultValue={Math.round(this.state.globalRisk*10000)/100} onChange={this.handleGlobalRisk} />
                 </Grid>
                 <Grid item>
-                %
+                %. (Prévalence actuelle : {this.state.universe.prevalence * 100}%)
                 </Grid>
             </Grid>
             </Box>

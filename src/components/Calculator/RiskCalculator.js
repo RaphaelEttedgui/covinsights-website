@@ -117,7 +117,7 @@ class RiskCalculator extends Component {
       <div id="calculator_result">
       <Box justify="right" m="auto">
         Vous avez <span style={{fontWeight:"bold", color:"red"}}>{riskWeek} %</span> de chance d'attraper le covid
-        sur une semaine, pour une prévalence de {this.state.person.universe.prevalence}. Cela donne <span style={{fontWeight:"bold", color:"red"}}>{riskYear} %</span> sur un an.
+        sur une semaine, pour une prévalence de {this.state.person.universe.prevalence * 100}. Cela donne <span style={{fontWeight:"bold", color:"red"}}>{riskYear} %</span> sur un an.
       </Box>
       <div id="button_to_family">
       <NavLink to="/familyGathering/">
@@ -131,7 +131,7 @@ class RiskCalculator extends Component {
     </NavLink>
     </div>
     <div id="text_graph_result">
-    Evolution de l'épidémie sur un mois si tout le monde a le même profil de risque (chiffres en milliers) :
+    Evolution de l'épidémie sur un mois si tout le monde avait le même profil de risque (chiffres en milliers) :
     </div>
     {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
     <div id='graph_result'>{this.state.evolution()}</div>
@@ -261,6 +261,7 @@ class RiskCalculator extends Component {
         </Box>
         </div>
         <div id="premade_activities">
+          <h4>Exemples d'activités:</h4>
             {this.generatePremadeCards()}
         </div>
 
