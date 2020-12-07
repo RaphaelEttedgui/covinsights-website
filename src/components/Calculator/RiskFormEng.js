@@ -189,10 +189,14 @@ class RiskFormEng extends Component {
                   </Grid>
                   <Grid container spacing={1} justify="center" className="form_inner_grid">
                       <Grid item>
-                          <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="hours" variant="outlined" defaultValue={this.state.heures} onChange={this.handleHours} />
+                          <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} 
+                          InputProps={{inputProps: { 
+                            max: 100, min: 0 }}} label="hours" variant="outlined" defaultValue={this.state.heures} onChange={this.handleHours} />
                       </Grid>
                       <Grid item>
-                          <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} label="minutes" variant="outlined" defaultValue={this.state.minutes} onChange={this.handleMinutes} />
+                          <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} 
+                          InputProps={{inputProps: { 
+                            max: 100, min: 0 }}} label="minutes" variant="outlined" defaultValue={this.state.minutes} onChange={this.handleMinutes} />
                       </Grid>
                       <Grid item>
                       <FormControl className={classes.formControl}>

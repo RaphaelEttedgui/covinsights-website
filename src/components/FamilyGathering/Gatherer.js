@@ -13,8 +13,9 @@ import FaceIcon from '@material-ui/icons/Face';
 import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
-import { IconButton} from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
+import { IconButton} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from '@material-ui/core/Checkbox';
 
 /*
 **********
@@ -41,7 +42,7 @@ class Gathering extends Component{
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
         this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, result:[],
-        masks:false, location:"indoors", duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse(), 
+        masks:false, location:"indoors", duration:300, hours:5, minutes:0, talking:"normal", distance:"normal", universe:new BasicUniverse(), 
         globalRisk:(isNaN(this.props.globalRisk)? 0:this.props.globalRisk)}
         this.defaultPersonArgs = {
             name:"Bobby",
@@ -122,6 +123,7 @@ class Gathering extends Component{
         var ageFactors = this.state.universe.ageFactors(age, gender);
         myPeople[id] = [ageFactors, risk];
         this.setState({people:myPeople});
+        this.toggleOffResult();
       }
 
     generatePremadeCards = () => {
@@ -162,7 +164,10 @@ class Gathering extends Component{
 		var moyenneRea = 0.0;
 		var moyenneDeaths = 0.0;
         var i;
-        var interaction = new InteractionOne("Family gathering", this.state.duration, this.state.masks, this.state.masks,
+
+        var myDuration = 60*this.state.hours + this.state.minutes;
+        this.setState({duration:myDuration});
+        var interaction = new InteractionOne("Family gathering", myDuration, this.state.masks, this.state.masks,
             this.state.talking, this.state.outdoors, this.state.distance);
         var interactionRisk = interaction.getActivityRisk();
         // Using the risk from the calculator.
@@ -198,11 +203,11 @@ class Gathering extends Component{
 		reaRisk = 1-reaRisk;
         deathRisk = 1-deathRisk;
         var res = 
-		this.setState({result:[risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]});
+        this.setState({result:[risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]});
+        this.refResult.current.scrollIntoView({ behavior: "smooth" });
     }
 
     showResult = () => {
-        this.refResult.current.scrollIntoView({ behavior: "smooth" });
         const result = this.state.result;
         const pop_restante = 66000000 * 0.9; // 66millions moins les environ 10 à 15% déjà infectés.
         var n_pers = 0;
@@ -242,7 +247,7 @@ class Gathering extends Component{
                     {Math.round(result[5]*nb_christmas)}
                     </div>
                     <div className="result_cases_bottom">
-                    réanimationss
+                    réanimations
                     </div>
                 </div>
                 </Grid>
@@ -295,7 +300,7 @@ class Gathering extends Component{
         </Box>
       </div>
         <div className="explanation_test">
-        Pour alléger le bilan, vous pouvez effectuer des jours de quarantaine avant les fêtes, et réduire les activités à risque.
+        Pour alléger le bilan, vous pouvez effectuer des jours de quarantaine avant les fêtes, raccourcir les réunions, et réduire les activités à risque.
         </div>
     </div>
       )
@@ -304,6 +309,18 @@ class Gathering extends Component{
 
     handleGlobalRisk = (event) => {
         this.setState({globalRisk: Number(event.target.value)/100});
+    }
+
+    handleHours = (event) => {
+        this.setState({hours: Number(event.target.value)});
+    }
+    
+    handleMinutes = (event) => {
+        this.setState({minutes:Number(event.target.value)});
+    }
+
+    handleMasks = (event) => {
+        this.setState({masks:event.target.checked});
     }
 
     showMyRisk = () => {
@@ -319,6 +336,31 @@ class Gathering extends Component{
                 </Grid>
                 <Grid item>
                 %. (Prévalence actuelle : {this.state.universe.prevalence * 100}%)
+                </Grid>
+            </Grid>
+            <Grid container spacing={1} alignItems="center" justify="center">
+                <Grid item>
+                Durée:
+                </Grid>
+                <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
+			InputLabelProps={{shrink: true,}} InputProps={{inputProps: { 
+                max: 100, min: 0 }}} label=""  defaultValue={this.state.hours} onChange={this.handleHours} />
+                </Grid>
+                <Grid item>
+                 heures 
+                </Grid>
+                <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
+			InputLabelProps={{shrink: true,}} InputProps={{inputProps: { 
+                max: 100, min: 0 }}} label=""  defaultValue={this.state.minutes} onChange={this.handleMinutes} />
+                </Grid>
+                <Grid item>
+                minutes.
+                </Grid>
+                <Grid item>
+                    Masques :
+                </Grid>
+                <Grid item>
+                    <Checkbox checked={this.state.masks} onChange={this.handleMasks} />
                 </Grid>
             </Grid>
             </Box>

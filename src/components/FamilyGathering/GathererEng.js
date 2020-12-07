@@ -13,9 +13,9 @@ import FaceIcon from '@material-ui/icons/Face';
 import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
-import { IconButton} from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
-
+import { IconButton} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from '@material-ui/core/Checkbox';
 
 /*
 **********
@@ -42,7 +42,7 @@ class GatheringEng extends Component{
         super(props);
         // globalRisk contains the person Risk derived from the calculator.
         this.state={people:{}, peopleCards:[], nextId:0, toggleResult:false, result:[],
-        masks:false, location:"indoors", duration:300, talking:"normal", distance:"normal", universe:new BasicUniverse(),
+        masks:false, location:"indoors", duration:300, hours:5, minutes:0, talking:"normal", distance:"normal", universe:new BasicUniverse(),
          globalRisk:(isNaN(this.props.globalRisk)? 0:this.props.globalRisk)}
         this.defaultPersonArgs = {
             name:"Bobby",
@@ -123,6 +123,7 @@ class GatheringEng extends Component{
         var ageFactors = this.state.universe.ageFactors(age, gender);
         myPeople[id] = [ageFactors, risk];
         this.setState({people:myPeople});
+        this.toggleOffResult();
       }
 
     generatePremadeCards = () => {
@@ -296,7 +297,7 @@ class GatheringEng extends Component{
         </Box>
       </div>
       <div className="explanation_test">
-        To lighten the outcome, you can quarantine for some days before the reunion, and reduce the riskiest activities.
+        To lighten the outcome, you can quarantine for some days before the reunion, shorten the reunion, and reduce the riskiest activities.
         </div>
         </div>
       )
@@ -305,6 +306,18 @@ class GatheringEng extends Component{
 
     handleGlobalRisk = (event) => {
         this.setState({globalRisk: Number(event.target.value)/100})
+    }
+
+    handleHours = (event) => {
+        this.setState({hours: Number(event.target.value)});
+    }
+    
+    handleMinutes = (event) => {
+        this.setState({minutes:Number(event.target.value)});
+    }
+
+    handleMasks = (event) => {
+        this.setState({masks:event.target.checked});
     }
 
     showMyRisk = () => {
@@ -320,6 +333,31 @@ class GatheringEng extends Component{
                 </Grid>
                 <Grid item>
                 %. (Prevalence : {this.state.universe.prevalence*100} %)
+                </Grid>
+            </Grid>
+            <Grid container spacing={1} alignItems="center" justify="center">
+                <Grid item>
+                Duration:
+                </Grid>
+                <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
+			InputLabelProps={{shrink: true,}} InputProps={{inputProps: { 
+                max: 100, min: 0 }}} label=""  defaultValue={this.state.hours} onChange={this.handleHours} />
+                </Grid>
+                <Grid item>
+                 hours
+                </Grid>
+                <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
+			InputLabelProps={{shrink: true,}} InputProps={{inputProps: { 
+                max: 100, min: 0 }}} label=""  defaultValue={this.state.minutes} onChange={this.handleMinutes} />
+                </Grid>
+                <Grid item>
+                minutes.
+                </Grid>
+                <Grid item>
+                    Masks :
+                </Grid>
+                <Grid item>
+                    <Checkbox checked={this.state.masks} onChange={this.handleMasks} />
                 </Grid>
             </Grid>
             </Box>
