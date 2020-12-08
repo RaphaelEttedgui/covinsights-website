@@ -105,8 +105,7 @@ class ComparisonRiskEng extends Component{
             <br/><br/><br/>
             <div className="disclaimer">
             <h3>Disclaimer</h3>
-            This website was not peer-reviewed, and only represents the author's best estimations given the knowledge at hand. We are not experts in this topic by any
-            means, even if we read many expert's papers. This website is not a primary information source about COVID.
+            This website was not peer-reviewed, and only represents the author's best estimations given the knowledge at hand. This website is not a primary information source about COVID.
             Do not use the tools from this website to take medical decisions. Keep following government recommendation.
             </div>
             </div>

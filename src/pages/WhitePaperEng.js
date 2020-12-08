@@ -290,11 +290,12 @@ class WhitePaperEng extends Component {
       entered in the simulator, to estimate the number of reunions. This allows us to compute the outcome for the whole country.
     </p>
     <h3>About</h3>
-    Website created by <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>.
+    Website created by <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>. The source code is available on
+    <a href="https://github.com/RaphaelEttedgui/covinsights-website">GitHub</a>
     <br /><br />
-    <h3>Special Thanks</h3>
+    {/* <h3>Special Thanks</h3>
     Thank you to Clément Turpain, Emma Müller, Laura Diaz, Robin Aspe, Charlotte Mion, Ivan Glita and Jean-Patrick Vrel for their help, testing the website, and the many
-    brainstorming sessions !
+    brainstorming sessions ! */}
     </div>
     </div>
   )

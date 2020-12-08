@@ -106,8 +106,7 @@ class ComparisonRisk extends Component{
             <div className="disclaimer">
             <h3>Disclaimer</h3>
             Ce site n'a pas fait l'objet d'un processus de revue par des pairs, et représente donc
-            uniquement les estimations des auteurs étant donné les connaissances à leur disposition. Nous ne sommes en aucun cas des experts de ce sujet, même si nous avons lu beaucoup de papiers d'experts. Ceci n'est pas une source primaire d'information
-            sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
+            uniquement les estimations des auteurs étant donné les connaissances à leur disposition. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
             </div> 
             </div>
         )

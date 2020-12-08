@@ -312,11 +312,12 @@ class WhitePaper extends Component {
       de réanimations et de morts à l'échelle de la France.
     </p>
     <h3>A propos</h3>
-    Site créé par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>.
+    Site créé par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>. Le code source est disponible sur 
+    <a href="https://github.com/RaphaelEttedgui/covinsights-website"> GitHub</a>.
     <br /><br />
-    <h3>Remerciements</h3>
+    {/* <h3>Remerciements</h3>
     Un grand merci à Clément Turpain, Emma Müller, Laura Diaz, Robin Aspe, Charlotte Mion, Ivan Glita et Jean-Patrick Vrel pour leur aide, le test du site et les sessions
-    de brainstorming !
+    de brainstorming ! */}
     </div>
     </div>
   )

@@ -14,7 +14,6 @@ class EpidemySimulator{
 	constructor(riskList, gamma=0.333, alpha=0.2, N=66000000, E0 = 20000, I0=20000, tmax=30, R0=15000000){
 		this.riskList = riskList;
 		this.gamma = gamma;
-		console.log(this.gamma)
 		this.number_people = N;
 		this.I0 = I0;
 		this.tmax = tmax;
@@ -56,7 +55,6 @@ class EpidemySimulator{
 		ya.push({x:t, infections:Math.round(y[2])/1000}); //, hosp:Math.round((y[1]* 2.6 / 100) * 1000)/1000, rea: Math.round((y[1]* (2.6 / 100) * (18.2 / 100)) * 1000) / 1000});
 		for(t=t0+step;t<tmax; t=t+step){
 			integrator=integrator.step();
-			console.log(integrator.y[1]);
 			ya.push({x:t, infections:Math.round(integrator.y[2]*1000)/1000000});
 			ta.push(t);
 		}
