@@ -1,6 +1,6 @@
 import React, {Component, lazy, Suspense} from 'react';
 import { NavbarWrapper } from "../css"
-import logo from '../images/logo.png';
+import {ReactComponent as MyLogo} from '../images/covimpact_logo.svg';
 import { NavLink } from 'react-router-dom';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import Divider from '@material-ui/core/Divider';
@@ -136,7 +136,9 @@ class Navbar extends Component{
             <NavbarWrapper>
             <Paper elevation={2} className="nav-center">
               <div className="nav-header">
-                  <img src={logo} alt="Homepage" />
+                  <div className="logo">
+                    <MyLogo height={80} width={200} />
+                  </div>
                   <button
                   type="button"
                   className="logo-btn"

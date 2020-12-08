@@ -16,6 +16,11 @@ export default createGlobalStyle`
     line-height: 1.0;
   }
 
+  .logo {
+    position:relative;
+    top:10px;
+  }
+
   #parameters_result{
     display:flex;
     align-items: center;
@@ -310,6 +315,12 @@ export default createGlobalStyle`
   @media screen and (max-width: 576px){
     .visible_except_mobile{
       display: none;
+    }
+
+    .logo {
+      position:relative;
+      left:10px;
+      top:15px;
     }
 
     .translate_non_mobile{
