@@ -81,20 +81,19 @@ class WhitePaperEng extends Component {
     </div>
     <Divider />
     <div className="whitepaper">
-        <h2>Table of content</h2>
-        <List disablePadding={true}>
-          <ListItem button={true} onClick={() => this.goToRisk()}>1. Risk computation</ListItem>
-          <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact on the epidemic</ListItem>
-          <ListItem button={true} onClick={() => this.goToFamily()}>3. Family gathering</ListItem>
-        </List>
-        <br />
         <h2>Presentation</h2>
         <p>
-            The main goal of this website is to diffuse some mathematical reasonings about the covid19 epidemic, so that everyone can estimate as well as possible
-            given the current state of knowledge, the risk for themselves and their relatives, as well as their impact on the epidemic as a whole.
+          With Christmas drawing near, we all want to spend quality time with our family, without there being a sanitary catastrophe. How can we plan
+          our gatherings to limit the risk as much as we can, given the activities that are imposed to us such as work, public transportation, or others ?
         </p>
+            It is to answer that question that we built this website. It contains several tools :
+            <ul style={{listStylePosition: 'inside', margin:'15px'}}>
+            <li>A <span style={{fontWeight:"500"}}>risk calculator</span>, to evaluate the probability of catching the virus depending on the activities one did;</li>
+            <li style={{marginTop:'7px'}}>A<span style={{fontWeight:"500"}}> simulator</span>, showing how the epidemy would advance if everyone had the same risk as oneself;</li>
+            <li style={{marginTop:'7px'}}>A<span style={{fontWeight:"500"}}> family gathering evaluator</span>, calculating the risk it represents given the age and risk profile of the participants.</li>
+            </ul>
         <p>
-            We believe that information is the key to success in the fight against a pandemic. By giving everyone the means to adjust their behavior to the state of
+            We believe that information is the key to success in the fight against a pandemic. By giving everyone the means to adjust their behavior to the
             virus circulation, it is possible to maintain the epidemic under control, so that extreme sanitary measures will only be a last resort, instead of a regular
             necessity as it is right now.
         </p>
@@ -106,6 +105,13 @@ class WhitePaperEng extends Component {
           We are by no means expert on this topic, even though we read a lot of experts papers. This is not a primary source of information about COVID.
           Do not use the tools from this website to make medical decisions. Please continue to follow government guidance.
         </div>
+        <br />
+        <h2>Table of content</h2>
+        <List disablePadding={true}>
+          <ListItem button={true} onClick={() => this.goToRisk()}>1. Risk computation</ListItem>
+          <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact on the epidemic</ListItem>
+          <ListItem button={true} onClick={() => this.goToFamily()}>3. Family gathering</ListItem>
+        </List>
         <br />
         <h2 ref={this.refRisque}>1. Risk computation</h2>
         <p>
@@ -283,6 +289,12 @@ class WhitePaperEng extends Component {
       Finally, following the principle "what would happen if everyone does like me", we divide this population by the number of poeple going to the reunion that was
       entered in the simulator, to estimate the number of reunions. This allows us to compute the outcome for the whole country.
     </p>
+    <h3>About</h3>
+    Website created by <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>.
+    <br /><br />
+    <h3>Special Thanks</h3>
+    Thank you to Clément Turpain, Emma Müller, Laura Diaz, Robin Aspe, Charlotte Mion, Ivan Glita and Jean-Patrick Vrel for their help, testing the website, and the many
+    brainstorming sessions !
     </div>
     </div>
   )

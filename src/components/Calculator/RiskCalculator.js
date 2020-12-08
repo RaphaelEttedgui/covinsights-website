@@ -131,7 +131,7 @@ class RiskCalculator extends Component {
     </NavLink>
     </div>
     <div id="text_graph_result">
-    Evolution de l'épidémie sur un mois si tout le monde avait le même profil de risque (chiffres en milliers) :
+    Evolution de l'épidémie sur un mois si tout le monde avait le même profil de risque chaque semaine (chiffres en milliers) :
     </div>
     {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
     <div id='graph_result'>{this.state.evolution()}</div>

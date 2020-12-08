@@ -53,10 +53,11 @@ class EpidemySimulator{
 		var ta = [];
 		var ya = [];
 		ta.push(t0);
-		ya.push({x:t, infections:Math.round(y[2])}); //, hosp:Math.round((y[1]* 2.6 / 100) * 1000)/1000, rea: Math.round((y[1]* (2.6 / 100) * (18.2 / 100)) * 1000) / 1000});
+		ya.push({x:t, infections:Math.round(y[2])/1000}); //, hosp:Math.round((y[1]* 2.6 / 100) * 1000)/1000, rea: Math.round((y[1]* (2.6 / 100) * (18.2 / 100)) * 1000) / 1000});
 		for(t=t0+step;t<tmax; t=t+step){
 			integrator=integrator.step();
-			ya.push({x:t, infections:Math.round(integrator.y[2]*1000)/1000});
+			console.log(integrator.y[1]);
+			ya.push({x:t, infections:Math.round(integrator.y[2]*1000)/1000000});
 			ta.push(t);
 		}
 	  return {t:ta,y:ya};

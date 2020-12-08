@@ -169,6 +169,7 @@ export default createGlobalStyle`
   .whitepaper{
     font-size:20px;
     margin : 30px 80px 20px 80px;
+    text-align:justify;
   }
 
   .center_gray{
@@ -441,6 +442,14 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
+    }
+  
+    a:visited{
+      color:blue;
+    }
+
+    a:hover{
+      color:red;
     }
 
     .defaultHero {

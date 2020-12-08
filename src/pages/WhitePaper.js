@@ -82,21 +82,24 @@ class WhitePaper extends Component {
     </div>
     <Divider />
     <div className="whitepaper">
-        <h2>Table des matières</h2>
-        <List disablePadding={true}>
-          <ListItem button={true} onClick={() => this.goToRisk()}>1. Calcul du risque</ListItem>
-          <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact sur l'épidémie</ListItem>
-          <ListItem button={true} onClick={() => this.goToFamily()}>3. Réunion familiale</ListItem>
-        </List>
-        <br />
         <h2>Présentation</h2>
         <p>
-            L'objectif principal de ce site est de rendre accessibles un ensemble de connaissances et raisonnements mathématiques sur l'épidémie de covid19, afin de permettre à chacun
-            d'estimer au mieux, dans la limite du savoir actuel, aussi bien le risque pour soi et ses proches que l'impact de son comportement individuel sur l'épidémie.
+          Avec l'approche de Noël, nous avons tous envie de passer les fêtes en famille, sans que cela soit un désastre sanitaire. Mais comment planifier nos
+          rassemblements de façon à limiter les risques au maximum, sous contrainte du travail, des transports en commun, ou autres activités qui nous sont imposées ?
+        </p>
+            C'est pour répondre à cette question que nous avons créé ce site. Il se compose de plusieurs outils :
+            <ul style={{listStylePosition: 'inside', margin:'15px'}}>
+            <li>un <span style={{fontWeight:"500"}}>calculateur de risque</span>, pour évaluer sa probabilité d'attraper le virus sur une semaine en fonction des activités pratiquées;</li>
+            <li style={{marginTop:'7px'}}>un <span style={{fontWeight:"500"}}>simulateur</span>, montrant comment l'épidémie évoluerait si tout le monde faisait les mêmes activités que soi;</li>
+            <li style={{marginTop:'7px'}}>un <span style={{fontWeight:"500"}}>évaluateur de réunion familiale</span>, calculant le risque qu'elle représente en fonction de l'âge et du profil de risque des participants.</li>
+            </ul>
+        <p>
+          Raisonner "si tout le monde faisait comme moi" permet de visualiser l'impact global de nos décisions individuelles. Contribuons-nous actuellement à ralentir l'épidémie, ou
+          au contraire à l'aggraver ?
         </p>
         <p>
             Nous sommes convaincus que l'information est la clé du succès dans la lutte contre une pandémie. En donnant à tous les moyens d'ajuster leur comportement en fonction de
-            l'état de circulation du virus, il est possible de maintenir l'épidémie sous contrôle, afin que les mesures sanitaires extrêmes ne soient qu'un dernier recours, et non
+            la circulation du virus, il est possible de maintenir l'épidémie sous contrôle, afin que les mesures sanitaires extrêmes ne soient qu'un dernier recours, et non
             une nécessité régulière.
         </p>
         <div className="disclaimer">
@@ -108,6 +111,13 @@ class WhitePaper extends Component {
           Nous ne sommes en aucun cas des experts de ce sujet, même si nous avons lu beaucoup de papiers d'experts. Ceci n'est pas une source primaire d'information
           sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
         </div>
+        <br />
+        <h2>Table des matières</h2>
+        <List disablePadding={true}>
+          <ListItem button={true} onClick={() => this.goToRisk()}>1. Calcul du risque</ListItem>
+          <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact sur l'épidémie</ListItem>
+          <ListItem button={true} onClick={() => this.goToFamily()}>3. Réunion familiale</ListItem>
+        </List>
         <br />
         <h2 ref={this.refRisque}>1. Calcul de risque</h2>
         <p>
@@ -301,6 +311,12 @@ class WhitePaper extends Component {
       familiale entrée dans le simulateur, pour estimer le nombre de réunions. Cela permet d'obtenir le nombre estimé d'hospitalisations,
       de réanimations et de morts à l'échelle de la France.
     </p>
+    <h3>A propos</h3>
+    Site créé par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>.
+    <br /><br />
+    <h3>Remerciements</h3>
+    Un grand merci à Clément Turpain, Emma Müller, Laura Diaz, Robin Aspe, Charlotte Mion, Ivan Glita et Jean-Patrick Vrel pour leur aide, le test du site et les sessions
+    de brainstorming !
     </div>
     </div>
   )
