@@ -16,9 +16,10 @@ export default createGlobalStyle`
     line-height: 1.0;
   }
 
-  .logo {
+  .logo{
     position:relative;
-    top:10px;
+    left:10px;
+    top:11px;
   }
 
   #parameters_result{
@@ -317,10 +318,14 @@ export default createGlobalStyle`
       display: none;
     }
 
-    .logo {
+    .logo_mobile {
       position:relative;
-      left:10px;
-      top:15px;
+      left:18px;
+      top:11px;
+    }
+
+    .logo{
+      display:none;
     }
 
     .translate_non_mobile{
@@ -398,6 +403,10 @@ export default createGlobalStyle`
   @media screen and (min-width: 576px) {
     .visible_mobile_only{
       display: none;
+    }
+
+    .logo_mobile{
+      display:none;
     }
 
     .translate_mobile{

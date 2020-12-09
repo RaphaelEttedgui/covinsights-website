@@ -247,7 +247,12 @@ class WhitePaperEng extends Component {
     <img src={seir_image} alt="SEIR" className="seir_image" />
     <p>
     As in the SEIR model, the transitions from the E to I State happen at a constant rate (respectively alpha and gamma, whose inverse are
-    the incubation period and how long a person remains contagious). However, we compute the number of contaminated in a different way :
+    the incubation period and how long a person remains contagious). We estimated the incubation period to 5 days
+    (source : <a href="https://www.acpjournals.org/doi/full/10.7326/M20-0504">[Lauer et Al]</a>,
+    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7157951/">[Saghazadeh et Al.]</a>), and the infection window (average time between contamination and isolation) 
+    to 2.9 days (source : <a href="https://www.sciencedirect.com/science/article/pii/S1473309920301444#bib15">[Kucharski et Al.]</a>).
+
+     However, we compute the number of contaminated in a different way :
     </p>
     <div className="visible_except_mobile">
         <div className="Math">

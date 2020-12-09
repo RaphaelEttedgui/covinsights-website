@@ -265,7 +265,12 @@ class WhitePaper extends Component {
     <img src={seir_image} alt="SEIR" className="seir_image" />
     <p>
     Comme dans le modèle SEIR, les transitions de E vers I et de I vers R se font à taux constants (respectivement alpha et gamma, qui représentent l'inverse de
-    la durée d'incubation et de la durée de contagiosité). Toutefois, le calcul du nombre de nouveaux contaminés est différent du modèle classique : on somme la probabilité
+    la durée d'incubation et de la durée de contagiosité). Nous avons estimé la période d'incubation à environ 5 jours
+    (source : <a href="https://www.acpjournals.org/doi/full/10.7326/M20-0504">[Lauer et Al]</a>,
+    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7157951/">[Saghazadeh et Al.]</a>), et la durée de contagiosité (temps moyen entre contamination et isolement) 
+    à 2.9 jours (source : <a href="https://www.sciencedirect.com/science/article/pii/S1473309920301444#bib15">[Kucharski et Al.]</a>)
+    
+    Toutefois, le calcul du nombre de nouveaux contaminés est différent du modèle classique : on somme la probabilité
     de contamination de chaque susceptible pour obtenir le nombre moyen de contaminés.
     </p>
     <div className="visible_except_mobile">
@@ -297,7 +302,7 @@ class WhitePaper extends Component {
     </p>
     <p>
       Pour cela, nous avons utilisé le calculateur de risque pour évaluer la probabilité de contamination, puis
-      les estimations de <a href='https://hal-pasteur.archives-ouvertes.fr/pasteur-02548181'>l'institut Pasteur</a> afin de calculer la probabilité
+      les <a href='https://hal-pasteur.archives-ouvertes.fr/pasteur-02548181'>estimations</a> de l'Institut Pasteur afin de calculer la probabilité
       d'hospitalisation, de réa et de mort une fois contaminé, pour chaque personne de la réunion en fonction de son âge.
     </p>
     <p>
