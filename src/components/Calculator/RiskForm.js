@@ -292,7 +292,7 @@ class RiskForm extends Component {
                             onChange={this.handleRiskProfile}
                           >
                             <option value="average">Standard</option>
-                            <option value="worker">Travailleur de première ligne</option>
+                            <option value="worker">Travailleur de première ligne / vie sociale active</option>
                             <option value="nonWorker">Télétravaille</option>
                           </Select>
                         </FormControl>

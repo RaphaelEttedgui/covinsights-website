@@ -14,7 +14,7 @@ class CalculatorEng extends Component {
       </Helmet>        
       <div className="calculator_presentation">
         <h2>
-          Welcome to the risk calculator !
+          Welcome to the risk calculator
         </h2>
         <div className="calculator_introduction">
          <span style={{fontWeight:"bold"}}>Are you contributing to better, or worsen the situation ?</span>

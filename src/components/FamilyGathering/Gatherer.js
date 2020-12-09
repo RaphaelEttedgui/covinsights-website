@@ -53,8 +53,10 @@ class Gathering extends Component{
         this.refResult = React.createRef();
     }
 
-    componentDidMount = () => {
-        
+    componentDidUpdate = () => {
+        if(this.state.toggleResult){
+            this.refResult.current.scrollIntoView({ behavior: "smooth" });
+        }
     }
 
     // We only add the card, the person is added on submit.
@@ -204,7 +206,6 @@ class Gathering extends Component{
         deathRisk = 1-deathRisk;
         var res = 
         this.setState({result:[risk, hospRisk, reaRisk, deathRisk, moyenneHosp, moyenneRea, moyenneDeaths]});
-        this.refResult.current.scrollIntoView({ behavior: "smooth" });
     }
 
     showResult = () => {
@@ -226,9 +227,9 @@ class Gathering extends Component{
         }
         return (
         <div>
-        <div id ="family_result">
+        <div id ="family_result" ref={this.refResult}>
         <Box pt="1rem" justify="right" m="auto">
-            Bilan sur la France : <br /> <br/>
+            <span style={{fontWeight:"bold"}}>Bilan sur la France :</span> <br /> <br/>
             <div className="visible_except_mobile">
             <Grid container spacing={3}>
                 <Grid item xs={4}>

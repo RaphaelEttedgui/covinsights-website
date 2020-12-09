@@ -76,6 +76,13 @@ class RiskCalculator extends Component {
     this.setState({activities:tabActis});
   }
 
+  componentDidUpdate = () => {
+    if(this.state.toggleResult)
+    {
+      this.refResult.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   getRisk = () => {
     // Updates the risk, and resets and updates the Person
     var p = this.state.person;
@@ -109,17 +116,65 @@ class RiskCalculator extends Component {
   // Affiche le résultat (appelé sur clic de calculer mon risque)
   // Contient le lien vers le simulateur et lui transmet le risque.
   showResult = () => {
-    this.refResult.current.scrollIntoView({ behavior: "smooth" });
     const riskWeek = Math.round((this.state.risk * 10000 + Number.EPSILON)) / 100;
     var riskYear = 1 - Math.pow((1-this.state.risk), 52);
     riskYear = Math.round((riskYear * 10000 + Number.EPSILON)) / 100;
     return (
       <div id="calculator_result">
-      <Box justify="right" m="auto">
-        Vous avez <span style={{fontWeight:"bold", color:"red"}}>{riskWeek} %</span> de chance d'attraper le covid
-        sur une semaine, pour une prévalence de {this.state.person.universe.prevalence * 100}. Cela donne <span style={{fontWeight:"bold", color:"red"}}>{riskYear} %</span> sur un an.
-      </Box>
-      <div id="button_to_family">
+      <div className="calculator_risk_display" ref={this.refResult}>
+        <Box pt="1rem" justify="right" m="auto">
+              <span style={{fontWeight:"bold"}}>Probabilité d'attraper le virus :</span> <br />
+              <div className="visible_except_mobile">
+              <Grid container spacing={3} justify="center">
+                  <Grid item xs={4}>
+                  <div className="result_cases">
+                      <div className="result_cases_top">
+                          {riskWeek} %
+                      </div>
+                      <div className="result_cases_bottom">
+                          sur une semaine
+                      </div>
+                  </div>
+                  </Grid>
+                  <Grid item xs={4}>
+                  <div className="result_cases">
+                      <div className="result_cases_top">
+                      {riskYear}%
+                      </div>
+                      <div className="result_cases_bottom">
+                      sur un an
+                      </div>
+                  </div>
+                  </Grid>
+              </Grid>
+              </div>
+              <div className="visible_mobile_only">
+              <Grid container spacing={1} justify="center">
+                  <Grid item xs={5}>
+                  <div className="result_cases">
+                      <div className="result_cases_top">
+                          {riskWeek}%
+                      </div>
+                      <div className="result_cases_bottom">
+                          sur une semaine
+                      </div>
+                  </div>
+                  </Grid>
+                  <Grid item xs={5}>
+                  <div className="result_cases">
+                      <div className="result_cases_top">
+                      {riskYear} %
+                      </div>
+                      <div className="result_cases_bottom">
+                      sur un an
+                      </div>
+                  </div>
+                  </Grid>
+              </Grid>
+              </div>
+          </Box>
+        </div>
+      <div id="button_to_family" >
       <NavLink to="/familyGathering/">
       <Fab
       onClick={() => {this.props.changeGlobalRisk(this.state.risk);}}
@@ -268,7 +323,6 @@ class RiskCalculator extends Component {
         <div id="calculator-result" ref={this.refResult}>
         {this.state.toggleResult && this.showResult()}
         </div>
-        {this.state.toggleResult && Scroll.animateScroll.scrollToBottom({offset:100})}
         <br/><br/>
         <div className="disclaimer">
           <h3>Disclaimer</h3>

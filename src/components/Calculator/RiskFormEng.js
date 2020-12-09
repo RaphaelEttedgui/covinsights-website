@@ -278,7 +278,7 @@ class RiskFormEng extends Component {
                             onChange={this.handleRiskProfile}
                           >
                             <option value="average">Standard</option>
-                            <option value="worker">Frontline worker</option>
+                            <option value="worker">Frontline worker / active social life</option>
                             <option value="nonWorker">Work from home</option>
                           </Select>
                         </FormControl>

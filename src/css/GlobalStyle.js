@@ -221,6 +221,13 @@ export default createGlobalStyle`
     border-width:thin;
   }
 
+  .calculator_risk_display{
+    text-align:center;
+    border-style: solid;
+    border-radius: 16px;
+    border-width:thin;
+  }
+
   .result_cases{
     margin:1rem 1rem 2rem 1rem;
     align-items:center;

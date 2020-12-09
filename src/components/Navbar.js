@@ -81,7 +81,13 @@ class Navbar extends Component{
 
     changeGlobalRisk = (risk) => {
       console.log(risk);
-      this.setState({familyGathering: () =><FamilyGathering globalRisk={risk}/>});
+      if(this.state.french)
+      {
+        this.setState({familyGathering: () =><FamilyGathering globalRisk={risk}/>});
+      }
+      else{
+        this.setState({familyGathering: () =><FamilyGatheringEng globalRisk={risk}/>});
+      }
     }
 
     frenchMenu = () => {

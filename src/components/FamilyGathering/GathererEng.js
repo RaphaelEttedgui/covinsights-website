@@ -8,7 +8,7 @@ import Chip from '@material-ui/core/Chip';
 import CachedIcon from '@material-ui/icons/Cached';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { withStyles } from "@material-ui/core/styles";
-import profiles from '../constants/profiles.js';
+import profiles from '../constants/profilesEng.js';
 import FaceIcon from '@material-ui/icons/Face';
 import {InteractionOne, BasicUniverse} from '../Calculator/NewMath.js';
 import TextField from '@material-ui/core/TextField';
@@ -53,8 +53,10 @@ class GatheringEng extends Component{
         this.refResult = React.createRef();
     }
 
-    componentDidMount = () => {
-        
+    componentDidUpdate = () => {
+        if(this.state.toggleResult){
+            this.refResult.current.scrollIntoView({ behavior: "smooth" });
+        }
     }
 
     // We only add the card, the person is added on submit.
@@ -204,7 +206,6 @@ class GatheringEng extends Component{
     }
 
     showResult = () => {
-        this.refResult.current.scrollIntoView();
         const result = this.state.result;
         const pop_restante = 66000000 * 0.9; // 66millions moins les environ 10 à 15% déjà infectés.
         var n_pers = 0;
@@ -223,9 +224,9 @@ class GatheringEng extends Component{
         }
         return (
         <div>
-        <div id ="family_result">
+        <div id ="family_result" ref={this.refResult}>
         <Box pt="1rem" justify="right" m="auto">
-            Outcome for France : <br /> <br/>
+        <span style={{fontWeight:"bold"}}>Outcome for France :</span> <br /> <br/>
             <div className="visible_except_mobile">
             <Grid container spacing={3}>
                 <Grid item xs={4}>
