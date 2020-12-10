@@ -86,7 +86,7 @@ class GatheringEng extends Component{
         const myId = this.state.nextId;
         const myNewCard = (
             <Grid item className="activity_list">
-                <PersonCard id={myId} showForm={true} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args}>
+                <PersonCard id={myId} showForm={false} updatePerson={this.updatePerson} delete={() => {this.clear(myId); this.toggleOffResult()}} {...args}>
                     <div className="delete_button">
                     <Tooltip title="Supprimer">
                     <IconButton aria-label="delete" size="small" onClick={() => {this.clear(myId); this.toggleOffResult()}}>
@@ -419,7 +419,16 @@ class GatheringEng extends Component{
             <br/><br/>
             <div className="disclaimer">
             <h3>Disclaimer</h3>
-            This website was not peer-reviewed, and only represents the author's best estimations given the knowledge at hand. This website is not a primary information source about COVID.
+            This website was not peer-reviewed. It only represents the author's best estimations given the knowledge at hand, some of which are not enough to guarantee the
+            precision and fiability of the numbers.
+            <br/> <br />
+            A small probability does not mean the absence of risk. The authors recomment precaution above all, and cannot held responsible for any consequence of actions
+            made by users of this website.
+            <br/> <br/>
+            The probabilities are computed for the whole countrie, and so are very general. They must be carefully adjusted to each situation before being applied to
+            a particular case.
+            <br/><br/>
+            This website is not a primary information source about COVID.
             Do not use the tools from this website to take medical decisions. Keep following government recommendation.
             </div>
         </div>

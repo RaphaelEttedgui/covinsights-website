@@ -135,7 +135,7 @@ export default createGlobalStyle`
 
   .calculator_presentation{
     width:100%;
-    font-size:1.2em;
+    font-size:1.4em;
     text-align: center;
     margin-bottom : 2rem;
   }
@@ -188,11 +188,13 @@ export default createGlobalStyle`
   }
 
   .disclaimer{
+    font-size:1.2em;
     border-style: solid;
     border-width: medium;
     border-color: orange;
     padding : 15px;
     background-color: #FCEBC1;
+    text-align:left;
   }
 
   .family_presentation{
@@ -258,6 +260,7 @@ export default createGlobalStyle`
 
   #text_graph_result{
     padding-top:1.5rem;
+    font-weight:500;
   }
 
   .addActivity_buttons{

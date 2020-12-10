@@ -53,6 +53,7 @@ class WhitePaper extends Component {
     this.refRisque = React.createRef();
     this.refImpact = React.createRef();
     this.refFamily = React.createRef();
+    this.refMe = React.createRef();
   }
 
   goToRisk = () => {
@@ -65,6 +66,10 @@ class WhitePaper extends Component {
 
   goToFamily = () => {
     this.refFamily.current.scrollIntoView({behavior: "smooth"});
+  }
+  
+  goToMe = () => {
+    this.refMe.current.scrollIntoView({behavior:"smooth"});
   }
 
   render =() => {
@@ -102,22 +107,31 @@ class WhitePaper extends Component {
             la circulation du virus, il est possible de maintenir l'épidémie sous contrôle, afin que les mesures sanitaires extrêmes ne soient qu'un dernier recours, et non
             une nécessité régulière.
         </p>
-        <div className="disclaimer">
-          <h3>Disclaimer</h3>
-          Ce site n'a pas la prétention de refléter une connaissance scientifique publiée. Il n'a pas fait l'objet d'un processus de revue par des pairs, et représente donc
-          uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
-          des chiffres proposés. Notre objectif est uniquement de permettre au grand public de faire des estimations rapides pour prendre des décisions personnelles.
-          <br/> <br/>         
-          Nous ne sommes en aucun cas des experts de ce sujet, même si nous avons lu beaucoup de papiers d'experts. Ceci n'est pas une source primaire d'information
-          sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
-        </div>
-        <br />
         <h2>Table des matières</h2>
         <List disablePadding={true}>
           <ListItem button={true} onClick={() => this.goToRisk()}>1. Calcul du risque</ListItem>
           <ListItem button={true} onClick={() => this.goToImpact()}>2. Impact sur l'épidémie</ListItem>
           <ListItem button={true} onClick={() => this.goToFamily()}>3. Réunion familiale</ListItem>
+          <ListItem button={true} onClick={() => this.goToMe()}>4. Qui sommes-nous ?</ListItem>
         </List>
+        <br />
+        <div className="disclaimer">
+          <div style={{fontSize:"0.9em"}}>
+          <h3>Disclaimer</h3>
+          Ce site n'a pas fait l'objet d'un processus de revue par des pairs. Il représente donc
+          uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
+          des chiffres proposés.
+          <br/><br/>
+          Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
+          d'éventuelles conséquences d'actions effectuées par des utilisateurs du site.
+
+          <br/> <br/>Les probabilités sont calculées dans
+          un cadre très général, à l'échelle du pays, et doivent être soigneusement ajustées avant de les appliquer à un cas particulier.
+          <br/><br/>
+           Ceci n'est pas une source primaire d'information sur le covid. N'utilisez pas les outils de ce site pour prendre des décisions médicales.
+           Continuez à suivre les recommandations du gouvernement.
+           </div>
+        </div>
         <br />
         <h2 ref={this.refRisque}>1. Calcul de risque</h2>
         <p>
@@ -142,7 +156,7 @@ class WhitePaper extends Component {
         <div className="center_gray">
           Risque de transmission durant une conversation de 1h sans masque, en intérieur, avec quelqu'un qui a le covid : 6%
         </div>
-        Puis l'on multiplie cette probabilité de tranmission par divers modificateurs (voir <a href="http://microcovid.org/paper/">Microcovid</a> pour plus de détails et les
+        Puis l'on multiplie cette probabilité de transmission par divers modificateurs (voir <a href="http://microcovid.org/paper/">Microcovid</a> pour plus de détails et les
         sources):
         <br /> <br />
           <TableContainer component={Paper}>
@@ -169,13 +183,13 @@ class WhitePaper extends Component {
       <br />
 
     <h3>Profil de risque de la personne</h3>
-    Pour obtenir le risque total, il faut ensuite comme on l'a vu plus haut multiplier le risque de transmission par la probabilité que la personne aie le covid.
+    Pour obtenir le risque total, il faut ensuite comme on l'a vu plus haut multiplier le risque de transmission par la probabilité que la personne ait le covid.
     Plusieurs méthodes sont possibles pour calculer cela :
     <ul style={{listStylePosition: 'inside', margin:'15px'}}>
     <li>Calculer le risque directement. Mais la question se pose à nouveau dans ce calcul pour les personnes que la personne fréquente. Par conséquent, il
       faut utiliser d'autres méthodes pour éviter une boucle infinie;
     </li>
-    <li style={{marginTop:'5px'}}> Utiliser la prévalence (autrement dit la probabilité qu'une personne au hasard aie le covid);</li>
+    <li style={{marginTop:'5px'}}> Utiliser la prévalence (autrement dit la probabilité qu'une personne au hasard ait le covid);</li>
     <li style={{marginTop:'5px'}}> Ajuster cette prévalence en fonction de profils de risques généraux (par exemple travailleur de première ligne, personne qui télétravaille et socialise peu, etc.)</li>
     </ul>
     Nos calculs utilisent la troisième méthode, en définissant plusieurs profils de risque : les personnes travaillant en première ligne ou socialisant beaucoup (x3), et
@@ -200,7 +214,7 @@ class WhitePaper extends Component {
     </div>
 
     <br/>
-    <h3>Durée et nombre de personnées</h3>
+    <h3>Durée et nombre de personnes</h3>
     Tout cela donne le risque de transmission lié à l'activité pendant une heure. Pour obtenir le risque lié à la pratique de l'activité plusieurs heures durant, on calcule
     la probabilité d'être contaminé durant au moins une de ces heures. Autrement dit, l'inverse de n'être contaminé pendant aucune des heures en question. Si le risque sur
     1h est p, alors celui d'être contaminé sur n heures sera :
@@ -271,7 +285,7 @@ class WhitePaper extends Component {
     à 2.9 jours (source : <a href="https://www.sciencedirect.com/science/article/pii/S1473309920301444#bib15">[Kucharski et Al.]</a>)
     
     Toutefois, le calcul du nombre de nouveaux contaminés est différent du modèle classique : on somme la probabilité
-    de contamination de chaque susceptible pour obtenir le nombre moyen de contaminés.
+    de contamination de chaque personne susceptible pour obtenir le nombre moyen de contaminés.
     </p>
     <div className="visible_except_mobile">
         <div className="Math">
@@ -292,7 +306,7 @@ class WhitePaper extends Component {
     <h2 ref={this.refFamily}>3. Réunions familiales</h2>
     <p>
     L'un des enjeux les plus importants de l'épidémie est la période des fêtes de la fin 2020. Les personnes âgées sont particulièrement vulnérables et susceptibles d'être
-    hospitalisées et de mourir du virus, tandis que les jeunes adultes sont généralement la population socialisant le plus et étant donc le plus susceptible d'être contaminées.
+    hospitalisées et de mourir du virus, tandis que les jeunes adultes sont généralement la population socialisant le plus et étant donc les plus susceptibles d'être contaminés.
     Par conséquence, les réunions familiales, qui par nature mettent en contact les différentes classes d'âge, peuvent avoir des conséquences désastreuses si elles ne sont pas
     soigneusement préparées.
     </p>
@@ -316,8 +330,8 @@ class WhitePaper extends Component {
       familiale entrée dans le simulateur, pour estimer le nombre de réunions. Cela permet d'obtenir le nombre estimé d'hospitalisations,
       de réanimations et de morts à l'échelle de la France.
     </p>
-    <h3>A propos</h3>
-    Site créé par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>. Le code source est disponible sur 
+    <h3 ref={this.refMe}>A propos</h3>
+    Initiative bénévole, créée par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (chercheur en mathématiques). Le code source est disponible sur 
     <a href="https://github.com/RaphaelEttedgui/covinsights-website"> GitHub</a>.
     <br /><br />
     {/* <h3>Remerciements</h3>

@@ -13,11 +13,13 @@ class Insights extends Component {
         </title>
       </Helmet>        
       <div className="calculator_presentation">
-        <h2>
-            A few classical activities, ordered by risk over a year:
-        </h2>
         <div className="calculator_introduction">
-          This chart represents the risk of contamination after one year, when doing only this one activity, every week.
+        <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Activities sorted by risk</span>
+          <br/>
+          <div style={{marginTop:"1rem", textAlign:"left"}} >
+          This graph represents the risk related to several activities, practiced every week for a year.
+          This helps visualizing their relative danger.
+          </div>
         </div>
       </div>
       <ComparisonRisksEng />

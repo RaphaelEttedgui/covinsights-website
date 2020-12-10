@@ -105,9 +105,19 @@ class ComparisonRisk extends Component{
             <br/><br/><br/>
             <div className="disclaimer">
             <h3>Disclaimer</h3>
-            Ce site n'a pas fait l'objet d'un processus de revue par des pairs, et représente donc
-            uniquement les estimations des auteurs étant donné les connaissances à leur disposition. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
-            </div> 
+            Ce site n'a pas fait l'objet d'un processus de revue par des pairs. Il représente donc
+            uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
+            des chiffres proposés.
+            <br/><br/>
+            Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
+            d'éventuelles conséquences d'actions effectuées par des utilisateurs du site.
+
+            <br/> <br/>Les probabilités sont calculées dans
+            un cadre très général, à l'échelle du pays, et doivent être soigneusement ajustées avant de les appliquer à un cas particulier.
+            <br/><br/>
+            Ceci n'est pas une source primaire d'information sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales.
+            Continuez à suivre les recommandations du gouvernement.
+            </div>
             </div>
         )
     }

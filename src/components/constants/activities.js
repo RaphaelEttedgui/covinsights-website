@@ -11,7 +11,7 @@ export default [
       riskProfile: "normal",
     },
     {
-        name: "Coup d'un soir",
+        name: "Aventure d'un soir",
         wearMask:false,
         duration:300,
         nbPeople:1,

@@ -117,7 +117,7 @@ class RiskCalculator extends Component {
   // Contient le lien vers le simulateur et lui transmet le risque.
   showResult = () => {
     const riskWeek = Math.round((this.state.risk * 10000 + Number.EPSILON)) / 100;
-    var riskYear = 1 - Math.pow((1-this.state.risk), 52);
+    var riskYear = 1 - Math.pow((1-this.state.risk), 12); // Risque sur 3 mois
     riskYear = Math.round((riskYear * 10000 + Number.EPSILON)) / 100;
     return (
       <div id="calculator_result">
@@ -142,7 +142,7 @@ class RiskCalculator extends Component {
                       {riskYear}%
                       </div>
                       <div className="result_cases_bottom">
-                      sur un an
+                      sur trois mois
                       </div>
                   </div>
                   </Grid>
@@ -220,7 +220,7 @@ class RiskCalculator extends Component {
     const myId = [this.state.nextId]
     const widget = (
       <Grid item className="activity_list">
-          <RiskForm id={myId} showForm={true} updateRisk={this.updateRisk} edit={this.toggleOffResult} {...args}>
+          <RiskForm id={myId} showForm={false} updateRisk={this.updateRisk} edit={this.toggleOffResult} {...args}>
               <div className="delete_button">
               <Tooltip title="Supprimer">
               <IconButton z-index={5000} aria-label="delete" size="small" onClick={() => {this.clear(myId[0]); this.toggleOffResult()}}>
@@ -316,7 +316,7 @@ class RiskCalculator extends Component {
         </Box>
         </div>
         <div id="premade_activities">
-          <h4>Exemples d'activités:</h4>
+          <h4>Exemples d'activités (à ajuster pour votre cas):</h4>
             {this.generatePremadeCards()}
         </div>
 
@@ -326,9 +326,18 @@ class RiskCalculator extends Component {
         <br/><br/>
         <div className="disclaimer">
           <h3>Disclaimer</h3>
-          Ce site n'a pas fait l'objet d'un processus de revue par des pairs, et représente donc
-          uniquement les estimations des auteurs étant donné les connaissances à leur disposition. Ceci n'est pas une source primaire d'information
-          sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales. Continuez à suivre les recommandations du gouvernement.
+          Ce site n'a pas fait l'objet d'un processus de revue par des pairs. Il représente donc
+          uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
+          des chiffres proposés.
+          <br/><br/>
+          Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
+          d'éventuelles conséquences d'actions effectuées par des utilisateurs du site.
+
+          <br/> <br/>Les probabilités sont calculées dans
+          un cadre très général, à l'échelle du pays, et doivent être soigneusement ajustées avant de les appliquer à un cas particulier.
+          <br/><br/>
+           Ceci n'est pas une source primaire d'information sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales.
+           Continuez à suivre les recommandations du gouvernement.
         </div>
       </div>
     )

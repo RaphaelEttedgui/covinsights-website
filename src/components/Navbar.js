@@ -95,7 +95,7 @@ class Navbar extends Component{
         <ul className="nav-links">
         <Divider />
         <li>
-        <NavLink onClick={this.toggleNav} to="/calculator">Calculateur de risque</NavLink>
+        <NavLink onClick={this.toggleNav} to="/calculator">Calculateur</NavLink>
         </li>
         <Divider />
         <li>
@@ -103,11 +103,11 @@ class Navbar extends Component{
         </li>
         <Divider/>
         <li>
-          <NavLink onClick={this.toggleNav} to="/insights">Insights</NavLink>
+          <NavLink onClick={this.toggleNav} to="/insights">Visualisation</NavLink>
         </li>
         <Divider/>
         <li>
-          <NavLink onClick={this.toggleNav} to="/whitepaper">White Paper</NavLink>
+          <NavLink onClick={this.toggleNav} to="/whitepaper">A propos</NavLink>
         </li>
     </ul>
       )
@@ -130,7 +130,7 @@ class Navbar extends Component{
         </li>
         <Divider/>
         <li>
-          <NavLink onClick={this.toggleNav} to="/whitepaper">White Paper</NavLink>
+          <NavLink onClick={this.toggleNav} to="/whitepaper">About</NavLink>
         </li>
     </ul>
       )

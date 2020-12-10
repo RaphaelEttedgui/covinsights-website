@@ -13,15 +13,17 @@ class Calculator extends Component {
         </title>
       </Helmet>        
       <div className="calculator_presentation">
-        <h2>
-          Bienvenue dans le calculateur de risque !
-        </h2>
         <div className="calculator_introduction">
-        <span style={{fontWeight:"bold"}}>Contribuez-vous à améliorer, ou empirer la situation ?</span>
+        <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Calculateur de risque</span>
           <br/>
-          <div style={{marginTop:"1rem"}}>
-          Entrez vos activités de la semaine pour calculer votre risque, ainsi que comment l'épidémie évoluerait si tout le monde 
-          faisait exactement la même chose !
+          <div style={{marginTop:"1rem", textAlign:"left"}} >
+          <ul style={{listStylePosition: 'inside', margin:'15px'}}>
+            <li> Entrez vos activités et estimez votre prise de risque;</li>
+            <li> Visualisez comment l'épidémie évoluerait si tout le monde faisait la même chose;</li>
+            <li> Evaluez la dangerosité d'un rassemblement familial avec le simulateur, en important votre risque.</li>
+          </ul>
+          Les chiffres sont pris en moyenne sur la France, et peuvent être différents de votre situation locale.
+          Les détails du calcul sont disponibles dans la section "A propos".
           </div>
         </div>
       </div>

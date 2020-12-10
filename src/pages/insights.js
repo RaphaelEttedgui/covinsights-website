@@ -9,15 +9,17 @@ class Insights extends Component {
       <div className="calculator_container">
       <Helmet>
         <title>
-          Covinsights
+          Visualisation
         </title>
       </Helmet>        
       <div className="calculator_presentation">
-        <h2>
-            Quelques activités, classées par risque sur 1 an :
-        </h2>
         <div className="calculator_introduction">
-          Le graphique ci-dessous représente le risque d'avoir le covid sur 1 an, en faisant uniquement ce type d'activité chaque semaine.
+        <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Activités classées par risque</span>
+          <br/>
+          <div style={{marginTop:"1rem", textAlign:"left"}} >
+          Ce graphique présente quelques activités, classées par le risque qu'elle représentent lorsque pratiquées chaque semaine pendant un an.
+          Cela permet de visualiser leur différence de risque.
+          </div>
         </div>
       </div>
       <ComparisonRisks />
