@@ -98,13 +98,19 @@ class WhitePaperEng extends Component {
             necessity as it is right now.
         </p>
         <div className="disclaimer">
-          <h3>Disclaimer</h3>
-          This website is not a scientific peer-reviewed work, and so only represents the estimations made by the authors given the knowledge at their disposal, which
-          is not enough to guarantee the precision of the numbers. Our goal is only to allow quick and personal estimations for individual decision-making.
-          <br/> <br/> 
-          We are by no means expert on this topic, even though we read a lot of experts papers. This is not a primary source of information about COVID.
-          Do not use the tools from this website to make medical decisions. Please continue to follow government guidance.
-        </div>
+            <h3>Disclaimer</h3>
+            This website was not peer-reviewed. It only represents the author's best estimations given the knowledge at hand, some of which are not enough to guarantee the
+            precision and fiability of the numbers.
+            <br/> <br />
+            A small probability does not mean the absence of risk. The authors recommend precaution above all, and cannot be held responsible for any consequence of actions
+            made by users of this website.
+            <br/> <br/>
+            The probabilities are computed for the whole countrie, and so are very general. They must be carefully adjusted to each situation before being applied to
+            a particular case.
+            <br/><br/>
+            This website is not a primary information source about COVID.
+            Do not use the tools from this website to take medical decisions. Keep following government recommendation.
+            </div>
         <br />
         <h2>Table of content</h2>
         <List disablePadding={true}>
