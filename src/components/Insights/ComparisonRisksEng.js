@@ -100,7 +100,7 @@ class ComparisonRiskEng extends Component{
                 </Grid>
             </Grid>  
             <div className="explanation_test">
-          Pour réduire votre risque, ne pratiquez les activités les plus risquées que ponctuellement, et uniquement avec des personnes surveillant leur risque.
+          To reduce your risk, avoid the riskiest activities and only do the others exceptionnaly, with people that control their risk.
             </div>
             <br/><br/><br/>
             <div className="disclaimer">

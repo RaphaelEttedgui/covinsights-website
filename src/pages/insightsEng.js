@@ -17,8 +17,8 @@ class Insights extends Component {
         <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Activities sorted by risk</span>
           <br/>
           <div style={{marginTop:"1rem", textAlign:"left"}} >
-          This graph represents the risk related to several activities, practiced every week for a year.
-          This helps visualizing their relative danger.
+          Numbers are expressed in permil (estimated number of transmissions if the activity is done 1000 times).
+          <br/> The scale of the x-axis is logarithmic.
           </div>
         </div>
       </div>

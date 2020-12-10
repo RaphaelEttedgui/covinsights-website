@@ -118,7 +118,7 @@ class RiskCalculatorEng extends Component {
   // Contient le lien vers le simulateur et lui transmet le risque.
   showResult = () => {
     const riskWeek = Math.round((this.state.risk * 10000 + Number.EPSILON)) / 100;
-    var riskYear = 1 - Math.pow((1-this.state.risk), 52);
+    var riskYear = 1 - Math.pow((1-this.state.risk), 12); // Over three months
     riskYear = Math.round((riskYear * 10000 + Number.EPSILON)) / 100;
     return (
       <div id="calculator_result">
@@ -143,7 +143,7 @@ class RiskCalculatorEng extends Component {
                       {riskYear}%
                       </div>
                       <div className="result_cases_bottom">
-                      over a year
+                      over three months
                       </div>
                   </div>
                   </Grid>
@@ -157,7 +157,7 @@ class RiskCalculatorEng extends Component {
                           {riskWeek}%
                       </div>
                       <div className="result_cases_bottom">
-                          sur une semaine
+                          over a week
                       </div>
                   </div>
                   </Grid>
@@ -167,7 +167,7 @@ class RiskCalculatorEng extends Component {
                       {riskYear} %
                       </div>
                       <div className="result_cases_bottom">
-                      sur un an
+                      over three months
                       </div>
                   </div>
                   </Grid>

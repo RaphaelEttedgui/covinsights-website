@@ -35,8 +35,8 @@ class ComparisonRisk extends Component{
             // Handle nb people
             var totalRisk = 1-Math.pow((1-composedRisk), myActi[3]);
             // Do that for one year
-            totalRisk = 1-Math.pow((1-totalRisk),52);
-            myActis.push({name:current.name, risk:Math.round(totalRisk*10000000)/100000}); // En pourcentage
+            //totalRisk = 1-Math.pow((1-totalRisk),52);
+            myActis.push({name:current.name, risk:Math.round(totalRisk*10000000)/10000}); // En pour-mille
         }
         myActis.sort((a, b) => (a.risk > b.risk) ? 1 : -1);
         this.setState({actis:myActis});
@@ -45,15 +45,15 @@ class ComparisonRisk extends Component{
 
     computeFill = (risk) => {
         // Seuils de risque (1 an) : 0.5%, 
-        if(risk<0.5)
+        if(risk<0.05)
         {
             return "#82ca9d"
         }
-        if(risk>0.5 && risk<3)
+        if(risk>0.05 && risk<0.3)
         {
             return "#F8E716";
         }
-        if(risk>3 && risk <10)
+        if(risk>0.3 && risk <1.5)
         {
             return 'orange';
         }
@@ -70,7 +70,7 @@ class ComparisonRisk extends Component{
             <ScatterChart
                 margin={{ top: 20, right:15, bottom: 10, left: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="risk" type="number" domain={['dataMin', 'dataMax']} scale="log" ticks={ [0.5, 3, 10] }>
+                <XAxis dataKey="risk" type="number" domain={['dataMin', 'dataMax']} scale="log" ticks={ [0.01, 0.3, 1.5] }>
                     <Label value="(log)" position='right' offset={-20} />
                 </XAxis>
                 <YAxis dataKey="name" type='category' interval={5} />
@@ -87,16 +87,16 @@ class ComparisonRisk extends Component{
             </div>    
             <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid item>
-                    <span className="green-dot"></span> risque {"< 0.5"} % sur un an.
+                    <span className="green-dot"></span> risque {"< 0.05"} &permil;
                 </Grid>
                 <Grid item>
-                    <span className="yellow-dot"></span> entre {"0.5"} et {"3"}%
+                    <span className="yellow-dot"></span> entre {"0.05"} et {"0.3"} &permil;
                 </Grid>
                 <Grid item>
-                    <span className="orange-dot"></span> entre {"3"} et {"10"}%
+                    <span className="orange-dot"></span> entre {"0.3"} et {"1.5"} &permil;
                 </Grid>
                 <Grid item>
-                    <span className="red-dot"></span> {">10"} %
+                    <span className="red-dot"></span> {">1.5"} &permil;
                 </Grid>
             </Grid>
             <div className="explanation_test">
