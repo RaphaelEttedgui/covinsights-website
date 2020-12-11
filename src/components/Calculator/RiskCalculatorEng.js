@@ -130,7 +130,7 @@ class RiskCalculatorEng extends Component {
                   <Grid item xs={4}>
                   <div className="result_cases">
                       <div className="result_cases_top">
-                          {riskWeek} %
+                          {riskWeek}%
                       </div>
                       <div className="result_cases_bottom">
                           over a week
@@ -151,7 +151,7 @@ class RiskCalculatorEng extends Component {
               </div>
               <div className="visible_mobile_only">
               <Grid container spacing={1} justify="center">
-                  <Grid item xs={5}>
+                  <Grid item xs={6}>
                   <div className="result_cases">
                       <div className="result_cases_top">
                           {riskWeek}%
@@ -161,10 +161,10 @@ class RiskCalculatorEng extends Component {
                       </div>
                   </div>
                   </Grid>
-                  <Grid item xs={5}>
+                  <Grid item xs={6}>
                   <div className="result_cases">
                       <div className="result_cases_top">
-                      {riskYear} %
+                      {riskYear}%
                       </div>
                       <div className="result_cases_bottom">
                       over three months
@@ -175,22 +175,26 @@ class RiskCalculatorEng extends Component {
               </div>
           </Box>
         </div>
-      <div id="button_to_family">
-      <NavLink to="/familyGathering/">
-      <Fab
-      onClick={() => {this.props.changeGlobalRisk(this.state.risk);}}
-      variant="extended"
-    >
-      <GroupAddIcon />
-      <Box p="0.5rem">Import in the family gathering simulator</Box>
-    </Fab>
-    </NavLink>
-    </div>
     <div id="text_graph_result">
     Evolution of the epidemy over one month if everyone had the same risk profile each week (numbers in thousands) :
     </div>
     {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
     <div id='graph_result'>{this.state.evolution()}</div>
+    <div id="button_to_family" >
+      <NavLink to="/familyGathering/">
+      <Fab
+      onClick={() => {this.props.changeGlobalRisk(this.state.risk);}}
+      variant="extended"
+      color="primary"
+    >
+      <GroupAddIcon />
+      <Box p={2}>Compute the risk <br/>of a family gathering</Box>
+    </Fab>
+    </NavLink>
+    </div>
+    <div className="explanation_test">
+      Numbers are computed on average for France, and may not correspond to your local situation. The details can be found in the "About" section.
+    </div>
   </div>
     )
   }

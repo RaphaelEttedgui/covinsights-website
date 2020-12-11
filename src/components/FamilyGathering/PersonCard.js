@@ -133,7 +133,7 @@ class PersonCard extends Component {
                         this.props.updatePerson(this.state.id, this.state.age, this.state.gender, this.state.risk)}}
                     >
                         {" "}
-                        Submit
+                        Valider
                     </Button>
                 </Grid>
         </Grid>

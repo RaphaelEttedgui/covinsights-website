@@ -229,7 +229,7 @@ class Gathering extends Component{
         <div>
         <div id ="family_result" ref={this.refResult}>
         <Box pt="1rem" justify="right" m="auto">
-            <span style={{fontWeight:"bold"}}>Bilan sur la France :</span> <br /> <br/>
+            <span style={{fontWeight:"bold"}}>Bilan sur la France si toutes les réunions sont semblables :</span> <br /> <br/>
             <div className="visible_except_mobile">
             <Grid container spacing={3}>
                 <Grid item xs={4}>
@@ -301,6 +301,7 @@ class Gathering extends Component{
         </Box>
       </div>
         <div className="explanation_test">
+        Ces estimations sont génériques et ne prennent pas en compte d'éventuels problèmes de santé chez des membres de votre famille. <br/>
         Pour alléger le bilan, vous pouvez effectuer des jours de quarantaine avant les fêtes, raccourcir les réunions, et réduire les activités à risque.
         </div>
     </div>

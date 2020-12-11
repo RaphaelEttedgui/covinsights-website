@@ -226,7 +226,7 @@ class GatheringEng extends Component{
         <div>
         <div id ="family_result" ref={this.refResult}>
         <Box pt="1rem" justify="right" m="auto">
-        <span style={{fontWeight:"bold"}}>Outcome for France :</span> <br /> <br/>
+        <span style={{fontWeight:"bold"}}>Outcome for France if all gatherings are similar:</span> <br /> <br/>
             <div className="visible_except_mobile">
             <Grid container spacing={3}>
                 <Grid item xs={4}>
@@ -298,6 +298,7 @@ class GatheringEng extends Component{
         </Box>
       </div>
       <div className="explanation_test">
+        All estimations are generic and do not take into account any specific health issues that your family members may have
         To lighten the outcome, you can quarantine for some days before the reunion, shorten the reunion, and reduce the riskiest activities.
         </div>
         </div>

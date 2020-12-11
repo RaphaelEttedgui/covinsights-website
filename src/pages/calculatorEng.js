@@ -18,13 +18,9 @@ class CalculatorEng extends Component {
           <br/>
           <div style={{marginTop:"1rem", textAlign:"left"}} >
           <ul style={{listStylePosition: 'inside', margin:'15px'}}>
-            <li> Enter your activities and estimate your risk;</li>
-            <li> See how the epidemic would evolve if everyone did the same as you;</li>
-            <li> Evaluate how dangerous your family gathering would be, using the simulator.</li>
+            <li> Enter your activities or customize pre-made ones;</li>
+            <li> Compute their average risk.</li>
           </ul>
-          Numbers used are average across France, and may not correspond to your local situation.
-          <br/>
-          The details of the computation are in the "About" section.
           </div>
         </div>
       </div>

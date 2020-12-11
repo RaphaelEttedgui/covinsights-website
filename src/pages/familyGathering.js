@@ -18,12 +18,10 @@ class FamilyGathering extends Component{
                 <br/>
                 <div style={{marginTop:"1rem", textAlign:"left"}} >
                 <ul style={{listStylePosition: 'inside', margin:'15px'}}>
-                    <li> Importez votre profil de risque depuis le calculateur, ou entrez-le directement ci-dessous;</li>
-                    <li> Ajoutez les autres membres de la réunion familiale, si vous portez des masques, et la durée de la réunion;</li>
-                    <li> Calculez le bilan à l'échelle de la France si toutes les réunions se passent comme la vôtre.</li>
+                    <li> Importez votre risque depuis le calculateur</li>
+                    <li> Ajoutez les autres membres de la réunion;</li>
+                    <li> Précisez les modalités.</li>
                 </ul>
-                Notez qu'il s'agit d'une estimation très générique, ne prenant pas en compte d'éventuels problèmes de santé chez des membres de votre famille. Les détails du calcul
-                sont disponibles dans la section "A propos".
                 </div>
                 </div> 
             </div>

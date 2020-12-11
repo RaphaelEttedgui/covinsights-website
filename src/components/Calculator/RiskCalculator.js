@@ -129,7 +129,7 @@ class RiskCalculator extends Component {
                   <Grid item xs={4}>
                   <div className="result_cases">
                       <div className="result_cases_top">
-                          {riskWeek} %
+                          {riskWeek}%
                       </div>
                       <div className="result_cases_bottom">
                           sur une semaine
@@ -149,8 +149,8 @@ class RiskCalculator extends Component {
               </Grid>
               </div>
               <div className="visible_mobile_only">
-              <Grid container spacing={1} justify="center">
-                  <Grid item xs={5}>
+              <Grid container spacing={0} justify="center">
+                  <Grid item xs={6}>
                   <div className="result_cases">
                       <div className="result_cases_top">
                           {riskWeek}%
@@ -160,10 +160,10 @@ class RiskCalculator extends Component {
                       </div>
                   </div>
                   </Grid>
-                  <Grid item xs={5}>
+                  <Grid item xs={6}>
                   <div className="result_cases">
                       <div className="result_cases_top">
-                      {riskYear} %
+                      {riskYear}%
                       </div>
                       <div className="result_cases_bottom">
                       sur un an
@@ -174,22 +174,26 @@ class RiskCalculator extends Component {
               </div>
           </Box>
         </div>
-      <div id="button_to_family" >
-      <NavLink to="/familyGathering/">
-      <Fab
-      onClick={() => {this.props.changeGlobalRisk(this.state.risk);}}
-      variant="extended"
-    >
-      <GroupAddIcon />
-      <Box p="0.5rem">Importer dans le simulateur de réunion familiale</Box>
-    </Fab>
-    </NavLink>
-    </div>
     <div id="text_graph_result">
     Evolution de l'épidémie sur un mois si tout le monde avait le même profil de risque chaque semaine (chiffres en milliers) :
     </div>
     {/* On suppose que les activités correspondent environ à la durée d'incubation (1 semaine en l'occurence) */}
     <div id='graph_result'>{this.state.evolution()}</div>
+    <div id="button_to_family" >
+      <NavLink to="/familyGathering/">
+      <Fab
+      onClick={() => {this.props.changeGlobalRisk(this.state.risk);}}
+      variant="extended"
+      color="primary"
+    >
+      <GroupAddIcon />
+      <Box p={2}>Calculez le risque <br/>d'une réunion familiale</Box>
+    </Fab>
+    </NavLink>
+    </div>
+    <div className="explanation_test">
+      Les chiffres sont pris en moyenne sur la France, et peuvent être différents de votre situation locale. Les détails du calcul sont disponibles dans la section "A propos".
+    </div>
   </div>
     )
   }

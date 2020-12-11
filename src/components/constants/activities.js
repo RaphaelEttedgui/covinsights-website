@@ -11,6 +11,17 @@ export default [
       riskProfile: "normal",
     },
     {
+        name: "Bar",
+        wearMask: false,
+        duration:120,
+        nbPeople: 15,
+        nbMasked: 0,
+        location: "indoors",
+        talking: "normal",
+        distance: "normal",
+        riskProfile: "worker",
+    },
+    {
         name: "Aventure d'un soir",
         wearMask:false,
         duration:300,

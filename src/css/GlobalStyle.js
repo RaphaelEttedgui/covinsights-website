@@ -237,7 +237,7 @@ export default createGlobalStyle`
   }
 
   .result_cases_top{
-    font-size:3rem;
+    font-size:2.5rem;
     font-weight: bold;
   }
 
@@ -328,6 +328,11 @@ export default createGlobalStyle`
       display: none;
     }
 
+    .calculator_presentation
+    {
+      font-size:1.2em;
+    }
+
     .logo_mobile {
       position:relative;
       left:18px;
@@ -377,7 +382,7 @@ export default createGlobalStyle`
     }
 
     .behind_body{
-      padding-top:30px;
+      padding-top:0px;
     }
 
     #premade_activities{

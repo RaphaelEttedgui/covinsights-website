@@ -307,7 +307,7 @@ class RiskForm extends Component {
                 onClick={() => {this.setState({ showForm: true }); this.setActivityRisk()}}
               >
                 {" "}
-                Submit
+                Valider
               </Button>
             </div>
       </Box>

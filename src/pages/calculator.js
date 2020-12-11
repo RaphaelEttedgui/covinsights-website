@@ -18,12 +18,9 @@ class Calculator extends Component {
           <br/>
           <div style={{marginTop:"1rem", textAlign:"left"}} >
           <ul style={{listStylePosition: 'inside', margin:'15px'}}>
-            <li> Entrez vos activités et estimez la prise de risque qu'elles représentent;</li>
-            <li> Visualisez comment l'épidémie évoluerait si tout le monde faisait la même chose;</li>
-            <li> Evaluez la dangerosité d'un rassemblement familial avec le simulateur, en important votre risque.</li>
+            <li> Cliquez sur des exemples d'activités, ou ajoutez les vôtres;</li>
+            <li> Calculez une estimation de leur risque.</li>
           </ul>
-          Les chiffres sont pris en moyenne sur la France, et peuvent être différents de votre situation locale.
-          Les détails du calcul sont disponibles dans la section "A propos".
           </div>
         </div>
       </div>

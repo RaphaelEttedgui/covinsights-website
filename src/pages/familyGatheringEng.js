@@ -19,12 +19,10 @@ class FamilyGathering extends Component{
                 <br/>
                 <div style={{marginTop:"1rem", textAlign:"left"}} >
                 <ul style={{listStylePosition: 'inside', margin:'15px'}}>
-                    <li> Import your risk from the calculator, or enter it directly below;</li>
-                    <li> Add the other members of the gathering, the duration, and whether you will wear masks;</li>
-                    <li> Compute the outcome if all family gatherings are like yours.</li>
+                    <li> Import your risk from the calculator;</li>
+                    <li> Add the other members of the gathering;</li>
+                    <li> Enter informations about the reunion.</li>
                 </ul>
-                More details available in the "About" section. Note that this estimation is very generic, and does not take into account any health issues that some
-                family members may have.
                 </div>
                 </div>
             </div>
