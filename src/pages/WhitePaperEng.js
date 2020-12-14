@@ -74,12 +74,6 @@ class WhitePaperEng extends Component {
             Covinsights
         </title>
         </Helmet>        
-    <div className="whitepaper_presentation">
-        <h1>
-        White Paper
-        </h1>
-    </div>
-    <Divider />
     <div className="whitepaper">
         <h2>Presentation</h2>
         <p>
@@ -301,7 +295,7 @@ class WhitePaperEng extends Component {
       entered in the simulator, to estimate the number of reunions. This allows us to compute the outcome for the whole country.
     </p>
     <h3>About</h3>
-    Website created by <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a>. The source code is available on
+    Website created by <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (Ecole Polytechnique, PhD at University Paris-Dauphine). The source code is available on
     <a href="https://github.com/RaphaelEttedgui/covinsights-website">GitHub</a>
     <br /><br />
     {/* <h3>Special Thanks</h3>

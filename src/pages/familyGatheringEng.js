@@ -12,7 +12,7 @@ class FamilyGathering extends Component{
                 <title>
                 Family Gathering
                 </title>
-            </Helmet>                    
+            </Helmet>             
             <div className="calculator_presentation">
                 <div className="calculator_introduction">
                 <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Family gathering simulator</span>

@@ -22,6 +22,8 @@ const load = (Component) => (props) => {
   )
 }
 
+const Home = load(lazy( () =>  import('../pages/home.js')));
+const HomeEng = load(lazy( () =>  import('../pages/homeEng.js')));
 const WhitePaper = load(lazy( () =>  import('../pages/WhitePaper.js')));
 const WhitePaperEng = load(lazy( () =>  import('../pages/WhitePaperEng.js')));
 const Insights = load(lazy( () =>  import('../pages/insights.js')));
@@ -41,7 +43,7 @@ class Navbar extends Component{
     // -> Stores the user's risk profile.
     this.state = {globalRisk:0., calculator: ()=><Calculator changeGlobalRisk={this.changeGlobalRisk}/>,
         familyGathering: ()=><FamilyGathering globalRisk={0.} />, insights: () => <Insights />,
-        whitepaper: () => <WhitePaper/>, french:true, menuAnchor:null}
+        whitepaper: () => <WhitePaper/>, french:true, menuAnchor:null, home: ()=><Home/>}
   }
 
     handleClick = (event) => {
@@ -60,6 +62,7 @@ class Navbar extends Component{
         this.setState({familyGathering: ()=><FamilyGatheringEng globalRisk={this.state.globalRisk} />});
         this.setState({insights: () => <InsightsEng />});
         this.setState({whitepaper: () => <WhitePaperEng />});
+        this.setState({home: ()=><HomeEng/>});
       }
     }
 
@@ -71,6 +74,7 @@ class Navbar extends Component{
         this.setState({familyGathering: ()=><FamilyGathering globalRisk={this.state.globalRisk} />});
         this.setState({insights: () => <Insights />});
         this.setState({whitepaper: () => <WhitePaper />});
+        this.setState({home: ()=><Home/>});
       }
     }
 
@@ -144,10 +148,18 @@ class Navbar extends Component{
             <Paper elevation={2} className="nav-center">
               <div className="nav-header">
                   <div className="logo">
+                  <NavLink to="/">
+                    <Button>
                     <MyLogo height={80} width={200} />
+                    </Button>
+                  </NavLink>
                   </div>
                   <div className="logo_mobile">
+                  <NavLink to="/">
+                    <Button>
                     <MyLogoMobile height={80} width={200} />
+                    </Button>
+                  </NavLink>
                   </div>
                   <button
                   type="button"
@@ -184,7 +196,7 @@ class Navbar extends Component{
               </NavbarWrapper>
                 <Body>
                   <Switch>
-                    <Route path="/" component={this.state.calculator} exact/>
+                    <Route path="/" component={this.state.home} exact/>
                     <Route path="/insights" component={this.state.insights} />
                     <Route path="/calculator" component={this.state.calculator} exact/>
                     <Route path="/familyGathering" component={this.state.familyGathering} />

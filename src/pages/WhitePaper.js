@@ -80,12 +80,6 @@ class WhitePaper extends Component {
             Covinsights
         </title>
         </Helmet>        
-    <div className="whitepaper_presentation">
-        <h1>
-        White Paper
-        </h1>
-    </div>
-    <Divider />
     <div className="whitepaper">
         <h2>Présentation</h2>
         <p>
@@ -331,7 +325,7 @@ class WhitePaper extends Component {
       de réanimations et de morts à l'échelle de la France.
     </p>
     <h3 ref={this.refMe}>A propos</h3>
-    Initiative bénévole, créée par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (chercheur en mathématiques). Le code source est disponible sur 
+    Initiative bénévole, créée par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (polytechnicien, PhD à l'université Paris-Dauphine). Le code source est disponible sur 
     <a href="https://github.com/RaphaelEttedgui/covinsights-website"> GitHub</a>.
     <br /><br />
     {/* <h3>Remerciements</h3>

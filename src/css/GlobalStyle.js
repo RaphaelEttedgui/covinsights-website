@@ -45,6 +45,7 @@ export default createGlobalStyle`
   justify-content: space-between;
   align-items: center;
   padding-top:45px;
+  padding-bottom:45px;
   }
 
   .delete_button{
@@ -140,11 +141,60 @@ export default createGlobalStyle`
     margin-bottom : 2rem;
   }
 
+  .home_presentation{
+    width:100%;
+    text-align:center;
+  }
+
+  .home_body{
+    width:90%;
+    margin:auto;
+    padding-bottom:1rem;
+    text-align:center;
+  }
+
+  .home_container{
+    width:100%;
+    text-align:left;
+  }
+
+  .home_button{
+    text-align: center;
+  }
+
+  .home_subtitle{
+    font-size:1.1em;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    padding-bottom:5px;
+  }
+
+  .text_icon_home{
+    font-size:1.1em;
+    font-weight:500;
+  }
+
+  .home_option{
+  } 
+
   .calculator_introduction{
     font-size:0.9em;
     width:80%;
     margin: 2rem auto;
     padding:1rem;
+    background-color : #E0ECFA;
+    font-weight:450;
+    line-height: 1.4;
+    border-style: solid;
+    border-width: medium;
+    border-color: #9AC8FE;
+  }
+
+  .home_introduction{
+    width:80%;
+    margin: 2rem auto;
+    padding:5px;
     background-color : #E0ECFA;
     font-weight:450;
     line-height: 1.4;
@@ -176,6 +226,11 @@ export default createGlobalStyle`
     font-size:20px;
     margin : 30px 80px 20px 80px;
     text-align:justify;
+  }
+
+  .home_background{
+    font-size:20px;
+    margin : 20px 80px 20px 80px;
   }
 
   .center_gray{
@@ -326,6 +381,30 @@ export default createGlobalStyle`
   @media screen and (max-width: 576px){
     .visible_except_mobile{
       display: none;
+    }
+
+    .text_icon_home{
+      position:relative;
+      bottom:7px;
+    }
+    
+    .icon_home{
+      position:relative;
+      top:5px;
+    }
+
+    .home_introduction{
+      width:90%;
+      font-size:0.9em;
+    }
+
+    .home_body{
+      width:100%;
+      text-align:center;
+    }
+    
+    .whitepaper_presentation{
+      display:none;
     }
 
     .calculator_presentation
