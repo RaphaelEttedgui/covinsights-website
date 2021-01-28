@@ -45,10 +45,10 @@ class Gathering extends Component{
         masks:false, location:"indoors", duration:300, hours:5, minutes:0, talking:"normal", distance:"normal", universe:new BasicUniverse(), 
         globalRisk:(isNaN(this.props.globalRisk)? 0:this.props.globalRisk)}
         this.defaultPersonArgs = {
-            name:"Bobby",
-            age: 20,
+            name:"Personne lambda",
+            age: 35,
             gender: "ND",
-            risk:0,
+            risk:this.state.universe.prevalence*100,
         };
         this.refResult = React.createRef();
     }
@@ -210,21 +210,7 @@ class Gathering extends Component{
 
     showResult = () => {
         const result = this.state.result;
-        const pop_restante = 66000000 * 0.9; // 66millions moins les environ 10 à 15% déjà infectés.
-        var n_pers = 0;
-        var nb_christmas
-
-        if(this.state.globalRisk !=0){
-            n_pers = n_pers + 1;
-        }
-        n_pers = n_pers + Object.keys(this.state.people).length;
-        if(n_pers==0)
-        {
-            nb_christmas=0;
-        }
-        else{
-            nb_christmas = pop_restante * 0.75 /n_pers; // 70% vont à une réunion familiale, et chacun fait comme moi.
-        }
+        var nb_christmas = 7000000; // Voir white paper
         return (
         <div>
         <div id ="family_result" ref={this.refResult}>
@@ -331,7 +317,7 @@ class Gathering extends Component{
             <Box pt="1rem" justify="right" m="auto">
             <Grid container spacing={1} alignItems="center" justify="center">
                 <Grid item>
-                Mon risque :
+                Entrez votre risque :
                 </Grid>
                 <Grid item><TextField id="outlined-basic" style={{width: 70}} type="number"
 			InputLabelProps={{shrink: true,}} label="Risque" variant="outlined" defaultValue={Math.round(this.state.globalRisk*10000)/100} onChange={this.handleGlobalRisk} />
@@ -414,28 +400,13 @@ class Gathering extends Component{
             </Box>
             </div>
             {this.showMyRisk()}
-            <div id="premade_profiles">
+            <div id="premade_activities">
+            <h4>Exemples de profils (cliquez pour ajouter):</h4>
                 {this.generatePremadeCards()}
             </div>  
             <div ref={this.refResult}>
             {this.state.toggleResult && this.showResult()}
             </div>
-            <br/><br/>
-            <div className="disclaimer">
-            <h3>Disclaimer</h3>
-            Ce site n'a pas fait l'objet d'un processus de revue par des pairs. Il représente donc
-            uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
-            des chiffres proposés.
-            <br/><br/>
-            Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
-            d'éventuelles conséquences d'actions effectuées par des utilisateurs du site.
-
-            <br/> <br/>Les probabilités sont calculées dans
-            un cadre très général, à l'échelle du pays, et doivent être soigneusement ajustées avant de les appliquer à un cas particulier.
-            <br/><br/>
-            Ceci n'est pas une source primaire d'information sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales.
-            Continuez à suivre les recommandations du gouvernement.
-        </div>
         </div>
         )
     }

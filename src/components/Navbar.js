@@ -149,16 +149,12 @@ class Navbar extends Component{
               <div className="nav-header">
                   <div className="logo">
                   <NavLink to="/">
-                    <Button>
                     <MyLogo height={80} width={200} />
-                    </Button>
                   </NavLink>
                   </div>
                   <div className="logo_mobile">
                   <NavLink to="/">
-                    <Button>
                     <MyLogoMobile height={80} width={200} />
-                    </Button>
                   </NavLink>
                   </div>
                   <button

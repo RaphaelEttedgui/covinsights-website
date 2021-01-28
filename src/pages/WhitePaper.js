@@ -112,8 +112,8 @@ class WhitePaper extends Component {
         <div className="disclaimer">
           <div style={{fontSize:"0.9em"}}>
           <h3>Disclaimer</h3>
-          Ce site n'a pas fait l'objet d'un processus de revue par des pairs. Il représente donc
-          uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
+          Ce site est une initiative personnelle aux auteurs. Il représente donc
+          uniquement leurs meilleures estimations étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
           des chiffres proposés.
           <br/><br/>
           Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
@@ -193,7 +193,7 @@ class WhitePaper extends Component {
       <a href="https://www.data.gouv.fr/en/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/"> les données du gouvernemnt</a> relatives au nombre d'hospitalisations
       et au nombre de réanimations. Ensuite, nous utilisons <a href='https://hal-pasteur.archives-ouvertes.fr/pasteur-02548181'>les analyses de l'institut Pasteur</a> (qui fournissent
       des estimations de la probabilité d'être hospitalisé et d'aller en réa par classe d'âge), pour en déduire une estimation du nombre réel de cas. Il suffit alors
-      de diviser ce nombre par la population totale pour obtenir la prévalence.
+      de diviser ce nombre par la population totale pour obtenir la prévalence. Un exemple de calcul peut être trouvé <a href="https://colab.research.google.com/drive/1P5Ua-gSNlUFDnI_7GjwCN0ZT-kxcWlpL?usp=sharing"> ici</a>.
     </p>
     En résumé, le risque sur 1h est donné par :
     <div className="visible_except_mobile">
@@ -320,17 +320,13 @@ class WhitePaper extends Component {
       dans l'année, ce qui donne 42 millions de personnes allant à des rassemblements.
     </p>
     <p>
-      Pour finir, toujours suivant le principe "que se passerait-il si tout le monde faisait comme moi", nous divisons ce chiffre par le nombre de personnes à la réunion
-      familiale entrée dans le simulateur, pour estimer le nombre de réunions. Cela permet d'obtenir le nombre estimé d'hospitalisations,
-      de réanimations et de morts à l'échelle de la France.
+      Pour finir, nous estimons la taille du rassemblement familial standard à 6 personnes (suivant la règle du gouvernement), pour estimer le nombre de réunions à 7 millions.
+      Cela permet d'obtenir le nombre estimé d'hospitalisations, de réanimations et de morts à l'échelle de la France.
     </p>
     <h3 ref={this.refMe}>A propos</h3>
-    Initiative bénévole, créée par <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (polytechnicien, PhD à l'université Paris-Dauphine). Le code source est disponible sur 
+    Initiative bénévole, sous la direction de <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (Ecole Polytechnique, PhD à l'université Paris-Dauphine). Le code source est disponible sur 
     <a href="https://github.com/RaphaelEttedgui/covinsights-website"> GitHub</a>.
     <br /><br />
-    {/* <h3>Remerciements</h3>
-    Un grand merci à Clément Turpain, Emma Müller, Laura Diaz, Robin Aspe, Charlotte Mion, Ivan Glita et Jean-Patrick Vrel pour leur aide, le test du site et les sessions
-    de brainstorming ! */}
     </div>
     </div>
   )

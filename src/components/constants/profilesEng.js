@@ -4,13 +4,13 @@ const universe = new BasicUniverse();
 
 export default [
     {
-        name: "Man (50s)",
+        name: "Careful 50 y.o. man",
         age: '50',
         gender:'M',
         risk: universe.prevalence * 100,
     },
     {
-        name: "Woman (50s)",
+        name: "Careful 50 y.o. woman",
         age : '50',
         gender:'M',
         risk: universe.prevalence * 100,

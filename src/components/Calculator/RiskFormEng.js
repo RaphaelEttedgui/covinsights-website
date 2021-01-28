@@ -222,7 +222,7 @@ class RiskFormEng extends Component {
                             onChange={this.handleChange}
                             name="wearMask"
                             inputProps={{ "aria-label": "secondary checkbox" }}
-                          />} label="Are you wearing a mask ?" />
+                          />} label="I am wearing a mask" />
                       </Grid>
                       <Grid item>
                         <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} 
@@ -279,7 +279,7 @@ class RiskFormEng extends Component {
                           >
                             <option value="average">Standard</option>
                             <option value="worker">Frontline worker / active social life</option>
-                            <option value="nonWorker">Work from home</option>
+                            <option value="nonWorker">Work from home and careful social life</option>
                           </Select>
                         </FormControl>
                       </Grid>

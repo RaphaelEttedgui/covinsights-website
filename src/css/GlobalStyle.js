@@ -22,6 +22,10 @@ export default createGlobalStyle`
     top:11px;
   }
 
+  .boldOrBlue{
+    font-weight:500;
+  }
+
   #parameters_result{
     display:flex;
     align-items: center;
@@ -46,6 +50,29 @@ export default createGlobalStyle`
   align-items: center;
   padding-top:45px;
   padding-bottom:45px;
+  }
+
+  .scenario_container{
+    line-height:1.5em;
+    padding:7px;
+    font-size:1.3em;
+    text-align:center;
+    margin:auto;
+    width:80%;
+    border-style: solid;
+    border-radius: 16px;
+    border-width:thin;
+  }
+
+  .scenario_bilan{
+    padding-bottom:0.2em;
+    font-size:1.2em;
+    font-weight:500;
+  }
+
+  .arrow{
+    margin-top:0.5em;
+    text-align:center;
   }
 
   .delete_button{
@@ -128,6 +155,11 @@ export default createGlobalStyle`
   #premade_activities{
     padding : 2rem;
     text-align: center;
+    font-size: 1.3em;
+    border-style: solid;
+    border-radius: 16px;
+    border-width:thin;
+    margin:1rem;
   }
 
   #premade_profiles{
@@ -383,6 +415,14 @@ export default createGlobalStyle`
       display: none;
     }
 
+    .boldOrBlue{
+      color:blue;
+    }
+
+    .calculator_presentation{
+      margin-top:15px;
+    }
+
     .text_icon_home{
       position:relative;
       bottom:7px;
@@ -414,7 +454,7 @@ export default createGlobalStyle`
 
     .logo_mobile {
       position:relative;
-      left:18px;
+      left:16px;
       top:11px;
     }
 

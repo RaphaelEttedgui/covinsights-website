@@ -4,16 +4,16 @@ const universe = new BasicUniverse();
 
 export default [
     {
-        name: "Homme cinquantenaire",
+        name: "Homme cinquantenaire prudent",
         age: '50',
         gender:'M',
-        risk: universe.prevalence * 100,
+        risk: universe.prevalence * 100 /3,
     },
     {
-        name: "Femme cinquantenaire",
+        name: "Femme cinquantenaire prudente",
         age : '50',
         gender:'M',
-        risk: universe. prevalence * 100,
+        risk: universe. prevalence * 100 /3,
     },
     {
         name: 'Grand-père',
@@ -58,7 +58,7 @@ export default [
         risk: universe.prevalence * 3*100,
     },
     {
-        name : 'Personne surveillant son risque',
+        name : 'Personne télétravaillant et socialisant peu',
         age: '30',
         gender: 'ND',
         risk: universe.prevalence * 100 / 3,

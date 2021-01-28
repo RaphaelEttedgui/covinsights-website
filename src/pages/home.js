@@ -28,7 +28,7 @@ class Home extends Component{
                 <div className="home_presentation">
                     <div className="home_introduction">
                     <div style={{fontWeight:"450"}} >
-                    Outil développé par un chercheur en mathématiques à l'université Paris-Dauphine.
+                    Outil développé sous la direction d'un chercheur en mathématiques au LAMSADE.
                     <br/>
                     Voir la section "A propos" pour les détails des modèles utilisés.
                     </div>
@@ -148,9 +148,15 @@ class Home extends Component{
                         <Grid container spacing={2} justify="center" alignItems='center'>
                             <Grid item xs={12}>
                             <div className="home_subtitle">
+                                <ArrowForwardIcon/> &nbsp;Scénarios
+                                </div>
+                                Impact des fêtes de fin d'années, mesures potentielles
+                            </Grid>
+                            <Grid item xs={12}>
+                            <div className="home_subtitle">
                                 <ArrowForwardIcon/> &nbsp;Activités par risque
                                 </div>
-                                Visualisez quelles activités sont les plus risquées à travers un graphique interactif.
+                                Visualisez quelles activités sont les plus risquées à travers un graphique interactif
                             </Grid>
                         </Grid>
                         </Grid>
@@ -199,8 +205,6 @@ class Home extends Component{
                     </Grid>
                     </div>
                 </div>
-
-
                 </div>
             </div>
         )

@@ -64,6 +64,17 @@ class ComparisonRiskEng extends Component{
 
     render = () => {
         return (
+            <div>
+            <div className="calculator_presentation">
+                <div className="calculator_introduction">
+                <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Activities sorted by risk</span>
+                <br/>
+                <div style={{marginTop:"1rem", textAlign:"left"}} >
+                Numbers are expressed in permil (estimated number of transmissions if the activity is done 1000 times).
+                <br/> The scale of the x-axis is logarithmic.
+                </div>
+                </div>
+            </div>                
             <div style={{textAlign:"center", alignItems:"center"}}>
             <div className="recharts_wrapper">
             <ResponsiveContainer width="100%" height="100%">
@@ -102,22 +113,8 @@ class ComparisonRiskEng extends Component{
             <div className="explanation_test">
           To reduce your risk, avoid the riskiest activities and only do the others exceptionnaly, with people that control their risk.
             </div>
-            <br/><br/><br/>
-            <div className="disclaimer">
-            <h3>Disclaimer</h3>
-            This website was not peer-reviewed. It only represents the author's best estimations given the knowledge at hand, some of which are not enough to guarantee the
-            precision and fiability of the numbers.
-            <br/> <br />
-            A small probability does not mean the absence of risk. The authors recommend precaution above all, and cannot be held responsible for any consequence of actions
-            made by users of this website.
-            <br/> <br/>
-            The probabilities are computed for the whole countrie, and so are very general. They must be carefully adjusted to each situation before being applied to
-            a particular case.
-            <br/><br/>
-            This website is not a primary information source about COVID.
-            Do not use the tools from this website to take medical decisions. Keep following government recommendation.
             </div>
-            </div>
+        </div>
         )
     }
 }

@@ -28,7 +28,7 @@ class Home extends Component{
                 <div className="home_presentation">
                     <div className="home_introduction">
                     <div style={{fontWeight:"450"}} >
-                    This website was created by a mathematician from Univerisity Paris-Dauphine.
+                    This website was created under the supervision of a researcher from LAMSADE.
                     <br/>
                     See the "About" section for information on the models we used.
                     </div>
@@ -199,7 +199,21 @@ class Home extends Component{
                     </Grid>
                     </div>
                 </div>
-
+                <br /> <br /> <br/><br/>
+                <div className="disclaimer">
+                <h3>Disclaimer</h3>
+                This website has not been peer-reviewed yet. It only represents the author's best estimations given the knowledge at hand, some of which are not enough to guarantee the
+                precision and fiability of the numbers.
+                <br/> <br />
+                A small probability does not mean the absence of risk. The authors recommend precaution above all, and cannot be held responsible for any consequence of actions or omissions
+                made by users of this website.
+                <br/> <br/>
+                The probabilities are computed for the whole countrie, and so are very general. They must be carefully adjusted to each situation before being applied to
+                a particular case.
+                <br/><br/>
+                This website is not a primary information source about COVID.
+                Do not use the tools from this website to take medical decisions. Keep following government recommendation.
+                </div>
 
                 </div>
             </div>

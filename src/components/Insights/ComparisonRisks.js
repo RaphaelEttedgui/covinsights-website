@@ -64,7 +64,19 @@ class ComparisonRisk extends Component{
 
     render = () => {
         return (
-            <div style={{textAlign:"center", alignItems:"center"}}>
+        <div>
+            <div className="calculator_presentation">
+                <div className="calculator_introduction">
+                    <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Activités classées par risque</span>
+                    <br/>
+                    <div style={{marginTop:"1rem", textAlign:"left"}} >
+                    Chiffres exprimés en pour mille (estimation du nombre de transmissions si l'activité est effectuée mille fois).
+                    <br/>
+                    L'échelle de l'axe horizontal est logarithmique.
+                    </div>
+                </div>        
+            </div>
+            <div style={{textAlign:"center", alignItems:"center"}}>    
             <div className="recharts_wrapper">
             <ResponsiveContainer width="100%" height="100%">
             <ScatterChart
@@ -102,23 +114,8 @@ class ComparisonRisk extends Component{
             <div className="explanation_test">
           Pour réduire votre risque, ne pratiquez les activités les plus risquées que ponctuellement, et uniquement avec des personnes surveillant leur risque.
             </div>
-            <br/><br/><br/>
-            <div className="disclaimer">
-            <h3>Disclaimer</h3>
-            Ce site n'a pas fait l'objet d'un processus de revue par des pairs. Il représente donc
-            uniquement les estimations des auteurs étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
-            des chiffres proposés.
-            <br/><br/>
-            Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
-            d'éventuelles conséquences d'actions effectuées par des utilisateurs du site.
-
-            <br/> <br/>Les probabilités sont calculées dans
-            un cadre très général, à l'échelle du pays, et doivent être soigneusement ajustées avant de les appliquer à un cas particulier.
-            <br/><br/>
-            Ceci n'est pas une source primaire d'information sur le COVID. N'utilisez pas les outils de ce site pour prendre des décisions médicales.
-            Continuez à suivre les recommandations du gouvernement.
             </div>
-            </div>
+        </div>
         )
     }
 }

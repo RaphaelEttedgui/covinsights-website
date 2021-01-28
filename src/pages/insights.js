@@ -1,8 +1,37 @@
-import React, {Component} from "react"
-import ComparisonRisks from "../components/Insights/ComparisonRisks.js"
+import React, {Component, lazy, Suspense} from 'react';
 import { Helmet } from 'react-helmet'
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const load = (Component) => (props) => {
+  return (
+  <Suspense fallback={<CircularProgress />}>
+    <Component {...props}/>
+  </Suspense>
+  )
+}
+
+const ComparisonRisks = load(lazy( () =>  import('../components/Insights/ComparisonRisks.js')));
+const ScenarioChristmas = load(lazy( () =>  import('../components/Insights/ScenarioChristmas.js')));
 
 class Insights extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={current:"scenario", page: ()=><ScenarioChristmas/>}
+  }
+
+  handleChange = (event) => {
+    this.setState({current:event.target.value});
+    if(event.target.value=="graph"){
+      this.setState({page:()=><ComparisonRisks/>});
+    }
+    if(event.target.value=="scenario"){
+      this.setState({page:()=><ScenarioChristmas/>})
+    }
+
+  }
 
   render =() => {
     return (
@@ -13,17 +42,17 @@ class Insights extends Component {
         </title>
       </Helmet>        
       <div className="calculator_presentation">
-        <div className="calculator_introduction">
-        <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Activités classées par risque</span>
-          <br/>
-          <div style={{marginTop:"1rem", textAlign:"left"}} >
-          Chiffres exprimés en pour mille (estimation du nombre de transmissions si l'activité est effectuée mille fois).
-          <br/>
-          L'échelle de l'axe horizontal est logarithmique.
-          </div>
-        </div>
+      <Select
+          value={this.state.current}
+          onChange={this.handleChange}
+        >
+          <MenuItem value="graph">
+          Activités classées par risque
+          </MenuItem>
+          <MenuItem value="scenario">Fêtes en famille</MenuItem>
+        </Select>
       </div>
-      <ComparisonRisks />
+      {this.state.page()}
       </div>
   )
   }

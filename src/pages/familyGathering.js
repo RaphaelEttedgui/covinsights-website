@@ -18,9 +18,9 @@ class FamilyGathering extends Component{
                 <br/>
                 <div style={{marginTop:"1rem", textAlign:"left"}} >
                 <ul style={{listStylePosition: 'inside', margin:'15px'}}>
-                    <li> Importez votre risque depuis le calculateur</li>
-                    <li> Ajoutez les autres membres de la réunion;</li>
-                    <li> Précisez les modalités.</li>
+                    <li> Importez votre risque depuis le calculateur, ou entrez-le manuellement;</li>
+                    <li> Ajoutez des participants en cliquant sur des profils pré-existants ou sur ajouter une personne;</li>
+                    <li> Précisez les modalités de la réunion.</li>
                 </ul>
                 </div>
                 </div> 

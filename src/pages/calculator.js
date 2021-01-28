@@ -18,7 +18,8 @@ class Calculator extends Component {
           <br/>
           <div style={{marginTop:"1rem", textAlign:"left"}} >
           <ul style={{listStylePosition: 'inside', margin:'15px'}}>
-            <li> Cliquez sur des exemples d'activités, ou ajoutez les vôtres;</li>
+            <li> Cliquez sur des exemples d'activités et modifiez-les, ou créez les vôtres;</li>
+            <li> Entrez le nombre de personnes, et le nombre d'entre elles portant un masque;</li>
             <li> Calculez une estimation de leur risque.</li>
           </ul>
           </div>

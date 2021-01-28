@@ -65,7 +65,7 @@ class RiskCalculatorEng extends Component {
       location:"indoors",
       talking: "normal",
       distance: "normal",
-      riskProfile: "normal",
+      riskProfile: "average",
       showForm:false,
     }
     this.refResult = React.createRef();
@@ -321,27 +321,12 @@ class RiskCalculatorEng extends Component {
         </Box>
         </div>
         <div id="premade_activities">
-          <h4>Sample activities:</h4>
+          <h4>Sample activities (click to add):</h4>
             {this.generatePremadeCards()}
         </div>
 
         <div id="calculator-result" ref={this.refResult}>
         {this.state.toggleResult && this.showResult()}
-        </div>
-        <br/><br/>
-        <div className="disclaimer">
-          <h3>Disclaimer</h3>
-          This website was not peer-reviewed. It only represents the author's best estimations given the knowledge at hand, some of which are not enough to guarantee the
-          precision and fiability of the numbers.
-          <br/> <br />
-          A small probability does not mean the absence of risk. The authors recommend precaution above all, and cannot be held responsible for any consequence of actions
-          made by users of this website.
-          <br/> <br/>
-          The probabilities are computed for the whole countrie, and so are very general. They must be carefully adjusted to each situation before being applied to
-          a particular case.
-          <br/><br/>
-          This website is not a primary information source about COVID.
-          Do not use the tools from this website to take medical decisions. Keep following government recommendation.
         </div>
       </div>
     )

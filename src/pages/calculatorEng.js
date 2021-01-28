@@ -19,6 +19,7 @@ class CalculatorEng extends Component {
           <div style={{marginTop:"1rem", textAlign:"left"}} >
           <ul style={{listStylePosition: 'inside', margin:'15px'}}>
             <li> Enter your activities or customize pre-made ones;</li>
+            <li>Enter the number of people, and the number of them wearing a mask;</li>
             <li> Compute their average risk.</li>
           </ul>
           </div>

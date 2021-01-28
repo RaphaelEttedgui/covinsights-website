@@ -236,17 +236,17 @@ class RiskForm extends Component {
                             onChange={this.handleChange}
                             name="wearMask"
                             inputProps={{ "aria-label": "secondary checkbox" }}
-                          />} label="Portez-vous un masque ?" />
+                          />} label="Je porte un masque" />
                       </Grid>
                       <Grid item>
                         <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}} 
                        InputProps={{inputProps: { 
-                        max: 100, min: 0 }}} label="other people" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
+                        max: 100, min: 0 }}} label="autres personnes" variant="outlined" defaultValue={this.state.nbPeople} onChange={this.handleNbPeople} />
                       </Grid>
                       <Grid item>
                         <TextField id="outlined-basic" style={{width: 90}} type="number" InputLabelProps={{shrink: true,}}
                         InputProps={{inputProps: { 
-                          max: this.state.nbPeople, min: 0 }}} label="other masks" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
+                          max: this.state.nbPeople, min: 0 }}} label="autres masques" variant="outlined" defaultValue={this.state.nbMasked} onChange={this.handleNbMasked} />
                       </Grid>
                       <Grid item>
                       <FormControl className={classes.formControl}>
@@ -284,16 +284,17 @@ class RiskForm extends Component {
                       </Grid>
                       <Grid item>
                       <FormControl className={classes.formControl}>
-                          <InputLabel id="demo-simple-select-label">Risk profile</InputLabel>
+                          <InputLabel id="demo-simple-select-label">Profil de risque</InputLabel>
                           <Select
                             native 
                             id="demo-simple-select"
                             value={this.state.riskProfile}
+                            defaultValue="average"
                             onChange={this.handleRiskProfile}
                           >
+                            <option value="nonWorker">Télétravaille et socialise peu/prudemment</option>
                             <option value="average">Standard</option>
                             <option value="worker">Travailleur de première ligne / vie sociale active</option>
-                            <option value="nonWorker">Télétravaille</option>
                           </Select>
                         </FormControl>
                       </Grid>

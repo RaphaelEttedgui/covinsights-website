@@ -170,6 +170,7 @@ class WhitePaperEng extends Component {
       <a href="https://www.data.gouv.fr/en/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/"> government data</a> for the number of hospitalizations and ICUs.
       We then use <a href='https://hal-pasteur.archives-ouvertes.fr/pasteur-02548181'>the analysis from Institut Pasteur</a> (which give
       for each age class the probability of being hospitalized or going in ICU), to estimate the number of current cases. We then just need to divide by the total population.
+      An example of calculation can be found <a href="https://colab.research.google.com/drive/1P5Ua-gSNlUFDnI_7GjwCN0ZT-kxcWlpL?usp=sharing"> here</a>.
     </p>
     To sum up, the risk over 1h with 1 person is :
     <div className="visible_except_mobile">
@@ -291,16 +292,13 @@ class WhitePaperEng extends Component {
       attend at least one family gathering, which gives 42 millions.
     </p>
     <p>
-      Finally, following the principle "what would happen if everyone does like me", we divide this population by the number of poeple going to the reunion that was
-      entered in the simulator, to estimate the number of reunions. This allows us to compute the outcome for the whole country.
+      Finally, we estimate the size of a family gathering to 6 (following government rule), which gives 7 million gatherings.
+      This allows us to compute the outcome for the whole country.
     </p>
     <h3>About</h3>
-    Website created by <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (Ecole Polytechnique, PhD at University Paris-Dauphine). The source code is available on
+    Website created under the direction of <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (Ecole Polytechnique, PhD at University Paris-Dauphine). The source code is available on
     <a href="https://github.com/RaphaelEttedgui/covinsights-website">GitHub</a>
     <br /><br />
-    {/* <h3>Special Thanks</h3>
-    Thank you to Clément Turpain, Emma Müller, Laura Diaz, Robin Aspe, Charlotte Mion, Ivan Glita and Jean-Patrick Vrel for their help, testing the website, and the many
-    brainstorming sessions ! */}
     </div>
     </div>
   )
