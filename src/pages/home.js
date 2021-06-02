@@ -28,9 +28,11 @@ class Home extends Component{
                 <div className="home_presentation">
                     <div className="home_introduction">
                     <div style={{fontWeight:"450"}} >
-                    Outil développé sous la direction d'un chercheur en mathématiques au LAMSADE.
+                    Outil destiné à la vulgarisation de la recherche sur le COVID-19.
                     <br/>
                     Voir la section "A propos" pour les détails des modèles utilisés.
+                    <br/>
+                    Prévalence actuellement utilisée : fin Mai 2021.
                     </div>
                     </div>
                 </div>
@@ -83,6 +85,54 @@ class Home extends Component{
                     <Grid container spacing={4} justify="center" alignItems='center'>
                         <Grid item xs={5}>
                             <div className="home_button">
+                            <NavLink to="/insights">
+                            <Button variant="contained" style={{width:"90%", backgroundColor: "white", borderRadius: 35,}}>
+                            <Grid container spacing={2} alignItems="center" justify="center">
+                                <Grid item>
+                                    <div className="icon_home">
+                                    <VisibilityIcon style={{ fontSize: 50 }}/>
+                                    </div>
+                                </Grid>
+                                <Grid item>
+                                    <div className="text_icon_home">
+                                    Visualiser le risque
+                                    </div>
+                                </Grid>
+                            </Grid>
+                            </Button>
+                            </NavLink>
+                            </div>
+                        </Grid>
+                        <Divider orientation="vertical" flexItem />
+                        <Grid item xs={6}>
+                        <Grid container spacing={2} justify="center" alignItems='center'>
+                            <Grid item xs={12}>
+                            <div className="home_subtitle">
+                                <ArrowForwardIcon/> &nbsp;Exemples de profils
+                                </div>
+                                Visualisez les profils de risques avec des exemples de personnages fictifs
+                            </Grid>
+                            <Grid item xs={12}>
+                            <div className="home_subtitle">
+                                <ArrowForwardIcon/> &nbsp;Scénarios
+                                </div>
+                                Impact des fêtes de fin d'années, mesures potentielles
+                            </Grid>
+                            <Grid item xs={12}>
+                            <div className="home_subtitle">
+                                <ArrowForwardIcon/> &nbsp;Activités par risque
+                                </div>
+                                Visualisez quelles activités sont les plus risquées à travers un graphique interactif
+                            </Grid>
+                        </Grid>
+                        </Grid>
+                    </Grid>
+                    <br/><br/>
+                    <Divider/>
+                    <br/><br/>
+                    <Grid container spacing={4} justify="center" alignItems='center'>
+                        <Grid item xs={5}>
+                            <div className="home_button">
                             <NavLink to="/familyGathering">
                             <Button variant="contained" style={{width:"90%", backgroundColor: "white", borderRadius: 35,}}>
                             <Grid container spacing={2} alignItems="center" justify="center">
@@ -115,48 +165,6 @@ class Home extends Component{
                                 <ArrowForwardIcon/> &nbsp;Impact de la réunion
                                 </div>
                                 Visualisez le bilan à l'échelle de la France si toutes les réunions se passent comme la vôtre
-                            </Grid>
-                        </Grid>
-                        </Grid>
-                    </Grid>
-                    <br/><br/>
-                    <Divider/>
-                    <br/><br/>
-                    <Grid container spacing={4} justify="center" alignItems='center'>
-                        <Grid item xs={5}>
-                            <div className="home_button">
-                            <NavLink to="/insights">
-                            <Button variant="contained" style={{width:"90%", backgroundColor: "white", borderRadius: 35,}}>
-                            <Grid container spacing={2} alignItems="center" justify="center">
-                                <Grid item>
-                                    <div className="icon_home">
-                                    <VisibilityIcon style={{ fontSize: 50 }}/>
-                                    </div>
-                                </Grid>
-                                <Grid item>
-                                    <div className="text_icon_home">
-                                    Visualiser le risque
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            </Button>
-                            </NavLink>
-                            </div>
-                        </Grid>
-                        <Divider orientation="vertical" flexItem />
-                        <Grid item xs={6}>
-                        <Grid container spacing={2} justify="center" alignItems='center'>
-                            <Grid item xs={12}>
-                            <div className="home_subtitle">
-                                <ArrowForwardIcon/> &nbsp;Scénarios
-                                </div>
-                                Impact des fêtes de fin d'années, mesures potentielles
-                            </Grid>
-                            <Grid item xs={12}>
-                            <div className="home_subtitle">
-                                <ArrowForwardIcon/> &nbsp;Activités par risque
-                                </div>
-                                Visualisez quelles activités sont les plus risquées à travers un graphique interactif
                             </Grid>
                         </Grid>
                         </Grid>
@@ -205,6 +213,24 @@ class Home extends Component{
                     </Grid>
                     </div>
                 </div>
+        <br/> <br/>
+        <div className="disclaimer">
+          <div style={{fontSize:"0.9em"}}>
+          <h3>Disclaimer</h3>
+          Ce site est une initiative personnelle aux auteurs. Il représente donc
+          uniquement leurs meilleures estimations étant donné les connaissances à leur disposition, qui ne sont pour certaines pas suffisantes pour garantir la précision et la fiabilité
+          des chiffres proposés.
+          <br/><br/>
+          Une faible probabilité n'entraîne pas une absence de risque. Les auteurs recommandent la précaution avant tout, et ne peuvent être tenus responsables
+          d'éventuelles conséquences d'actions effectuées par des utilisateurs du site.
+
+          <br/> <br/>Les probabilités sont calculées dans
+          un cadre très général, à l'échelle du pays, et doivent être soigneusement ajustées avant de les appliquer à un cas particulier.
+          <br/><br/>
+           Ceci n'est pas une source primaire d'information sur le covid. N'utilisez pas les outils de ce site pour prendre des décisions médicales.
+           Continuez à suivre les recommandations du gouvernement.
+           </div>
+        </div>
                 </div>
             </div>
         )

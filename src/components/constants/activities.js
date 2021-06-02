@@ -28,7 +28,7 @@ export default [
         nbPeople:1,
         nbMasked:0,
         outdoors:false,
-        talking:"normal",
+        talking:"loud",
         distance:"close",
         riskProfile:"worker",
     },

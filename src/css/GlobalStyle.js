@@ -16,6 +16,22 @@ export default createGlobalStyle`
     line-height: 1.0;
   }
 
+  .centered{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:155px;
+    height:155px;
+  }
+
+  .svg_container{
+    margin : 0.5em;
+    padding: 1em;
+    background-color: white;
+    box-shadow: 0px 0px 2px darkgray;
+    height:300px;
+  }
+
   .logo{
     position:relative;
     left:10px;
@@ -570,7 +586,17 @@ export default createGlobalStyle`
       align-items: center;
     }
 
+    .profile_container{
+      justify-content: space-between;
+      align-items: center;
+      height:29rem;
+    }
+
     .riskForm_container{
+      display: flex;
+    }
+
+    .profile_container{
       display: flex;
     }
 

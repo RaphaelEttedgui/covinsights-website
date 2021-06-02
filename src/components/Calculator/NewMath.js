@@ -154,7 +154,7 @@ class Universe{
 
 class BasicUniverse extends Universe{
 	constructor(){
-		super(0.0066); // Estimated prevalence, end of January, France
+		super(0.0023); // Estimated prevalence, end of May 2021, France
 		// Computation : https://colab.research.google.com/drive/1P5Ua-gSNlUFDnI_7GjwCN0ZT-kxcWlpL?usp=sharing
 	}
 }

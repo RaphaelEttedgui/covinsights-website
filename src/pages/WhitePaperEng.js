@@ -12,6 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 import seir_image from '../images/SEIR.png';
 import List from '@material-ui/core/List';
 import { ListItem } from "@material-ui/core";
+import logo_shyrka from '../images/logo_shyrka.png'
 
 function createData(name, risk) {
   return { name, risk };
@@ -299,6 +300,14 @@ class WhitePaperEng extends Component {
     Website created under the direction of <a href="https://www.linkedin.com/in/raphaelettedgui/">Raphaël Ettedgui</a> (Ecole Polytechnique, PhD at University Paris-Dauphine). The source code is available on
     <a href="https://github.com/RaphaelEttedgui/covinsights-website">GitHub</a>
     <br /><br />
+
+    Illustrations by <a href="https://shyrka-animation-2d.jimdosite.com/">Shyrka</a>. Find out more by visiting her page !
+    <div style={{width:"100%", marginTop:'1em', alignItems:"center"}}>
+      <div className="centered">
+      <a href="https://shyrka-animation-2d.jimdosite.com/"><img src={logo_shyrka} alt="logo shyrka" style={{height:'100%', width:'100%'}}/> </a>
+      </div>
+    </div>
+
     </div>
     </div>
   )

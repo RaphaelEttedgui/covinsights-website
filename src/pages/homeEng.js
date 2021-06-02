@@ -28,9 +28,11 @@ class Home extends Component{
                 <div className="home_presentation">
                     <div className="home_introduction">
                     <div style={{fontWeight:"450"}} >
-                    This website was created under the supervision of a researcher from LAMSADE.
+                    This website was created to help vulgarize the research on COVI-19.
                     <br/>
                     See the "About" section for information on the models we used.
+                    <br/>
+                    Current data used : Mai 2021.
                     </div>
                     </div>
                 </div>
@@ -146,11 +148,23 @@ class Home extends Component{
                         <Divider orientation="vertical" flexItem />
                         <Grid item xs={6}>
                         <Grid container spacing={2} justify="center" alignItems='center'>
+                        <Grid item xs={12}>
+                            <div className="home_subtitle">
+                                <ArrowForwardIcon/> &nbsp;Example of risk profiles
+                                </div>
+                                See the risk profiles of some fictive characters.
+                            </Grid>
+                            <Grid item xs={12}>
+                            <div className="home_subtitle">
+                                <ArrowForwardIcon/> &nbsp;Scenarios
+                                </div>
+                                See how to analyze scenarios for the holidays.
+                            </Grid>
                             <Grid item xs={12}>
                             <div className="home_subtitle">
                                 <ArrowForwardIcon/> &nbsp;Activities by risk
                                 </div>
-                                Visualize which activities are the riskiest, via an interactive chart.
+                                Visualize which activities are the riskiest in an interactive graph.
                             </Grid>
                         </Grid>
                         </Grid>

@@ -14,12 +14,13 @@ const load = (Component) => (props) => {
 
 const ComparisonRisks = load(lazy( () =>  import('../components/Insights/ComparisonRisks.js')));
 const ScenarioChristmas = load(lazy( () =>  import('../components/Insights/ScenarioChristmas.js')));
+const ProfileExamples = load(lazy( () =>  import('../components/Insights/ProfileExamples.js')));
 
 class Insights extends Component {
 
   constructor(props){
     super(props);
-    this.state={current:"scenario", page: ()=><ScenarioChristmas/>}
+    this.state={current:"profiles", page: ()=><ProfileExamples/>}
   }
 
   handleChange = (event) => {
@@ -29,6 +30,9 @@ class Insights extends Component {
     }
     if(event.target.value=="scenario"){
       this.setState({page:()=><ScenarioChristmas/>})
+    }
+    if(event.target.value=="profiles"){
+      this.setState({page:()=><ProfileExamples/>})
     }
 
   }
@@ -50,6 +54,7 @@ class Insights extends Component {
           Activités classées par risque
           </MenuItem>
           <MenuItem value="scenario">Fêtes en famille</MenuItem>
+          <MenuItem value="profiles">Exemples de profils</MenuItem>
         </Select>
       </div>
       {this.state.page()}

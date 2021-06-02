@@ -174,7 +174,8 @@ class ScenarioChristmas extends Component{
             <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Christmas : how to avoid a sanitary disaster ?</span>
                 <br/>
                 <div style={{marginTop:"1rem", textAlign:"center"}} >
-                We estimate the outcome of christmas eve, with the current prevalence, according to various scenarios.
+                We estimate the outcome of christmas eve 2020 (over the next weeks), with November 2020's prevalence, according to various scenarios.
+                <span style={{color:"green"}}>In retrospect, scenario 3 is the closest to what really happened.</span>
                 </div>
             </div>
             </div>

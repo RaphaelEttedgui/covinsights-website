@@ -174,7 +174,8 @@ class ScenarioChristmas extends Component{
             <span style={{fontWeight:"bold", fontSize:'1.4em'}}>Noël : comment éviter un désastre sanitaire ?</span>
                 <br/>
                 <div style={{marginTop:"1rem", textAlign:"center"}} >
-                Nous estimons le bilan des fêtes de fin d'année, avec la prévalence actuelle, selon divers scénarios.
+                Nous estimons le bilan des fêtes de fin d'année 2020 (sur les semaines suivantes), avec la prévalence de Novembre, selon divers scénarios. <br/>
+                <span style={{color:"green"}}>Rétrospectivement, le scénario correspondant le mieux aux données observées est le numéro 3.</span>
                 </div>
             </div>
             </div>
